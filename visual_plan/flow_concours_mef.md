@@ -1297,7 +1297,7 @@ COLOR LANGUAGE: Navy (#0F3C6E), teal (#00838F), gold (#B78103), mint (#2A9D8F).
 
 VISUAL STYLE: Executive consulting-style infographic, monoline icons (calendar, target, gauge, report, magnifier).
 
-BRANDING: Small emblem-free header tag "MEF — Direction du Budget".
+BRANDING: Small emblem-free header tag written in French: "MEF — Direction du Budget" (never "Budget Directorate").
 
 REALISM / QUALITY: Vector crispness, flawless French typography.
 
@@ -1456,6 +1456,8 @@ Landscape
 
 **Prompt Flow :**
 ```text
+LANGUAGE RULE: EVERY visible word in the image MUST be written in FRENCH, exactly as quoted below. Do NOT translate any label into English. No English words anywhere.
+
 SUBJECT: A citizen journey showing how a Moroccan household accesses social protection through digital targeting.
 
 CONTEXT: Definitions page explaining RNP, RSU, AMO, AMO Tadamon, ASD and CNSS.
@@ -1480,11 +1482,11 @@ COLOR LANGUAGE: Navy (#0F3C6E), mint (#2A9D8F), gold (#F2B705), soft coral accen
 
 VISUAL STYLE: Friendly but institutional flat infographic, rounded shapes, clear icons (ID card, database, scale, health cross, coins).
 
-BRANDING: Small "Royaume du Maroc — État social" tag.
+BRANDING: Small text-only tag "Royaume du Maroc — État social" (no flag, no emblem).
 
 REALISM / QUALITY: Vector crispness, readable French text.
 
-NEGATIVE CONSTRAINTS: No realistic faces, no invented statistics beyond "500 DH", no gibberish, no clutter.
+NEGATIVE CONSTRAINTS: No English text at all (no "How a family", no "Framework law", no "Infographic" label), no style description written in the image, no flags, no realistic faces, no invented statistics beyond "500 DH", no gibberish, no clutter.
 ```
 
 **Priorité :**

@@ -241,91 +241,184 @@ Loi 69-99 &
 }
 
 % =========================================================================
-\section{QCM de Spécialité (Nouveauté de l'Avis 2026)}
+\section{QCM de Spécialité --- Génie Informatique (Nouveauté de l'Avis 2026)}
 % =========================================================================
 
 \begin{tcolorbox}[colback=red!4!white,colframe=red!60!black,title=\textbf{Pourquoi cette section ?}]
-L'avis 2026 précise que l'écrit peut porter sur \textbf{la spécialité et les compétences requises pour le poste}. Les postes ouverts sont : Économie-Statistique (38), Informatique/Génie logiciel (20), Cybersécurité (16), Réseaux et systèmes (15), Systèmes décisionnels et Data science (9), Génie civil (5). Révisez en priorité le bloc de \textbf{votre} spécialité, puis les notions communes (SI de l'État, sécurité, données). Format : \textbf{Question $\rightarrow$ bonne réponse} (et le piège à éviter).
+L'avis 2026 précise que l'écrit peut porter sur \textbf{la spécialité et les compétences requises pour le poste}. Sur les 103 postes, 60 relèvent de l'informatique : Informatique/Génie logiciel (20), Cybersécurité (16), Réseaux et systèmes (15), Systèmes décisionnels et Data science (9). Format : \textbf{Question $\rightarrow$ bonne réponse}, avec entre parenthèses l'explication des sigles et, quand il existe, le \textbf{piège} à éviter.
 \end{tcolorbox}
 
-\subsection*{A. Informatique et Génie Logiciel}
+\subsection*{A. Algorithmique et Programmation}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Quelle propriété garantit qu'une transaction de base de données est entièrement exécutée ou pas du tout ?} $\rightarrow$ L'\textbf{atomicité} (le « A » de ACID : Atomicité, Cohérence, Isolation, Durabilité).
-    \item \textbf{Quelle forme normale élimine les dépendances fonctionnelles partielles ?} $\rightarrow$ La \textbf{2\textsuperscript{e} forme normale (2FN)} ; la 3FN élimine les dépendances transitives.
-    \item \textbf{Quelle est la complexité d'une recherche dichotomique dans un tableau trié de $n$ éléments ?} $\rightarrow$ $O(\log n)$ (piège : $O(n)$ est la recherche séquentielle).
-    \item \textbf{Quelle méthode agile s'organise en sprints avec un Product Owner et un Scrum Master ?} $\rightarrow$ \textbf{Scrum}.
-    \item \textbf{Qu'est-ce qu'une API REST ?} $\rightarrow$ Une interface web sans état (\textit{stateless}) qui manipule des ressources identifiées par des URL avec les méthodes HTTP (GET, POST, PUT, DELETE).
-    \item \textbf{Quel diagramme UML représente les interactions entre objets dans l'ordre chronologique ?} $\rightarrow$ Le \textbf{diagramme de séquence}.
-    \item \textbf{Que signifie CI/CD ?} $\rightarrow$ Intégration continue / Déploiement (ou livraison) continu : automatiser la compilation, les tests et la mise en production.
-    \item \textbf{Quelle est la différence entre un conteneur (Docker) et une machine virtuelle ?} $\rightarrow$ Le conteneur partage le noyau du système hôte (plus léger) ; la VM embarque son propre système d'exploitation via un hyperviseur.
-    \item \textbf{Quels sont les trois modèles de service du cloud ?} $\rightarrow$ \textbf{IaaS} (infrastructure), \textbf{PaaS} (plateforme), \textbf{SaaS} (logiciel).
-    \item \textbf{Quelle requête SQL regroupe des lignes pour appliquer une fonction d'agrégat ?} $\rightarrow$ \texttt{GROUP BY} (filtrage des groupes avec \texttt{HAVING}, et non \texttt{WHERE}).
+    \item \textbf{Complexité d'une recherche dichotomique (on coupe le tableau trié en deux à chaque étape) sur $n$ éléments ?} $\rightarrow$ $O(\log n)$ (la notation « grand O » mesure la croissance du temps de calcul quand $n$ augmente). Piège : $O(n)$ est la recherche séquentielle (élément par élément).
+    \item \textbf{Complexité moyenne du tri rapide (\textit{quicksort}) et du tri fusion ?} $\rightarrow$ $O(n \log n)$ ; le tri rapide peut dégénérer en $O(n^2)$ dans le pire cas, le tri fusion reste en $O(n \log n)$. Le tri à bulles est en $O(n^2)$.
+    \item \textbf{Pile ou file : laquelle suit le principe LIFO ?} $\rightarrow$ La \textbf{pile} (LIFO = \textit{Last In, First Out} : dernier entré, premier sorti). La \textbf{file} suit le principe FIFO (\textit{First In, First Out} : premier entré, premier sorti).
+    \item \textbf{Quelle structure de données donne un accès moyen en $O(1)$ (temps constant) par clé ?} $\rightarrow$ La \textbf{table de hachage} (dictionnaire).
+    \item \textbf{Quelle est la hauteur d'un arbre binaire de recherche équilibré contenant $n$ nœuds ?} $\rightarrow$ Environ $\log_2 n$.
+    \item \textbf{Parcours en largeur (BFS) ou en profondeur (DFS) : lequel utilise une file ?} $\rightarrow$ Le parcours en \textbf{largeur} (BFS = \textit{Breadth-First Search}) ; le parcours en profondeur (DFS = \textit{Depth-First Search}) utilise une pile ou la récursivité.
+    \item \textbf{Quel algorithme calcule le plus court chemin dans un graphe à poids positifs ?} $\rightarrow$ L'algorithme de \textbf{Dijkstra}.
+    \item \textbf{Qu'est-ce qu'une fonction récursive ?} $\rightarrow$ Une fonction qui s'appelle elle-même ; elle doit avoir une \textbf{condition d'arrêt}, sinon débordement de pile (\textit{stack overflow}).
+    \item \textbf{Combien vaut 1011 en binaire, en décimal ?} $\rightarrow$ $8 + 0 + 2 + 1 = $ \textbf{11} ; en hexadécimal (base 16), 11 s'écrit B.
+    \item \textbf{Langage compilé ou interprété ?} $\rightarrow$ C et C++ sont compilés en code machine ; Python est interprété ; Java est compilé en \textit{bytecode} exécuté par la JVM (\textit{Java Virtual Machine}, machine virtuelle Java).
 \end{enumerate}
 
-\subsection*{B. Réseaux et Systèmes}
+\subsection*{B. Programmation Orientée Objet (POO) et Génie Logiciel}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Combien de couches compte le modèle OSI ?} $\rightarrow$ \textbf{7} (Physique, Liaison, Réseau, Transport, Session, Présentation, Application) ; le modèle TCP/IP en compte 4.
-    \item \textbf{À quelle couche OSI travaille un routeur ? un commutateur (switch) ?} $\rightarrow$ Routeur : couche 3 (Réseau, adresses IP) ; switch : couche 2 (Liaison, adresses MAC).
-    \item \textbf{Quelle est la différence entre TCP et UDP ?} $\rightarrow$ TCP est orienté connexion et fiable (accusés de réception) ; UDP est sans connexion, plus rapide, sans garantie de livraison.
-    \item \textbf{Combien d'adresses hôtes utilisables offre un réseau /24 ?} $\rightarrow$ $2^8 - 2 = $ \textbf{254}.
-    \item \textbf{Quel protocole attribue automatiquement les adresses IP ?} $\rightarrow$ \textbf{DHCP} ; la résolution des noms est assurée par le \textbf{DNS}.
-    \item \textbf{Ports par défaut :} HTTP 80, HTTPS 443, SSH 22, DNS 53, SMTP 25, RDP 3389.
-    \item \textbf{Quelle est la taille d'une adresse IPv6 ?} $\rightarrow$ \textbf{128 bits} (IPv4 : 32 bits).
-    \item \textbf{À quoi sert un VLAN ?} $\rightarrow$ Segmenter logiquement un réseau physique en plusieurs domaines de diffusion isolés.
-    \item \textbf{Quel niveau RAID combine performance et tolérance à la panne par parité distribuée ?} $\rightarrow$ \textbf{RAID 5} (RAID 1 = miroir ; RAID 0 = agrégation sans redondance).
-    \item \textbf{Que signifient PRA et PCA ?} $\rightarrow$ Plan de Reprise d'Activité (redémarrer après un sinistre) et Plan de Continuité d'Activité (continuer à fonctionner pendant l'incident).
+    \item \textbf{Quels sont les principes fondamentaux de la POO ?} $\rightarrow$ \textbf{Encapsulation} (cacher les données derrière des méthodes), \textbf{héritage} (une classe fille réutilise une classe mère), \textbf{polymorphisme} (une même méthode se comporte différemment selon l'objet), \textbf{abstraction}.
+    \item \textbf{Surcharge ou redéfinition ?} $\rightarrow$ La \textbf{surcharge} (\textit{overloading}) = même nom de méthode, paramètres différents, dans la même classe ; la \textbf{redéfinition} (\textit{overriding}) = la classe fille réécrit une méthode de la classe mère.
+    \item \textbf{Interface ou classe abstraite en Java ?} $\rightarrow$ Une classe ne peut hériter que d'\textbf{une seule} classe (abstraite ou non) mais peut implémenter \textbf{plusieurs} interfaces.
+    \item \textbf{Que signifie le mot-clé \texttt{static} ?} $\rightarrow$ L'attribut ou la méthode appartient à la classe, et non à chaque objet.
+    \item \textbf{Que signifie SOLID ?} $\rightarrow$ 5 principes de conception : responsabilité unique (\textit{Single responsibility}), ouvert/fermé (\textit{Open/closed}), substitution de Liskov, ségrégation des interfaces, inversion des dépendances.
+    \item \textbf{Quel patron de conception (\textit{design pattern}) garantit une seule instance d'une classe ?} $\rightarrow$ Le \textbf{Singleton}. Autres classiques : Factory (fabrique d'objets), Observer (notification des abonnés), MVC (Modèle-Vue-Contrôleur : séparer données, affichage et logique).
+    \item \textbf{Cycle en V ou méthode agile ?} $\rightarrow$ Le \textbf{cycle en V} enchaîne des phases planifiées (spécification $\rightarrow$ conception $\rightarrow$ codage $\rightarrow$ tests de chaque niveau) ; l'\textbf{agile} livre par petites itérations avec le client.
+    \item \textbf{Quelle méthode agile s'organise en sprints avec un Product Owner et un Scrum Master ?} $\rightarrow$ \textbf{Scrum} (sprint = itération de 1 à 4 semaines ; Product Owner = représentant du métier qui priorise le \textit{backlog}, la liste des besoins ; Scrum Master = facilitateur de l'équipe).
+    \item \textbf{Tests unitaires, d'intégration, de recette ?} $\rightarrow$ Unitaires : une fonction isolée ; intégration : plusieurs modules ensemble ; recette (UAT, \textit{User Acceptance Testing}) : validation par l'utilisateur final.
+    \item \textbf{Que signifie CI/CD ?} $\rightarrow$ \textit{Continuous Integration / Continuous Delivery-Deployment} (intégration continue / livraison ou déploiement continu) : automatiser la compilation, les tests et la mise en production (ex. GitLab CI, Jenkins).
+    \item \textbf{À quoi sert Git ?} $\rightarrow$ Gestion de versions du code : \texttt{commit} (enregistrer), \texttt{branch} (branche de travail parallèle), \texttt{merge} (fusionner), \texttt{pull request} (demande de relecture avant fusion).
+    \item \textbf{Qu'est-ce qu'une API REST ?} $\rightarrow$ API = \textit{Application Programming Interface} (interface pour que deux logiciels communiquent) ; REST = \textit{Representational State Transfer} : interface web \textbf{sans état} (le serveur ne garde pas la session) qui manipule des ressources identifiées par des URL avec les méthodes HTTP : GET (lire), POST (créer), PUT (modifier), DELETE (supprimer). Données souvent en JSON.
+    \item \textbf{Codes HTTP à connaître ?} $\rightarrow$ 200 (succès), 201 (créé), 301 (redirection), 401 (non authentifié), 403 (interdit), 404 (introuvable), 500 (erreur serveur).
+    \item \textbf{Architecture monolithique ou microservices ?} $\rightarrow$ Monolithe : une seule application ; microservices : petits services indépendants communiquant par API, déployables séparément (plus souples, mais plus complexes à superviser).
+    \item \textbf{Quel diagramme UML (\textit{Unified Modeling Language}, langage de modélisation) représente les interactions entre objets dans l'ordre chronologique ?} $\rightarrow$ Le \textbf{diagramme de séquence}. Autres : cas d'utilisation (qui fait quoi avec le système), classes (structure), activité (déroulement d'un processus).
 \end{enumerate}
 
-\subsection*{C. Cybersécurité}
+\subsection*{C. Bases de Données et SQL}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Quels sont les trois piliers de la sécurité de l'information (triade DIC/CIA) ?} $\rightarrow$ \textbf{Disponibilité, Intégrité, Confidentialité}.
-    \item \textbf{Quel texte encadre la cybersécurité au Maroc ?} $\rightarrow$ La \textbf{loi n° 05-20} relative à la cybersécurité (2020), sous l'autorité nationale \textbf{DGSSI} ; la DNSSI fixe les règles minimales des administrations.
-    \item \textbf{Quelle norme internationale définit un système de management de la sécurité de l'information (SMSI) ?} $\rightarrow$ \textbf{ISO/IEC 27001}.
-    \item \textbf{Chiffrement symétrique ou asymétrique : lequel utilise une paire clé publique / clé privée ?} $\rightarrow$ \textbf{Asymétrique} (RSA) ; symétrique = même clé (AES).
-    \item \textbf{Une fonction de hachage (SHA-256) garantit :} $\rightarrow$ l'\textbf{intégrité} (et non la confidentialité : le hachage n'est pas réversible).
-    \item \textbf{Qu'est-ce qu'une attaque par hameçonnage (phishing) ?} $\rightarrow$ Un faux message imitant un organisme de confiance pour voler des identifiants ; parade : sensibilisation, MFA, filtrage.
-    \item \textbf{Qu'est-ce qu'un rançongiciel (ransomware) ?} $\rightarrow$ Un logiciel qui chiffre les données et exige une rançon ; parade : sauvegardes hors ligne (règle 3-2-1), correctifs, segmentation.
-    \item \textbf{Quelle attaque rend un service indisponible en le saturant depuis de nombreuses machines ?} $\rightarrow$ Le \textbf{DDoS} (déni de service distribué).
-    \item \textbf{Qu'est-ce que l'injection SQL et comment s'en protéger ?} $\rightarrow$ Insertion de code SQL via une saisie utilisateur ; parade : requêtes paramétrées, validation des entrées (OWASP Top 10).
-    \item \textbf{Que signifie le principe du « moindre privilège » ?} $\rightarrow$ Chaque utilisateur ne reçoit que les droits strictement nécessaires à sa mission ; avec le \textit{Zero Trust}, on ne fait confiance à aucun accès par défaut.
-    \item \textbf{Quel organisme marocain traite la protection des données personnelles ?} $\rightarrow$ La \textbf{CNDP} (loi 09-08) ; piège : la DGSSI s'occupe de la sécurité des systèmes, pas des droits des personnes.
-    \item \textbf{Qu'est-ce qu'un SOC ?} $\rightarrow$ Un centre opérationnel de sécurité qui surveille en continu les journaux (SIEM) et traite les incidents.
+    \item \textbf{Que signifie ACID ?} $\rightarrow$ Les 4 garanties d'une transaction : \textbf{Atomicité} (tout ou rien), \textbf{Cohérence} (la base reste valide), \textbf{Isolation} (les transactions simultanées ne se gênent pas), \textbf{Durabilité} (une fois validée, la donnée n'est pas perdue).
+    \item \textbf{Clé primaire et clé étrangère ?} $\rightarrow$ La clé primaire identifie de façon unique chaque ligne ; la clé étrangère fait référence à la clé primaire d'une autre table (lien entre tables).
+    \item \textbf{Quelle forme normale élimine les dépendances partielles ?} $\rightarrow$ La \textbf{2FN} (FN = Forme Normale : règle qui évite les doublons et incohérences). 1FN : valeurs atomiques (une seule valeur par case) ; 2FN : 1FN + chaque attribut dépend de \textbf{toute} la clé ; 3FN : 2FN + aucun attribut ne dépend d'un autre attribut non-clé (pas de dépendance transitive).
+    \item \textbf{Quelle méthode française de conception utilise le MCD et le MLD ?} $\rightarrow$ \textbf{Merise} (MCD = Modèle Conceptuel de Données, entités et associations ; MLD = Modèle Logique de Données, tables ; MPD = Modèle Physique de Données).
+    \item \textbf{Une association « plusieurs à plusieurs » (n:n) entre deux tables se traduit par :} $\rightarrow$ une \textbf{table de jointure} (table intermédiaire contenant les deux clés étrangères).
+    \item \textbf{Quelle requête SQL regroupe des lignes pour appliquer une fonction d'agrégat (SUM, COUNT, AVG) ?} $\rightarrow$ \texttt{GROUP BY}. Piège : on filtre les groupes avec \texttt{HAVING}, pas avec \texttt{WHERE} (qui filtre les lignes avant regroupement).
+    \item \textbf{\texttt{INNER JOIN} ou \texttt{LEFT JOIN} ?} $\rightarrow$ INNER : seulement les lignes qui correspondent dans les deux tables ; LEFT : toutes les lignes de la table de gauche, même sans correspondance (valeurs NULL).
+    \item \textbf{Catégories du langage SQL ?} $\rightarrow$ LDD/DDL (définition : CREATE, ALTER, DROP), LMD/DML (manipulation : SELECT, INSERT, UPDATE, DELETE), LCD/DCL (droits : GRANT, REVOKE), TCL (transactions : COMMIT, ROLLBACK).
+    \item \textbf{\texttt{DELETE}, \texttt{TRUNCATE} ou \texttt{DROP} ?} $\rightarrow$ DELETE supprime des lignes (avec condition possible) ; TRUNCATE vide toute la table ; DROP supprime la table elle-même.
+    \item \textbf{À quoi sert un index ?} $\rightarrow$ Accélérer les recherches (comme l'index d'un livre), au prix d'écritures un peu plus lentes.
+    \item \textbf{Qu'est-ce qu'une vue ?} $\rightarrow$ Une table virtuelle définie par une requête SELECT (utile pour simplifier et restreindre l'accès aux données).
+    \item \textbf{SQL ou NoSQL ?} $\rightarrow$ SQL : tables relationnelles, schéma fixe, transactions ACID (Oracle, PostgreSQL, MySQL) ; NoSQL (\textit{Not only SQL}) : documents, clé-valeur, graphes, schéma souple et forte montée en charge (MongoDB, Redis, Cassandra).
+    \item \textbf{Que dit le théorème CAP ?} $\rightarrow$ Un système distribué ne peut garantir à la fois que \textbf{deux} des trois propriétés : Cohérence (\textit{Consistency}), Disponibilité (\textit{Availability}), tolérance au partitionnement (\textit{Partition tolerance}).
 \end{enumerate}
 
-\subsection*{D. Systèmes Décisionnels et Data Science}
+\subsection*{D. Systèmes d'Exploitation, Virtualisation et Cloud}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Que signifie ETL ?} $\rightarrow$ \textbf{Extract, Transform, Load} : extraire les données des sources, les nettoyer, les charger dans l'entrepôt.
-    \item \textbf{Quelle est la différence entre OLTP et OLAP ?} $\rightarrow$ OLTP : transactions courantes (ex. GID) ; OLAP : analyse multidimensionnelle pour la décision (cubes, tableaux de bord).
-    \item \textbf{Schéma en étoile :} $\rightarrow$ une table de \textbf{faits} (mesures : montants) reliée à des tables de \textbf{dimensions} (temps, région, contribuable).
-    \item \textbf{Apprentissage supervisé ou non supervisé : lequel utilise des données étiquetées ?} $\rightarrow$ \textbf{Supervisé} (classification, régression) ; non supervisé = clustering (k-means).
-    \item \textbf{Quel indicateur privilégier pour détecter une fraude rare ?} $\rightarrow$ Le \textbf{rappel}, la \textbf{précision} ou le F1-score, pas l'exactitude (\textit{accuracy}), trompeuse si les classes sont déséquilibrées.
-    \item \textbf{Qu'est-ce que le surapprentissage (overfitting) ?} $\rightarrow$ Le modèle apprend « par cœur » les données d'entraînement et généralise mal ; parades : validation croisée, régularisation, plus de données.
-    \item \textbf{Que sont les « 3V » du Big Data ?} $\rightarrow$ \textbf{Volume, Vélocité, Variété} (souvent complétés par Véracité et Valeur).
-    \item \textbf{Exemple d'usage au MEF :} $\rightarrow$ scoring des déclarations fiscales pour cibler les contrôles (DGI), ciblage des conteneurs à risque (ADII), prévision des recettes (DEPF).
+    \item \textbf{Processus ou thread ?} $\rightarrow$ Un processus est un programme en cours d'exécution avec sa propre mémoire ; un thread (fil d'exécution) partage la mémoire du processus.
+    \item \textbf{Qu'est-ce qu'un interblocage (\textit{deadlock}) ?} $\rightarrow$ Deux processus s'attendent mutuellement pour une ressource et restent bloqués indéfiniment.
+    \item \textbf{Commandes Linux utiles ?} $\rightarrow$ \texttt{ls} (lister), \texttt{cd} (changer de dossier), \texttt{chmod} (droits), \texttt{chown} (propriétaire), \texttt{ps}/\texttt{top} (processus), \texttt{grep} (rechercher du texte), \texttt{sudo} (exécuter en administrateur).
+    \item \textbf{Que signifie \texttt{chmod 755} ?} $\rightarrow$ Propriétaire : lecture + écriture + exécution (7 = 4+2+1) ; groupe et autres : lecture + exécution (5 = 4+1).
+    \item \textbf{Mémoire virtuelle ?} $\rightarrow$ Technique qui utilise le disque pour étendre la mémoire vive (RAM, \textit{Random Access Memory}) grâce à la pagination.
+    \item \textbf{Conteneur (Docker) ou machine virtuelle ?} $\rightarrow$ Le conteneur partage le noyau (cœur) du système hôte, il est donc plus léger et démarre vite ; la VM (\textit{Virtual Machine}) embarque son propre système d'exploitation via un \textbf{hyperviseur} (logiciel qui fait tourner plusieurs VM : VMware, Hyper-V, KVM).
+    \item \textbf{Rôle de Kubernetes ?} $\rightarrow$ Orchestrer (déployer, répartir, redémarrer, mettre à l'échelle) des conteneurs sur plusieurs serveurs.
+    \item \textbf{Les trois modèles de service du cloud ?} $\rightarrow$ \textbf{IaaS} (\textit{Infrastructure as a Service} : on loue serveurs et stockage), \textbf{PaaS} (\textit{Platform as a Service} : on loue une plateforme pour déployer son code), \textbf{SaaS} (\textit{Software as a Service} : on utilise directement un logiciel en ligne, ex. messagerie).
+    \item \textbf{Modèles de déploiement du cloud ?} $\rightarrow$ Public, privé, hybride (mélange des deux), communautaire. Pour les données sensibles de l'État : cloud privé ou \textbf{souverain} (hébergé au Maroc).
+    \item \textbf{Scalabilité verticale ou horizontale ?} $\rightarrow$ Verticale : ajouter de la puissance à une machine ; horizontale : ajouter des machines.
 \end{enumerate}
 
-\subsection*{E. Économie et Statistique}
+\subsection*{E. Réseaux et Systèmes}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Quelles sont les trois optiques de calcul du PIB ?} $\rightarrow$ Production (somme des valeurs ajoutées), Demande (C + I + G + X $-$ M), Revenus.
-    \item \textbf{Différence entre PIB nominal et PIB réel ?} $\rightarrow$ Le PIB réel est corrigé de l'inflation (prix constants) ; c'est lui qui mesure la croissance.
-    \item \textbf{Qu'est-ce que le solde primaire ?} $\rightarrow$ Le solde budgétaire \textbf{hors charges d'intérêts de la dette}.
-    \item \textbf{Moyenne ou médiane pour des revenus très inégaux ?} $\rightarrow$ La \textbf{médiane}, moins sensible aux valeurs extrêmes.
-    \item \textbf{Que mesure l'indice de Gini ?} $\rightarrow$ Les inégalités de répartition (0 = égalité parfaite, 1 = inégalité maximale).
-    \item \textbf{Un coefficient de corrélation proche de 0 signifie :} $\rightarrow$ une absence de relation \textbf{linéaire} (et une forte corrélation ne prouve pas la causalité).
-    \item \textbf{Qu'est-ce que l'élasticité-prix de la demande ?} $\rightarrow$ La variation en \% de la quantité demandée pour une variation de 1\% du prix.
-    \item \textbf{Que représente l'effet d'éviction ?} $\rightarrow$ L'emprunt massif de l'État capte l'épargne et renchérit le crédit au détriment de l'investissement privé.
-    \item \textbf{Quelle institution produit les statistiques officielles (chômage, IPC, RGPH) ?} $\rightarrow$ Le \textbf{HCP} ; les statistiques monétaires relèvent de BAM, les finances publiques du MEF (TGR, DTFE).
-    \item \textbf{Qu'est-ce qu'un intervalle de confiance à 95\% ?} $\rightarrow$ Un intervalle construit de sorte que, sur un grand nombre d'échantillons, 95\% de ces intervalles contiennent la vraie valeur du paramètre.
+    \item \textbf{Combien de couches compte le modèle OSI (\textit{Open Systems Interconnection}, modèle de référence des réseaux) ?} $\rightarrow$ \textbf{7} : Physique, Liaison, Réseau, Transport, Session, Présentation, Application. Le modèle TCP/IP en compte 4.
+    \item \textbf{À quelle couche travaille un routeur ? un commutateur (switch) ?} $\rightarrow$ Routeur : couche 3 (Réseau, adresses IP = adresses logiques) ; switch : couche 2 (Liaison, adresses MAC = adresse physique unique de la carte réseau).
+    \item \textbf{TCP ou UDP ?} $\rightarrow$ TCP (\textit{Transmission Control Protocol}) : avec connexion, fiable (accusés de réception) ; UDP (\textit{User Datagram Protocol}) : sans connexion, plus rapide, sans garantie (vidéo, voix, DNS).
+    \item \textbf{Combien d'adresses hôtes utilisables dans un réseau /24 ?} $\rightarrow$ /24 signifie que 24 bits sur 32 désignent le réseau (masque 255.255.255.0) ; il reste 8 bits : $2^8 - 2 = $ \textbf{254} (on retire l'adresse du réseau et l'adresse de diffusion). Formule : $2^{(32 - n)} - 2$.
+    \item \textbf{Quelle plage d'adresses IPv4 est privée ?} $\rightarrow$ 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 (non routables sur Internet, traduites par le \textbf{NAT}, \textit{Network Address Translation}).
+    \item \textbf{Quel protocole attribue automatiquement les adresses IP ?} $\rightarrow$ \textbf{DHCP} (\textit{Dynamic Host Configuration Protocol}) ; le \textbf{DNS} (\textit{Domain Name System}) traduit un nom (finances.gov.ma) en adresse IP ; \textbf{ARP} trouve l'adresse MAC correspondant à une IP.
+    \item \textbf{Ports par défaut ?} $\rightarrow$ HTTP 80, HTTPS 443, SSH 22 (connexion sécurisée à distance), FTP 21 (transfert de fichiers), DNS 53, SMTP 25 (envoi de courriel), RDP 3389 (bureau à distance Windows).
+    \item \textbf{Quelle commande teste la joignabilité d'une machine ?} $\rightarrow$ \texttt{ping} (protocole ICMP) ; \texttt{traceroute}/\texttt{tracert} affiche le chemin suivi.
+    \item \textbf{Taille d'une adresse IPv6 ?} $\rightarrow$ \textbf{128 bits} (IPv4 : 32 bits).
+    \item \textbf{À quoi sert un VLAN (\textit{Virtual LAN}, réseau local virtuel) ?} $\rightarrow$ Séparer logiquement un même réseau physique en plusieurs réseaux isolés (ex. un VLAN par direction).
+    \item \textbf{Qu'est-ce qu'un VPN (\textit{Virtual Private Network}) ?} $\rightarrow$ Un tunnel chiffré qui relie de façon sécurisée un utilisateur ou un site distant au réseau de l'organisation (ex. IPsec, SSL/TLS).
+    \item \textbf{Qu'est-ce qu'une DMZ (zone démilitarisée) ?} $\rightarrow$ Une zone réseau intermédiaire, isolée par pare-feu, où l'on place les serveurs accessibles depuis Internet (site web, messagerie).
+    \item \textbf{Quel niveau RAID (\textit{Redundant Array of Independent Disks}, regroupement de disques) utilise une parité répartie ?} $\rightarrow$ \textbf{RAID 5} (supporte la panne d'un disque). RAID 0 = vitesse sans redondance ; RAID 1 = miroir (copie identique).
+    \item \textbf{Que signifient PRA et PCA ?} $\rightarrow$ Plan de Reprise d'Activité (redémarrer après un sinistre) et Plan de Continuité d'Activité (continuer à fonctionner pendant l'incident). Indicateurs : RTO (durée maximale d'interruption acceptable) et RPO (perte de données maximale acceptable).
+    \item \textbf{Qu'est-ce que l'annuaire Active Directory / LDAP ?} $\rightarrow$ Un annuaire centralisé des utilisateurs et des droits (LDAP = \textit{Lightweight Directory Access Protocol}).
 \end{enumerate}
 
-\subsection*{F. Génie Civil}
+\subsection*{F. Cybersécurité}
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Quel texte régit les marchés publics au Maroc ?} $\rightarrow$ Le \textbf{décret n° 2-22-431} du 8 mars 2023 relatif aux marchés publics (dématérialisation via le portail marchespublics.gov.ma).
-    \item \textbf{Que signifient ELU et ELS ?} $\rightarrow$ État Limite Ultime (résistance, sécurité) et État Limite de Service (déformations, fissuration, confort).
-    \item \textbf{Quel règlement parasismique s'applique aux bâtiments au Maroc ?} $\rightarrow$ Le \textbf{RPS 2000} (révisé en 2011), rappelé après le séisme d'Al Haouz de septembre 2023.
-    \item \textbf{Qu'est-ce que le CPS ?} $\rightarrow$ Le Cahier des Prescriptions Spéciales, qui fixe les clauses propres à chaque marché (le CCAG-Travaux fixe les clauses administratives générales).
-    \item \textbf{Qu'est-ce qu'un décompte provisoire ?} $\rightarrow$ Le document qui constate périodiquement les travaux réalisés pour payer des acomptes à l'entreprise.
-    \item \textbf{Quel est le rôle de la réception provisoire et de la réception définitive ?} $\rightarrow$ La réception provisoire constate l'achèvement et ouvre le délai de garantie ; la réception définitive clôt ce délai et libère la retenue de garantie.
-    \item \textbf{Qu'est-ce que le BIM ?} $\rightarrow$ Une maquette numérique partagée du bâtiment qui intègre géométrie, coûts et planning, et facilite la coordination et le suivi.
-    \item \textbf{Lien avec le MEF :} $\rightarrow$ expertise sur le patrimoine de l'État (DDE), évaluation des projets d'investissement public et contrôle des marchés de travaux.
+    \item \textbf{Les trois piliers de la sécurité (triade DIC, en anglais CIA) ?} $\rightarrow$ \textbf{D}isponibilité (le service est accessible), \textbf{I}ntégrité (la donnée n'est pas modifiée), \textbf{C}onfidentialité (seules les personnes autorisées y accèdent). On ajoute souvent la \textbf{traçabilité} (preuve de qui a fait quoi).
+    \item \textbf{Quel texte encadre la cybersécurité au Maroc ?} $\rightarrow$ La \textbf{loi n° 05-20} (2020), sous l'autorité nationale \textbf{DGSSI} ; la DNSSI (Directive Nationale de la Sécurité des SI) fixe les règles minimales des administrations.
+    \item \textbf{Autres textes du numérique marocain ?} $\rightarrow$ Loi 09-08 (données personnelles, CNDP), loi 43-20 (services de confiance : signature et cachet électroniques), loi 07-03 (atteintes aux systèmes de traitement automatisé des données, dans le Code pénal), loi 55-19 (simplification des procédures administratives).
+    \item \textbf{Quelle norme définit un SMSI (Système de Management de la Sécurité de l'Information) ?} $\rightarrow$ \textbf{ISO/IEC 27001} ; ISO 27005 porte sur la gestion des risques (méthode française équivalente : EBIOS).
+    \item \textbf{Chiffrement symétrique ou asymétrique ?} $\rightarrow$ \textbf{Symétrique} : la même clé chiffre et déchiffre (AES = \textit{Advanced Encryption Standard}, rapide). \textbf{Asymétrique} : paire clé publique (pour chiffrer) / clé privée (pour déchiffrer) (RSA = initiales de ses inventeurs Rivest, Shamir et Adleman).
+    \item \textbf{Signature électronique : avec quelle clé signe-t-on ?} $\rightarrow$ Avec sa \textbf{clé privée} ; le destinataire vérifie avec la \textbf{clé publique}. Elle garantit l'authenticité, l'intégrité et la non-répudiation (l'auteur ne peut pas nier). Les clés publiques sont certifiées par une PKI (\textit{Public Key Infrastructure}, autorité de certification).
+    \item \textbf{Une fonction de hachage (SHA-256) garantit :} $\rightarrow$ l'\textbf{intégrité} (une empreinte unique de la donnée). Piège : elle ne garantit pas la confidentialité, car le hachage n'est pas réversible (on ne « déchiffre » pas un hash).
+    \item \textbf{Comment stocker les mots de passe ?} $\rightarrow$ Hachés avec un \textbf{sel} (valeur aléatoire) et un algorithme lent (bcrypt, Argon2), jamais en clair.
+    \item \textbf{Qu'est-ce que la MFA ?} $\rightarrow$ \textit{Multi-Factor Authentication} (authentification multifacteur) : combiner au moins deux éléments parmi ce que l'on sait (mot de passe), ce que l'on possède (téléphone, carte) et ce que l'on est (empreinte).
+    \item \textbf{Hameçonnage (phishing) ?} $\rightarrow$ Faux message imitant un organisme de confiance pour voler des identifiants ; parades : sensibilisation, MFA, filtrage des courriels.
+    \item \textbf{Rançongiciel (ransomware) ?} $\rightarrow$ Logiciel qui chiffre les données et exige une rançon ; parades : sauvegardes hors ligne (règle 3-2-1 : 3 copies, 2 supports, 1 hors site), mises à jour, segmentation du réseau.
+    \item \textbf{DDoS ?} $\rightarrow$ \textit{Distributed Denial of Service} (déni de service distribué) : saturer un service depuis de nombreuses machines pour le rendre indisponible.
+    \item \textbf{Injection SQL et XSS ?} $\rightarrow$ Injection SQL : insérer du code SQL via un champ de saisie (parade : requêtes paramétrées) ; XSS (\textit{Cross-Site Scripting}) : injecter du JavaScript dans une page vue par d'autres (parade : échapper les sorties). Référence : OWASP Top 10 (liste des 10 risques web majeurs).
+    \item \textbf{Attaque de l'homme du milieu (MITM) ?} $\rightarrow$ L'attaquant s'intercale entre deux parties pour lire ou modifier les échanges ; parade : chiffrement TLS (le « S » de HTTPS) et certificats.
+    \item \textbf{Principe du « moindre privilège » et Zero Trust ?} $\rightarrow$ Donner uniquement les droits nécessaires ; Zero Trust : ne faire confiance à aucun accès par défaut, tout vérifier à chaque fois.
+    \item \textbf{Pare-feu, IDS, IPS ?} $\rightarrow$ Pare-feu (\textit{firewall}) : filtre le trafic selon des règles ; IDS (\textit{Intrusion Detection System}) : détecte et alerte ; IPS (\textit{Intrusion Prevention System}) : détecte et bloque.
+    \item \textbf{Qu'est-ce qu'un SOC et un SIEM ?} $\rightarrow$ SOC (\textit{Security Operations Center}) : équipe qui surveille la sécurité en continu ; SIEM (\textit{Security Information and Event Management}) : outil qui centralise et analyse les journaux (\textit{logs}).
+    \item \textbf{Qui protège les données personnelles au Maroc ?} $\rightarrow$ La \textbf{CNDP} (loi 09-08). Piège : la DGSSI gère la sécurité des systèmes, pas les droits des personnes.
+    \item \textbf{Qu'est-ce qu'un test d'intrusion (pentest) ?} $\rightarrow$ Une attaque simulée et autorisée pour découvrir les failles avant les pirates.
+\end{enumerate}
+
+\subsection*{G. Systèmes Décisionnels, Data Science et IA}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Que signifie ETL ?} $\rightarrow$ \textit{Extract, Transform, Load} (extraire les données des sources, les nettoyer et les transformer, les charger dans l'entrepôt de données ou \textit{data warehouse}).
+    \item \textbf{OLTP ou OLAP ?} $\rightarrow$ OLTP (\textit{Online Transaction Processing}) : transactions du quotidien (ex. saisie d'une dépense dans GID) ; OLAP (\textit{Online Analytical Processing}) : analyse multidimensionnelle pour décider (cubes, tableaux de bord).
+    \item \textbf{Schéma en étoile ?} $\rightarrow$ Une table de \textbf{faits} (ce qu'on mesure : montants, quantités) au centre, reliée à des tables de \textbf{dimensions} (axes d'analyse : temps, région, contribuable). Variante normalisée : schéma en flocon.
+    \item \textbf{Data warehouse ou data lake ?} $\rightarrow$ Entrepôt : données structurées et nettoyées pour l'analyse ; lac de données : données brutes de tous formats stockées telles quelles.
+    \item \textbf{Qu'est-ce qu'un KPI ?} $\rightarrow$ \textit{Key Performance Indicator} (indicateur clé de performance), ex. délai moyen de paiement des fournisseurs de l'État. Outils de visualisation : Power BI, Tableau.
+    \item \textbf{Apprentissage supervisé ou non supervisé ?} $\rightarrow$ Supervisé : données étiquetées (on connaît la réponse), pour la classification (catégorie) ou la régression (valeur numérique) ; non supervisé : sans étiquette, ex. clustering (regroupement automatique, k-means).
+    \item \textbf{Quel indicateur choisir pour détecter une fraude rare ?} $\rightarrow$ Le \textbf{rappel} (part des fraudes réellement détectées), la \textbf{précision} (part des alertes qui sont de vraies fraudes) ou le F1-score (moyenne des deux). Piège : l'exactitude (\textit{accuracy}) est trompeuse quand les fraudes sont très rares.
+    \item \textbf{Qu'est-ce qu'une matrice de confusion ?} $\rightarrow$ Un tableau qui compare prédictions et réalité : vrais positifs, faux positifs, vrais négatifs, faux négatifs.
+    \item \textbf{Surapprentissage (overfitting) ?} $\rightarrow$ Le modèle apprend « par cœur » les données d'entraînement et se trompe sur de nouvelles données ; parades : validation croisée (tester sur des données mises de côté), régularisation, plus de données.
+    \item \textbf{Pourquoi séparer jeu d'entraînement et jeu de test ?} $\rightarrow$ Pour évaluer le modèle sur des données qu'il n'a jamais vues (souvent 80 \% / 20 \%).
+    \item \textbf{Que sont les « 3V » du Big Data ?} $\rightarrow$ \textbf{Volume} (quantité), \textbf{Vélocité} (vitesse de production), \textbf{Variété} (formats différents), souvent complétés par Véracité (fiabilité) et Valeur. Outils : Hadoop, Spark.
+    \item \textbf{Qu'est-ce qu'un réseau de neurones profond (\textit{deep learning}) et un LLM ?} $\rightarrow$ Un modèle composé de nombreuses couches de neurones artificiels ; un LLM (\textit{Large Language Model}, grand modèle de langage) est un modèle de ce type entraîné sur d'immenses textes pour comprendre et générer du langage (IA générative).
+    \item \textbf{Risques de l'IA dans l'administration ?} $\rightarrow$ Biais (discriminations), manque d'explicabilité, protection des données (loi 09-08), dépendance technologique : d'où la nécessité d'une gouvernance et d'un contrôle humain.
+    \item \textbf{Exemples d'usage au MEF ?} $\rightarrow$ Scoring (notation du risque) des déclarations fiscales pour cibler les contrôles (DGI), ciblage des conteneurs à risque (ADII), prévision des recettes (DEPF), détection d'anomalies dans la dépense (TGR).
+\end{enumerate}
+
+\subsection*{H. Gouvernance des SI et Gestion de Projet}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{ITIL ?} $\rightarrow$ \textit{Information Technology Infrastructure Library} : bonnes pratiques de gestion des services informatiques (gestion des incidents, des problèmes, des changements, catalogue de services).
+    \item \textbf{COBIT ?} $\rightarrow$ Référentiel de \textbf{gouvernance} et d'audit des SI (aligner l'informatique sur les objectifs de l'organisation et maîtriser les risques).
+    \item \textbf{TOGAF et urbanisation du SI ?} $\rightarrow$ TOGAF (\textit{The Open Group Architecture Framework}) : méthode d'architecture d'entreprise ; l'\textbf{urbanisation} organise le SI comme une ville en zones et quartiers pour le faire évoluer sans tout reconstruire.
+    \item \textbf{Qu'est-ce qu'un SLA ?} $\rightarrow$ \textit{Service Level Agreement} (accord de niveau de service) : engagement chiffré d'un prestataire (disponibilité 99,9 \%, délai de résolution).
+    \item \textbf{MOA ou MOE ?} $\rightarrow$ Maîtrise d'Ouvrage (MOA) : le métier qui exprime le besoin et valide ; Maîtrise d'Œuvre (MOE) : l'équipe technique qui réalise.
+    \item \textbf{Qu'est-ce qu'un cahier des charges et un CPS ?} $\rightarrow$ Le cahier des charges décrit le besoin ; dans un marché public, le CPS (Cahier des Prescriptions Spéciales) fixe les clauses propres au marché (décret 2-22-431 sur les marchés publics).
+    \item \textbf{Diagramme de Gantt et chemin critique (PERT) ?} $\rightarrow$ Gantt : planning des tâches sur une ligne de temps ; le chemin critique est la suite de tâches sans marge : tout retard sur elles retarde le projet.
+    \item \textbf{Triangle d'un projet ?} $\rightarrow$ \textbf{Coût, Délai, Qualité (périmètre)} : modifier l'un impacte les autres.
+    \item \textbf{Qu'est-ce que le TCO ?} $\rightarrow$ \textit{Total Cost of Ownership} (coût total de possession) : achat + déploiement + maintenance + formation + exploitation sur toute la durée de vie. Critère clé pour l'argent public.
+    \item \textbf{ERP ?} $\rightarrow$ \textit{Enterprise Resource Planning} (progiciel de gestion intégré) : un seul logiciel pour la finance, les achats, les RH\ldots{} Le GID joue ce rôle pour la dépense de l'État.
+    \item \textbf{Interopérabilité ?} $\rightarrow$ Capacité de systèmes différents à échanger des données via des standards et des API (ex. échanges DGI–CNSS–RSU), condition du principe « dites-le nous une fois ».
+    \item \textbf{Open data ?} $\rightarrow$ Publication de données publiques réutilisables librement (portail data.gov.ma).
+\end{enumerate}
+
+\subsection*{I. Compléments Rapides (Pièges Fréquents des QCM de Concours)}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Que signifie CRUD ?} $\rightarrow$ \textit{Create, Read, Update, Delete} (créer, lire, modifier, supprimer) : les 4 opérations de base sur les données (en SQL : INSERT, SELECT, UPDATE, DELETE).
+    \item \textbf{Système de fichiers par défaut sous Linux ? sous Windows ?} $\rightarrow$ \textbf{ext4} (Linux) ; \textbf{NTFS} (Windows).
+    \item \textbf{Quel protocole sécurise les réseaux Wi-Fi modernes ?} $\rightarrow$ \textbf{WPA2}, et désormais \textbf{WPA3} (WPA = \textit{Wi-Fi Protected Access}). Piège : WEP est obsolète et cassable.
+    \item \textbf{Routage statique ou dynamique ?} $\rightarrow$ Statique : routes saisies à la main ; dynamique : les routeurs s'échangent les routes via un protocole (OSPF à l'intérieur d'une organisation, BGP entre opérateurs sur Internet).
+    \item \textbf{Quelle commande interroge un serveur DNS ?} $\rightarrow$ \texttt{nslookup} (ou \texttt{dig} sous Linux) ; \texttt{ipconfig} (Windows) / \texttt{ip a} (Linux) affichent la configuration IP.
+    \item \textbf{Autres ports à connaître ?} $\rightarrow$ POP3 110 et IMAP 143 (réception de courriels), MySQL 3306, SFTP 22 (transfert de fichiers via SSH).
+    \item \textbf{Qu'est-ce qu'une attaque CSRF ?} $\rightarrow$ \textit{Cross-Site Request Forgery} : faire exécuter à un utilisateur connecté une action qu'il n'a pas voulue ; parade : jeton anti-CSRF.
+    \item \textbf{Qu'est-ce qu'un certificat X.509 ?} $\rightarrow$ Le format standard des certificats numériques qui lient une clé publique à une identité (utilisés par HTTPS/TLS, TLS = \textit{Transport Layer Security}).
+    \item \textbf{En Java, \texttt{==} ou \texttt{equals()} pour comparer deux chaînes ?} $\rightarrow$ \texttt{equals()} compare le contenu ; \texttt{==} compare les références (l'adresse en mémoire). Piège classique.
+    \item \textbf{\texttt{git merge} ou \texttt{git rebase} ?} $\rightarrow$ merge fusionne en créant un commit de fusion ; rebase rejoue les commits sur une autre base pour garder un historique linéaire.
+    \item \textbf{Cardinalités Merise (0,1 / 1,n) ?} $\rightarrow$ Elles indiquent le nombre minimum et maximum de participations d'une entité à une association ; ex. « un contribuable dépose (0,n) déclarations, une déclaration appartient à (1,1) contribuable ».
+    \item \textbf{Algorithmes d'ordonnancement du processeur ?} $\rightarrow$ FIFO (premier arrivé, premier servi), SJF (\textit{Shortest Job First}, le plus court d'abord), Round Robin (tourniquet : chaque processus reçoit un quantum de temps).
+    \item \textbf{Qu'est-ce qu'une matrice RACI ?} $\rightarrow$ Tableau des rôles dans un projet : \textbf{R}éalise, \textbf{A}pprouve (responsable final), \textbf{C}onsulté, \textbf{I}nformé.
+    \item \textbf{Qu'est-ce qu'un schéma directeur informatique ?} $\rightarrow$ Plan stratégique pluriannuel qui aligne les projets informatiques sur les objectifs de l'administration (priorités, budget, calendrier).
+    \item \textbf{PMBOK ?} $\rightarrow$ \textit{Project Management Body of Knowledge} : référentiel international de gestion de projet (PMI).
+    \item \textbf{Loi 53-05 ?} $\rightarrow$ Loi de 2007 sur l'échange électronique de données juridiques (valeur de l'écrit électronique), complétée pour la signature électronique par la \textbf{loi 43-20} sur les services de confiance.
+    \item \textbf{Qu'est-ce que maCERT ?} $\rightarrow$ Le centre de la DGSSI qui publie les alertes de sécurité et aide les organismes à répondre aux incidents (CERT = \textit{Computer Emergency Response Team}).
+\end{enumerate}
+
+\subsection*{J. Économie et Statistique (Culture Générale de l'Ingénieur)}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Les trois optiques de calcul du PIB ?} $\rightarrow$ Production (somme des valeurs ajoutées) ; Demande : \textbf{C + I + G + X $-$ M} (C = Consommation des ménages, I = Investissement, G = dépenses publiques (\textit{Government}), X = eXportations, M = iMportations) ; Revenus (salaires + profits + impôts sur la production).
+    \item \textbf{PIB nominal ou réel ?} $\rightarrow$ Le PIB réel est corrigé de l'inflation (calculé à prix constants) ; c'est lui qui mesure la croissance.
+    \item \textbf{Solde primaire ?} $\rightarrow$ Le solde budgétaire hors intérêts de la dette (il montre si l'État dépense plus qu'il ne perçoit, sans compter le coût de ses emprunts passés).
+    \item \textbf{Moyenne ou médiane pour des revenus très inégaux ?} $\rightarrow$ La \textbf{médiane} (valeur qui partage la population en deux moitiés), moins sensible aux très hauts revenus.
+    \item \textbf{Indice de Gini ?} $\rightarrow$ Mesure des inégalités : 0 = égalité parfaite, 1 = inégalité maximale.
+    \item \textbf{Corrélation proche de 0 ?} $\rightarrow$ Absence de relation \textbf{linéaire}. Piège : une forte corrélation ne prouve pas la causalité.
+    \item \textbf{Élasticité-prix de la demande ?} $\rightarrow$ Variation en \% de la quantité demandée quand le prix varie de 1 \%.
+    \item \textbf{Effet d'éviction ?} $\rightarrow$ L'emprunt massif de l'État capte l'épargne et renchérit le crédit au détriment de l'investissement privé.
+    \item \textbf{Qui produit les statistiques officielles ?} $\rightarrow$ Le \textbf{HCP} (chômage, IPC = Indice des Prix à la Consommation, RGPH = Recensement Général de la Population et de l'Habitat) ; BAM pour la monnaie ; le MEF (TGR, DTFE) pour les finances publiques.
+    \item \textbf{Intervalle de confiance à 95 \% ?} $\rightarrow$ Intervalle construit de sorte que, si l'on répétait l'enquête un grand nombre de fois, 95 \% de ces intervalles contiendraient la vraie valeur.
 \end{enumerate}

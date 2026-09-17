@@ -29,3 +29,6 @@ Desktop.ini
 documentation/
 AGENTS.md
 PROGRESS.md
+
+# Images rejetées (non conformes), en attente de régénération
+images_a_regenerer/
