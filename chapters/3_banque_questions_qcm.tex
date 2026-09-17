@@ -18,7 +18,9 @@ Cette base de données regroupe les questions les plus fréquemment posées lors
 
 \section{Tableau Récapitulatif Normalisé}
 
-\begin{longtable}{|p{4.2cm}|p{5.5cm}|p{2.2cm}|p{2.4cm}|p{1.4cm}|c|}
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{|>{\raggedright\arraybackslash\hspace{0pt}}p{3.9cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{5.1cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{2.1cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{2.3cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{1.5cm}|c|}
 \hline
 \rowcolor{gray!20} \textbf{Question} & \textbf{Réponse Synthétique} & \textbf{Thème} & \textbf{Source} & \textbf{Type} & \textbf{Prio} \\ \hline
 \endfirsthead
@@ -233,6 +235,97 @@ Quelle est la durée légale maximale de conservation des archives publiques cou
 Régie par la Loi n° 69-99 relative aux archives et gérée en coordination avec l'institution Archives du Maroc. & 
 Administration & 
 Loi 69-99 & 
-[Prépa] & 
+[Prépa] &
 ⚪ \\ \hline
 \end{longtable}
+}
+
+% =========================================================================
+\section{QCM de Spécialité (Nouveauté de l'Avis 2026)}
+% =========================================================================
+
+\begin{tcolorbox}[colback=red!4!white,colframe=red!60!black,title=\textbf{Pourquoi cette section ?}]
+L'avis 2026 précise que l'écrit peut porter sur \textbf{la spécialité et les compétences requises pour le poste}. Les postes ouverts sont : Économie-Statistique (38), Informatique/Génie logiciel (20), Cybersécurité (16), Réseaux et systèmes (15), Systèmes décisionnels et Data science (9), Génie civil (5). Révisez en priorité le bloc de \textbf{votre} spécialité, puis les notions communes (SI de l'État, sécurité, données). Format : \textbf{Question $\rightarrow$ bonne réponse} (et le piège à éviter).
+\end{tcolorbox}
+
+\subsection*{A. Informatique et Génie Logiciel}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Quelle propriété garantit qu'une transaction de base de données est entièrement exécutée ou pas du tout ?} $\rightarrow$ L'\textbf{atomicité} (le « A » de ACID : Atomicité, Cohérence, Isolation, Durabilité).
+    \item \textbf{Quelle forme normale élimine les dépendances fonctionnelles partielles ?} $\rightarrow$ La \textbf{2\textsuperscript{e} forme normale (2FN)} ; la 3FN élimine les dépendances transitives.
+    \item \textbf{Quelle est la complexité d'une recherche dichotomique dans un tableau trié de $n$ éléments ?} $\rightarrow$ $O(\log n)$ (piège : $O(n)$ est la recherche séquentielle).
+    \item \textbf{Quelle méthode agile s'organise en sprints avec un Product Owner et un Scrum Master ?} $\rightarrow$ \textbf{Scrum}.
+    \item \textbf{Qu'est-ce qu'une API REST ?} $\rightarrow$ Une interface web sans état (\textit{stateless}) qui manipule des ressources identifiées par des URL avec les méthodes HTTP (GET, POST, PUT, DELETE).
+    \item \textbf{Quel diagramme UML représente les interactions entre objets dans l'ordre chronologique ?} $\rightarrow$ Le \textbf{diagramme de séquence}.
+    \item \textbf{Que signifie CI/CD ?} $\rightarrow$ Intégration continue / Déploiement (ou livraison) continu : automatiser la compilation, les tests et la mise en production.
+    \item \textbf{Quelle est la différence entre un conteneur (Docker) et une machine virtuelle ?} $\rightarrow$ Le conteneur partage le noyau du système hôte (plus léger) ; la VM embarque son propre système d'exploitation via un hyperviseur.
+    \item \textbf{Quels sont les trois modèles de service du cloud ?} $\rightarrow$ \textbf{IaaS} (infrastructure), \textbf{PaaS} (plateforme), \textbf{SaaS} (logiciel).
+    \item \textbf{Quelle requête SQL regroupe des lignes pour appliquer une fonction d'agrégat ?} $\rightarrow$ \texttt{GROUP BY} (filtrage des groupes avec \texttt{HAVING}, et non \texttt{WHERE}).
+\end{enumerate}
+
+\subsection*{B. Réseaux et Systèmes}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Combien de couches compte le modèle OSI ?} $\rightarrow$ \textbf{7} (Physique, Liaison, Réseau, Transport, Session, Présentation, Application) ; le modèle TCP/IP en compte 4.
+    \item \textbf{À quelle couche OSI travaille un routeur ? un commutateur (switch) ?} $\rightarrow$ Routeur : couche 3 (Réseau, adresses IP) ; switch : couche 2 (Liaison, adresses MAC).
+    \item \textbf{Quelle est la différence entre TCP et UDP ?} $\rightarrow$ TCP est orienté connexion et fiable (accusés de réception) ; UDP est sans connexion, plus rapide, sans garantie de livraison.
+    \item \textbf{Combien d'adresses hôtes utilisables offre un réseau /24 ?} $\rightarrow$ $2^8 - 2 = $ \textbf{254}.
+    \item \textbf{Quel protocole attribue automatiquement les adresses IP ?} $\rightarrow$ \textbf{DHCP} ; la résolution des noms est assurée par le \textbf{DNS}.
+    \item \textbf{Ports par défaut :} HTTP 80, HTTPS 443, SSH 22, DNS 53, SMTP 25, RDP 3389.
+    \item \textbf{Quelle est la taille d'une adresse IPv6 ?} $\rightarrow$ \textbf{128 bits} (IPv4 : 32 bits).
+    \item \textbf{À quoi sert un VLAN ?} $\rightarrow$ Segmenter logiquement un réseau physique en plusieurs domaines de diffusion isolés.
+    \item \textbf{Quel niveau RAID combine performance et tolérance à la panne par parité distribuée ?} $\rightarrow$ \textbf{RAID 5} (RAID 1 = miroir ; RAID 0 = agrégation sans redondance).
+    \item \textbf{Que signifient PRA et PCA ?} $\rightarrow$ Plan de Reprise d'Activité (redémarrer après un sinistre) et Plan de Continuité d'Activité (continuer à fonctionner pendant l'incident).
+\end{enumerate}
+
+\subsection*{C. Cybersécurité}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Quels sont les trois piliers de la sécurité de l'information (triade DIC/CIA) ?} $\rightarrow$ \textbf{Disponibilité, Intégrité, Confidentialité}.
+    \item \textbf{Quel texte encadre la cybersécurité au Maroc ?} $\rightarrow$ La \textbf{loi n° 05-20} relative à la cybersécurité (2020), sous l'autorité nationale \textbf{DGSSI} ; la DNSSI fixe les règles minimales des administrations.
+    \item \textbf{Quelle norme internationale définit un système de management de la sécurité de l'information (SMSI) ?} $\rightarrow$ \textbf{ISO/IEC 27001}.
+    \item \textbf{Chiffrement symétrique ou asymétrique : lequel utilise une paire clé publique / clé privée ?} $\rightarrow$ \textbf{Asymétrique} (RSA) ; symétrique = même clé (AES).
+    \item \textbf{Une fonction de hachage (SHA-256) garantit :} $\rightarrow$ l'\textbf{intégrité} (et non la confidentialité : le hachage n'est pas réversible).
+    \item \textbf{Qu'est-ce qu'une attaque par hameçonnage (phishing) ?} $\rightarrow$ Un faux message imitant un organisme de confiance pour voler des identifiants ; parade : sensibilisation, MFA, filtrage.
+    \item \textbf{Qu'est-ce qu'un rançongiciel (ransomware) ?} $\rightarrow$ Un logiciel qui chiffre les données et exige une rançon ; parade : sauvegardes hors ligne (règle 3-2-1), correctifs, segmentation.
+    \item \textbf{Quelle attaque rend un service indisponible en le saturant depuis de nombreuses machines ?} $\rightarrow$ Le \textbf{DDoS} (déni de service distribué).
+    \item \textbf{Qu'est-ce que l'injection SQL et comment s'en protéger ?} $\rightarrow$ Insertion de code SQL via une saisie utilisateur ; parade : requêtes paramétrées, validation des entrées (OWASP Top 10).
+    \item \textbf{Que signifie le principe du « moindre privilège » ?} $\rightarrow$ Chaque utilisateur ne reçoit que les droits strictement nécessaires à sa mission ; avec le \textit{Zero Trust}, on ne fait confiance à aucun accès par défaut.
+    \item \textbf{Quel organisme marocain traite la protection des données personnelles ?} $\rightarrow$ La \textbf{CNDP} (loi 09-08) ; piège : la DGSSI s'occupe de la sécurité des systèmes, pas des droits des personnes.
+    \item \textbf{Qu'est-ce qu'un SOC ?} $\rightarrow$ Un centre opérationnel de sécurité qui surveille en continu les journaux (SIEM) et traite les incidents.
+\end{enumerate}
+
+\subsection*{D. Systèmes Décisionnels et Data Science}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Que signifie ETL ?} $\rightarrow$ \textbf{Extract, Transform, Load} : extraire les données des sources, les nettoyer, les charger dans l'entrepôt.
+    \item \textbf{Quelle est la différence entre OLTP et OLAP ?} $\rightarrow$ OLTP : transactions courantes (ex. GID) ; OLAP : analyse multidimensionnelle pour la décision (cubes, tableaux de bord).
+    \item \textbf{Schéma en étoile :} $\rightarrow$ une table de \textbf{faits} (mesures : montants) reliée à des tables de \textbf{dimensions} (temps, région, contribuable).
+    \item \textbf{Apprentissage supervisé ou non supervisé : lequel utilise des données étiquetées ?} $\rightarrow$ \textbf{Supervisé} (classification, régression) ; non supervisé = clustering (k-means).
+    \item \textbf{Quel indicateur privilégier pour détecter une fraude rare ?} $\rightarrow$ Le \textbf{rappel}, la \textbf{précision} ou le F1-score, pas l'exactitude (\textit{accuracy}), trompeuse si les classes sont déséquilibrées.
+    \item \textbf{Qu'est-ce que le surapprentissage (overfitting) ?} $\rightarrow$ Le modèle apprend « par cœur » les données d'entraînement et généralise mal ; parades : validation croisée, régularisation, plus de données.
+    \item \textbf{Que sont les « 3V » du Big Data ?} $\rightarrow$ \textbf{Volume, Vélocité, Variété} (souvent complétés par Véracité et Valeur).
+    \item \textbf{Exemple d'usage au MEF :} $\rightarrow$ scoring des déclarations fiscales pour cibler les contrôles (DGI), ciblage des conteneurs à risque (ADII), prévision des recettes (DEPF).
+\end{enumerate}
+
+\subsection*{E. Économie et Statistique}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Quelles sont les trois optiques de calcul du PIB ?} $\rightarrow$ Production (somme des valeurs ajoutées), Demande (C + I + G + X $-$ M), Revenus.
+    \item \textbf{Différence entre PIB nominal et PIB réel ?} $\rightarrow$ Le PIB réel est corrigé de l'inflation (prix constants) ; c'est lui qui mesure la croissance.
+    \item \textbf{Qu'est-ce que le solde primaire ?} $\rightarrow$ Le solde budgétaire \textbf{hors charges d'intérêts de la dette}.
+    \item \textbf{Moyenne ou médiane pour des revenus très inégaux ?} $\rightarrow$ La \textbf{médiane}, moins sensible aux valeurs extrêmes.
+    \item \textbf{Que mesure l'indice de Gini ?} $\rightarrow$ Les inégalités de répartition (0 = égalité parfaite, 1 = inégalité maximale).
+    \item \textbf{Un coefficient de corrélation proche de 0 signifie :} $\rightarrow$ une absence de relation \textbf{linéaire} (et une forte corrélation ne prouve pas la causalité).
+    \item \textbf{Qu'est-ce que l'élasticité-prix de la demande ?} $\rightarrow$ La variation en \% de la quantité demandée pour une variation de 1\% du prix.
+    \item \textbf{Que représente l'effet d'éviction ?} $\rightarrow$ L'emprunt massif de l'État capte l'épargne et renchérit le crédit au détriment de l'investissement privé.
+    \item \textbf{Quelle institution produit les statistiques officielles (chômage, IPC, RGPH) ?} $\rightarrow$ Le \textbf{HCP} ; les statistiques monétaires relèvent de BAM, les finances publiques du MEF (TGR, DTFE).
+    \item \textbf{Qu'est-ce qu'un intervalle de confiance à 95\% ?} $\rightarrow$ Un intervalle construit de sorte que, sur un grand nombre d'échantillons, 95\% de ces intervalles contiennent la vraie valeur du paramètre.
+\end{enumerate}
+
+\subsection*{F. Génie Civil}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Quel texte régit les marchés publics au Maroc ?} $\rightarrow$ Le \textbf{décret n° 2-22-431} du 8 mars 2023 relatif aux marchés publics (dématérialisation via le portail marchespublics.gov.ma).
+    \item \textbf{Que signifient ELU et ELS ?} $\rightarrow$ État Limite Ultime (résistance, sécurité) et État Limite de Service (déformations, fissuration, confort).
+    \item \textbf{Quel règlement parasismique s'applique aux bâtiments au Maroc ?} $\rightarrow$ Le \textbf{RPS 2000} (révisé en 2011), rappelé après le séisme d'Al Haouz de septembre 2023.
+    \item \textbf{Qu'est-ce que le CPS ?} $\rightarrow$ Le Cahier des Prescriptions Spéciales, qui fixe les clauses propres à chaque marché (le CCAG-Travaux fixe les clauses administratives générales).
+    \item \textbf{Qu'est-ce qu'un décompte provisoire ?} $\rightarrow$ Le document qui constate périodiquement les travaux réalisés pour payer des acomptes à l'entreprise.
+    \item \textbf{Quel est le rôle de la réception provisoire et de la réception définitive ?} $\rightarrow$ La réception provisoire constate l'achèvement et ouvre le délai de garantie ; la réception définitive clôt ce délai et libère la retenue de garantie.
+    \item \textbf{Qu'est-ce que le BIM ?} $\rightarrow$ Une maquette numérique partagée du bâtiment qui intègre géométrie, coûts et planning, et facilite la coordination et le suivi.
+    \item \textbf{Lien avec le MEF :} $\rightarrow$ expertise sur le patrimoine de l'État (DDE), évaluation des projets d'investissement public et contrôle des marchés de travaux.
+\end{enumerate}

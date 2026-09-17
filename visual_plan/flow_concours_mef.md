@@ -26,6 +26,14 @@ Chaque visuel a une fonction pédagogique précise : ancrage mémoriel, clarific
 | **IMG-REPORT-012** | Chapitre 5 | Planning Commando J-3 | Matrice d'urgence 72h heure par heure avant le 20 septembre | `images/img_012_planning_commando_j3_matrice.png` | 16:9 | Tactical Schedule Dashboard | À générer | 🔴 |
 | **IMG-REPORT-013** | Chapitre 1 (1.5) | Stratégie Documentaire et Veille Critique | Entonnoir budgétaire (Budget Citoyen $\rightarrow$ REF) et prisme d'audit (Cour des Comptes) | `images/img_013_strategie_documentaire_audit_pyramide.png` | 16:9 | Funnel & Audit Prism Infographic | À générer | 🔴 |
 | **IMG-REPORT-014** | Chapitre 1 (1.6) | Préparation Épreuve Orale (Approche Top-Down) | Pyramide d'excellence des 11 piliers de l'oral (Posture, Métier, MEF, Gouvernance) | `images/img_014_oral_mef_approche_topdown_11piliers.png` | 16:9 | Pyramid Roadmap Infographic | À générer | 🔴 |
+| **IMG-REPORT-015** | Sigles (images) | Architecture de la Loi de Finances | LF, PLF, BGE, SEGMA, CST, CAS, LFR, LR | `images/img_015_def_architecture_loi_finances.png` | 16:9 | Pedagogical Structure Diagram | À générer | 🔴 |
+| **IMG-REPORT-016** | Sigles (images) | Chaîne de la dépense publique | Engagement → visa TGR → paiement (GID, GIR) | `images/img_016_def_chaine_depense_gid_tgr.png` | 16:9 | Process Flow Infographic | À générer | 🔴 |
+| **IMG-REPORT-017** | Sigles (images) | Qui collecte quel impôt ? | DGI / ADII / TGR, IR, IS, TVA, SIMPL, BADR | `images/img_017_def_regies_impots_dgi_adii_tgr.png` | 16:9 | Comparative Three-Column Infographic | À générer | 🔴 |
+| **IMG-REPORT-018** | Sigles (images) | Mécanisme de la TVA | TVA collectée − TVA déductible | `images/img_018_def_mecanisme_tva.png` | 16:9 | Value Chain Explainer | À générer | 🟠 |
+| **IMG-REPORT-019** | Sigles (images) | Cycle de la performance | GAR, PBT, PdP, RdP, 3E | `images/img_019_def_cycle_performance_gar_3e.png` | 16:9 | Circular Cycle Diagram | À générer | 🔴 |
+| **IMG-REPORT-020** | Sigles (images) | Institutions de contrôle et régulation | IGF, Cour des comptes, BAM, AMMC, ACAPS, CNDP, DGSSI | `images/img_020_def_carte_institutions_controle_regulation.png` | 16:9 | Institutional Map | À générer | 🟠 |
+| **IMG-REPORT-021** | Sigles (images) | Déficit, dette, PIB, inflation | Flux vs stock, IPC, taux directeur | `images/img_021_def_deficit_dette_pib_inflation.png` | 16:9 | Conceptual Metaphor Infographic | À générer | 🔴 |
+| **IMG-REPORT-022** | Sigles (images) | État social | RNP → RSU → AMO Tadamon / ASD, CNSS | `images/img_022_def_etat_social_rnp_rsu_amo_asd.png` | 16:9 | Citizen Journey Infographic | À générer | 🟠 |
 
 ---
 
@@ -904,7 +912,7 @@ Ce schéma ancre visuellement la méthode recommandée par les lauréats pour co
 Chapitre 1 : Structure de l'Épreuve Écrite et Méthodologie de Réussite — 1.6 Préparation Complète de l'Épreuve Orale : L'Approche « Top-Down » de l'Ingénieur d'État
 
 **Texte associé :**
-Feuille de route en 11 piliers de l'épreuve orale du concours MEF (coefficient 3) selon l'approche « Top-Down » des lauréats : du socle personnel (Pitch 3 min, CV méthode STAR, PFE et transposabilité MEF, motivations pour le service public) à la maîtrise technique, la connaissance institutionnelle nominative du ministère (Mme Nadia Fettah Alaoui, M. Fouzi Lekjaa, directeurs DGI, TGR, Douanes, DB, DTFE), les chiffres clés de l'économie, et le cadre régalien (LOF sur `lof.finances.gov.ma`, marchés publics, audit IGF, déontologie et secret professionnel).
+Feuille de route en 11 piliers de l'épreuve orale du concours MEF (coefficient 2) selon l'approche « Top-Down » des lauréats : du socle personnel (Pitch 3 min, CV méthode STAR, PFE et transposabilité MEF, motivations pour le service public) à la maîtrise technique, la connaissance institutionnelle nominative du ministère (Mme Nadia Fettah Alaoui, M. Fouzi Lekjaa, directeurs DGI, TGR, Douanes, DB, DTFE), les chiffres clés de l'économie, et le cadre régalien (LOF sur `lof.finances.gov.ma`, marchés publics, audit IGF, déontologie et secret professionnel).
 
 **Objectif visuel :**
 Offrir une pyramide d'excellence mémotechnique structurant les 11 piliers de l'entretien oral, permettant au candidat de visualiser instantanément l'architecture globale de sa préparation pour l'épreuve finale.
@@ -925,7 +933,7 @@ Landscape
 ```text
 SUBJECT: A prestigious 4-tier architectural pyramid infographic detailing the 11-pillar "Top-Down" oral examination roadmap for Moroccan State Engineers at the Ministry of Economy and Finance.
 
-CONTEXT: Final oral interview (Commission de Recrutement MEF, coefficient 3). Demonstrates complete candidate readiness: personal conviction, technical expertise, institutional command, and civil service ethics.
+CONTEXT: Final oral interview (Commission de Recrutement MEF, coefficient 2). Demonstrates complete candidate readiness: personal conviction, technical expertise, institutional command, and civil service ethics.
 
 ENVIRONMENT: Pristine executive white canvas (#FFFFFF) with refined gold and navy structural borders.
 
@@ -969,5 +977,518 @@ NEGATIVE CONSTRAINTS: Avoid casual job interview cartoons, stress/nervousness tr
 🔴 PRIORITÉ 1 — ESSENTIELLE
 
 **Justification :**
-L'épreuve orale est coefficient 3. Cette pyramide donne au candidat une vision complète, ordonnée et rassurante de tout ce qu'il doit maîtriser sans se disperser.
+L'épreuve orale est coefficient 2 (autant que l'écrit). Cette pyramide donne au candidat une vision complète, ordonnée et rassurante de tout ce qu'il doit maîtriser sans se disperser.
 
+
+
+---
+
+# Fiches de Production — Visuels des Définitions (Sigles et Notions Clés)
+
+> Objectif : illustrer concrètement les définitions simples de la *Liste des Sigles et Acronymes* (section « Comprendre les sigles en images »). Chaque image montre la réalité du mécanisme (qui fait quoi, dans quel ordre) pour faciliter la mémorisation avant l'épreuve.
+
+---
+
+## IMG-REPORT-015
+
+**Section :**
+Liste des Sigles — Comprendre en images : Architecture de la Loi de Finances (LF, PLF, BGE, SEGMA, CST, CAS)
+
+**Texte associé :**
+La Loi de Finances comprend trois composantes : le Budget Général de l'État (BGE), les budgets des Services de l'État Gérés de Manière Autonome (SEGMA) et les Comptes Spéciaux du Trésor (CST), dont les Comptes d'Affectation Spéciale (CAS). Le PLF est déposé au plus tard le 20 octobre ; la loi de règlement (LR) arrête l'exécution ; la LFR modifie la LF en cours d'année.
+
+**Objectif visuel :**
+Faire comprendre en un coup d'œil que la Loi de Finances est un « contenant » à trois compartiments et situer le PLF, la LF, la LFR et la LR dans le cycle annuel.
+
+**Type :**
+Pedagogical Structure Diagram
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_015_def_architecture_loi_finances.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A clear pedagogical diagram explaining the structure of the Moroccan Finance Law (Loi de Finances) and its three budget components.
+
+CONTEXT: Definitions page of a study guide for the Moroccan Ministry of Economy and Finance State Engineer exam. Must make abstract budget vocabulary concrete and memorable.
+
+ENVIRONMENT: Clean off-white canvas (#FBFAF7) with a faint grid.
+
+ACTION: A large open institutional binder labeled "Loi de Finances (LF)" contains three clearly separated compartments with coins and document icons flowing into each.
+
+COMPOSITION: Center: the binder with three compartments, each with a short French caption:
+1. "Budget Général de l'État (BGE) — recettes et dépenses ordinaires"
+2. "Budgets des SEGMA — services publics avec recettes propres"
+3. "Comptes Spéciaux du Trésor (CST) — dont CAS : recettes réservées à une dépense précise"
+Bottom: a horizontal timeline with four labeled milestones: "PLF déposé au plus tard le 20 octobre" → "Vote du Parlement → LF publiée avant le 31 décembre" → "LFR : modification en cours d'année" → "Loi de Règlement (LR) : bilan définitif de l'exécution".
+Header: "Comprendre la Loi de Finances en 1 image".
+
+CAMERA: Frontal 2.5D view, balanced margins.
+
+LIGHTING: Soft studio light, gentle drop shadows.
+
+COLOR LANGUAGE: Deep navy (#0F3C6E) for the binder, gold (#F2B705) for BGE, teal (#2A9D8F) for SEGMA, cyan (#00B4D8) for CST, slate text (#2B2D42).
+
+VISUAL STYLE: Modern flat educational infographic, rounded cards, monoline icons, highly legible sans-serif French typography.
+
+BRANDING: Discreet Moroccan star emblem in the header corner.
+
+REALISM / QUALITY: Crisp vector rendering, perfectly readable French text, no spelling errors.
+
+NEGATIVE CONSTRAINTS: No cluttered tables, no fake numbers, no gibberish text, no cartoon characters, no dark background.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Question QCM récurrente (« les trois composantes de la LF ») : l'image évite toute confusion entre BGE, SEGMA, CST et CAS.
+
+---
+
+## IMG-REPORT-016
+
+**Section :**
+Liste des Sigles — Comprendre en images : La Chaîne de la Dépense Publique (TGR, GID, ordonnateur, comptable)
+
+**Texte associé :**
+Le ministère (ordonnateur) engage la dépense, la TGR (comptable public) contrôle et vise, l'ordonnateur ordonnance, la TGR paie le fournisseur. Toute la chaîne est dématérialisée dans le système GID ; les recettes sont suivies dans GIR.
+
+**Objectif visuel :**
+Montrer le parcours réel d'une dépense de l'État, de la commande au paiement, et le rôle précis de la TGR et du GID.
+
+**Type :**
+Process Flow Infographic
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_016_def_chaine_depense_gid_tgr.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A left-to-right process flow showing how a public expenditure is executed in Morocco, from commitment to payment, through the Treasury's integrated system.
+
+CONTEXT: Definitions page explaining TGR, GID and GIR for the Moroccan Ministry of Economy and Finance exam.
+
+ENVIRONMENT: Pure white canvas (#FFFFFF) with a subtle digital pipeline running across.
+
+ACTION: A document icon travels along a glowing pipeline through five numbered stations.
+
+COMPOSITION: Five stations with French labels:
+1. "Engagement — le ministère (ordonnateur) réserve les crédits"
+2. "Contrôle et visa — TGR (comptable public)"
+3. "Liquidation — service fait constaté"
+4. "Ordonnancement — ordre de payer émis par l'ordonnateur"
+5. "Paiement — virement de la TGR au fournisseur"
+Above the pipeline, a long translucent banner: "GID — Gestion Intégrée de la Dépense (tout est dématérialisé)". Below, a smaller parallel pipeline in reverse direction labeled "GIR — Gestion Intégrée des Recettes : suivi du recouvrement".
+Header: "La chaîne de la dépense publique".
+
+CAMERA: Frontal wide view, generous spacing between stations.
+
+LIGHTING: Clean soft light, subtle cyan glow on the pipeline.
+
+COLOR LANGUAGE: Navy (#0F3C6E) stations, cyan (#00B4D8) pipeline, mint (#2A9D8F) for validated steps, gold (#F2B705) for the payment step.
+
+VISUAL STYLE: Modern public-sector process infographic, numbered circles, monoline icons (stamp, calculator, signature, bank transfer).
+
+BRANDING: Small header mention "Trésorerie Générale du Royaume — Système GID".
+
+REALISM / QUALITY: Vector precision, fully legible French text.
+
+NEGATIVE CONSTRAINTS: No invented figures, no messy arrows, no unreadable text, no photographic people.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Question classique « différence entre DGI et TGR » et « qu'est-ce que le GID » : l'image rend le rôle de chacun évident.
+
+---
+
+## IMG-REPORT-017
+
+**Section :**
+Liste des Sigles — Comprendre en images : Qui collecte quel impôt ? (DGI, ADII, TGR, IR, IS, TVA, SIMPL, BADR)
+
+**Texte associé :**
+La DGI gère l'IS, l'IR et la TVA intérieure (portail SIMPL) ; l'ADII perçoit les droits de douane, la TVA à l'importation et la TIC (système BADR) ; la TGR recouvre les créances publiques et tient les comptes.
+
+**Objectif visuel :**
+Présenter les trois régies financières du MEF comme trois guichets distincts avec leurs impôts et leurs outils numériques.
+
+**Type :**
+Comparative Three-Column Infographic
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_017_def_regies_impots_dgi_adii_tgr.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: Three side-by-side institutional counters explaining which Moroccan financial administration handles which tax.
+
+CONTEXT: Definitions page for the Moroccan Ministry of Economy and Finance State Engineer exam (DGI, ADII, TGR, IR, IS, TVA).
+
+ENVIRONMENT: Clean off-white background (#FBFAF7).
+
+ACTION: Taxpayers (simple faceless pictograms: an employee, a company building, a cargo container) are directed by arrows to the correct counter.
+
+COMPOSITION: Three vertical columns with a header card each:
+Column 1 "DGI — Direction Générale des Impôts": items "IR : impôt sur le revenu (salariés, professionnels)", "IS : impôt sur le bénéfice des sociétés", "TVA intérieure : taxe payée par le consommateur final", tool badge "SIMPL : déclaration et paiement en ligne".
+Column 2 "ADII — Douanes et Impôts Indirects": items "Droits de douane", "TVA à l'importation", "TIC : carburants, tabac...", tool badge "BADR : dédouanement dématérialisé".
+Column 3 "TGR — Trésorerie Générale du Royaume": items "Recouvrement des créances publiques", "Paiement des dépenses de l'État", "Comptabilité de l'État et des collectivités", tool badge "GID / GIR".
+Footer: "Les trois régies financières du MEF".
+
+CAMERA: Frontal, symmetrical three-column layout.
+
+LIGHTING: Even soft light, light card shadows.
+
+COLOR LANGUAGE: DGI navy (#0F3C6E), ADII teal (#00838F), TGR gold (#B78103), neutral slate text.
+
+VISUAL STYLE: Flat educational infographic, rounded cards, clean icons (receipt, container ship, vault).
+
+BRANDING: Discreet header "Ministère de l'Économie et des Finances".
+
+REALISM / QUALITY: Sharp vector output, perfectly readable French labels.
+
+NEGATIVE CONSTRAINTS: No tax rates or invented numbers, no clutter, no gibberish, no stock photos.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Évite la confusion la plus fréquente des candidats entre les trois régies financières.
+
+---
+
+## IMG-REPORT-018
+
+**Section :**
+Liste des Sigles — Comprendre en images : Comment fonctionne la TVA ?
+
+**Texte associé :**
+La TVA est un impôt indirect sur la consommation : chaque entreprise collecte la TVA sur ses ventes, déduit la TVA payée sur ses achats et reverse la différence ; le consommateur final supporte la totalité de la taxe (taux normal 20 %).
+
+**Objectif visuel :**
+Illustrer le mécanisme de collecte et de déduction de la TVA le long d'une chaîne de production simple.
+
+**Type :**
+Value Chain Explainer
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_018_def_mecanisme_tva.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A simple value-chain explainer of how VAT (TVA) works, from producer to final consumer.
+
+CONTEXT: Definitions page for a Moroccan public finance exam; must be understandable by a beginner.
+
+ENVIRONMENT: White canvas (#FFFFFF), light horizontal ground line.
+
+ACTION: A product (a loaf of bread icon or a generic box) moves through three businesses to a consumer; at each step a small coin stack labeled "TVA" goes to a state vault.
+
+COMPOSITION: Four stages from left to right with French labels:
+1. "Producteur : collecte la TVA sur sa vente"
+2. "Grossiste : collecte la TVA sur sa vente, déduit la TVA payée sur ses achats"
+3. "Détaillant : reverse seulement la différence"
+4. "Consommateur final : paie la totalité de la TVA"
+On the right, a vault labeled "DGI — recettes de TVA". A clear formula banner at the bottom: "TVA à reverser = TVA collectée − TVA déductible". Small note: "Taux normal : 20 %".
+Header: "La TVA : un impôt payé par le consommateur, collecté par les entreprises".
+
+CAMERA: Frontal wide shot, even spacing.
+
+LIGHTING: Soft, bright, friendly.
+
+COLOR LANGUAGE: Navy (#0F3C6E), mint (#2A9D8F) for deductions, gold (#F2B705) for coins, slate text.
+
+VISUAL STYLE: Flat educational infographic with simple pictograms and clear arrows.
+
+BRANDING: None besides a small "MEF — Fiscalité" tag.
+
+REALISM / QUALITY: Crisp vector, perfectly legible French, correct formula text.
+
+NEGATIVE CONSTRAINTS: No invented amounts beyond "20 %", no clutter, no gibberish, no cartoon faces.
+```
+
+**Priorité :**
+🟠 PRIORITÉ 2 — IMPORTANTE
+
+**Justification :**
+La TVA est au cœur de la réforme fiscale (loi-cadre 69-19) et revient en QCM.
+
+---
+
+## IMG-REPORT-019
+
+**Section :**
+Liste des Sigles — Comprendre en images : Le Cycle de la Performance (LOF, GAR, PBT, PdP, RdP, 3E)
+
+**Texte associé :**
+La LOF 130-13 impose une gestion axée sur les résultats (GAR) : programmation triennale (PBT), projet de performance (PdP) avec objectifs et indicateurs, exécution, rapport de performance (RdP), audit et ajustement. Les « 3E » : économie, efficience, efficacité.
+
+**Objectif visuel :**
+Représenter la performance budgétaire comme un cycle continu et définir visuellement les 3E.
+
+**Type :**
+Circular Cycle Diagram
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_019_def_cycle_performance_gar_3e.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A circular management cycle showing performance-based budgeting under Morocco's Organic Finance Law 130-13.
+
+CONTEXT: Definitions page explaining GAR, PBT, PdP, RdP and the "3E" for a Moroccan Ministry of Economy and Finance exam.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: Five stations arranged on a clockwise circular arrow.
+
+COMPOSITION: Left two-thirds: the cycle with French labels:
+1. "Programmer sur 3 ans (PBT)"
+2. "Fixer objectifs et indicateurs (Projet de Performance — PdP)"
+3. "Exécuter le budget-programme"
+4. "Rendre compte des résultats (Rapport de Performance — RdP)"
+5. "Contrôler et ajuster (IGF, Cour des comptes, Parlement)"
+Center of the circle: "GAR — Gestion Axée sur les Résultats".
+Right third: three stacked cards titled "Les 3E":
+"Économie : les moyens au meilleur coût",
+"Efficience : le plus de résultats avec ces moyens",
+"Efficacité : les objectifs sont atteints".
+Header: "LOF 130-13 : de la logique de moyens à la logique de résultats".
+
+CAMERA: Frontal, balanced composition.
+
+LIGHTING: Soft studio light.
+
+COLOR LANGUAGE: Navy (#0F3C6E), teal (#00838F), gold (#B78103), mint (#2A9D8F).
+
+VISUAL STYLE: Executive consulting-style infographic, monoline icons (calendar, target, gauge, report, magnifier).
+
+BRANDING: Small emblem-free header tag "MEF — Direction du Budget".
+
+REALISM / QUALITY: Vector crispness, flawless French typography.
+
+NEGATIVE CONSTRAINTS: No fake statistics, no clutter, no gibberish, no dark theme.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+La performance (LOF, 3E) a été un sujet posé en 2025 et structure de nombreuses questions.
+
+---
+
+## IMG-REPORT-020
+
+**Section :**
+Liste des Sigles — Comprendre en images : Carte des Institutions de Contrôle et de Régulation (IGF, Cour des comptes, BAM, AMMC, ACAPS, CNDP, DGSSI)
+
+**Texte associé :**
+Contrôle des finances publiques : IGF (contrôle interne du MEF), Cour des comptes (contrôle supérieur externe). Régulation financière : BAM (banques et monnaie), AMMC (marché des capitaux), ACAPS (assurances). Données et sécurité : CNDP (données personnelles), DGSSI (cybersécurité).
+
+**Objectif visuel :**
+Classer visuellement les organes selon leur mission : contrôler l'argent public, réguler la finance, protéger les données.
+
+**Type :**
+Institutional Map
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_020_def_carte_institutions_controle_regulation.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: An institutional map grouping Moroccan control and regulatory bodies into three families.
+
+CONTEXT: Definitions page for a Moroccan Ministry of Economy and Finance exam.
+
+ENVIRONMENT: White canvas (#FFFFFF) with three soft rounded zones.
+
+ACTION: Each institution appears as a building-shaped card with a one-line French mission.
+
+COMPOSITION: Three zones:
+Zone 1 "Contrôler l'argent public": "IGF — inspection interne rattachée au Ministre des Finances", "Cour des comptes — contrôle supérieur externe et juge des comptes".
+Zone 2 "Réguler la finance": "BAM — banque centrale : monnaie, taux directeur, banques", "AMMC — marché des capitaux et Bourse", "ACAPS — assurances et retraites".
+Zone 3 "Protéger les données et les systèmes": "CNDP — protection des données personnelles (loi 09-08)", "DGSSI — cybersécurité de l'État (loi 05-20, DNSSI)".
+Header: "Qui contrôle ? Qui régule ? Qui protège ?".
+
+CAMERA: Frontal, clean three-zone layout.
+
+LIGHTING: Soft even light.
+
+COLOR LANGUAGE: Zone 1 navy (#0F3C6E), Zone 2 gold (#B78103), Zone 3 cyan (#00B4D8), slate text.
+
+VISUAL STYLE: Modern civic infographic with simple building and shield icons.
+
+BRANDING: None besides a small "Institutions du Royaume" tag.
+
+REALISM / QUALITY: Vector crispness, legible French text.
+
+NEGATIVE CONSTRAINTS: No logos imitated from real institutions, no portraits, no gibberish, no clutter.
+```
+
+**Priorité :**
+🟠 PRIORITÉ 2 — IMPORTANTE
+
+**Justification :**
+Les QCM mélangent souvent ces organes ; la carte les classe par mission.
+
+---
+
+## IMG-REPORT-021
+
+**Section :**
+Liste des Sigles — Comprendre en images : Déficit, Dette, PIB et Inflation
+
+**Texte associé :**
+Le PIB mesure la richesse produite en un an. Le déficit budgétaire est l'écart annuel entre dépenses et recettes de l'État ; il est financé par l'emprunt et s'accumule dans la dette. Les deux sont exprimés en % du PIB. L'inflation (mesurée par l'IPC du HCP) est la hausse générale des prix ; BAM la combat avec le taux directeur.
+
+**Objectif visuel :**
+Montrer la différence entre un flux (déficit) et un stock (dette) grâce à l'image d'un robinet et d'un réservoir, et relier inflation et taux directeur.
+
+**Type :**
+Conceptual Metaphor Infographic
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_021_def_deficit_dette_pib_inflation.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A conceptual metaphor infographic explaining GDP, budget deficit, public debt and inflation.
+
+CONTEXT: Definitions page for beginners preparing a Moroccan public finance exam.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: Left: a water tap labeled "Déficit (flux annuel) = dépenses − recettes" pours water into a large tank labeled "Dette publique (stock accumulé)". Beside them, a large bar labeled "PIB : richesse produite en un an" serves as a ruler, with the note "Déficit et dette s'expriment en % du PIB". Right: a shopping basket with an upward arrow labeled "Inflation : hausse générale des prix (IPC — HCP)" connected to a control dial labeled "Taux directeur de Bank Al-Maghrib" with the caption "Hausse du taux → crédit plus cher → demande freinée → prix stabilisés".
+Header: "Déficit, dette, PIB, inflation : les 4 notions à ne jamais confondre".
+
+CAMERA: Frontal, two balanced halves.
+
+LIGHTING: Bright soft light.
+
+COLOR LANGUAGE: Navy (#0F3C6E), cyan water (#00B4D8), gold (#F2B705) for the PIB ruler, red accent (#C0392B) for inflation arrow.
+
+VISUAL STYLE: Clean educational editorial illustration, simple shapes.
+
+BRANDING: Small "MEF — Notions macroéconomiques" tag.
+
+REALISM / QUALITY: Crisp vector, perfectly readable French.
+
+NEGATIVE CONSTRAINTS: No invented figures, no clutter, no gibberish, no dramatic imagery.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Ces notions structurent les sujets « inflation » (2022) et « déficit / relance » : les confondre est éliminatoire.
+
+---
+
+## IMG-REPORT-022
+
+**Section :**
+Liste des Sigles — Comprendre en images : L'État Social (RNP, RSU, AMO, AMO Tadamon, ASD, CNSS)
+
+**Texte associé :**
+Le RNP donne un identifiant unique à chaque personne ; le RSU calcule un indice socio-économique par ménage ; sous le seuil, le ménage bénéficie de l'AMO Tadamon (cotisations payées par l'État) et de l'Aide Sociale Directe (au moins 500 DH/mois). La CNSS gère l'essentiel de l'AMO.
+
+**Objectif visuel :**
+Montrer le parcours d'une famille, de l'identification jusqu'aux aides, et définir chaque sigle à son étape.
+
+**Type :**
+Citizen Journey Infographic
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_022_def_etat_social_rnp_rsu_amo_asd.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A citizen journey showing how a Moroccan household accesses social protection through digital targeting.
+
+CONTEXT: Definitions page explaining RNP, RSU, AMO, AMO Tadamon, ASD and CNSS.
+
+ENVIRONMENT: Warm off-white canvas (#FBFAF7).
+
+ACTION: A simple faceless family pictogram walks along a path through four stations.
+
+COMPOSITION: Four stations with French labels:
+1. "RNP — Registre National de la Population : un identifiant numérique unique"
+2. "RSU — Registre Social Unifié : un indice socio-économique par ménage"
+3. "Seuil d'éligibilité : le ménage est-il vulnérable ?"
+4. Two branches: "AMO Tadamon — soins remboursés, cotisations payées par l'État" and "ASD — Aide Sociale Directe : au moins 500 DH par mois".
+A side card: "CNSS — gère l'essentiel de l'AMO généralisée". Footer banner: "Loi-cadre 09-21 : généralisation de la protection sociale".
+Header: "Comment une famille accède à la protection sociale".
+
+CAMERA: Slight 2.5D elevated frontal view.
+
+LIGHTING: Warm soft light.
+
+COLOR LANGUAGE: Navy (#0F3C6E), mint (#2A9D8F), gold (#F2B705), soft coral accent (#E76F51).
+
+VISUAL STYLE: Friendly but institutional flat infographic, rounded shapes, clear icons (ID card, database, scale, health cross, coins).
+
+BRANDING: Small "Royaume du Maroc — État social" tag.
+
+REALISM / QUALITY: Vector crispness, readable French text.
+
+NEGATIVE CONSTRAINTS: No realistic faces, no invented statistics beyond "500 DH", no gibberish, no clutter.
+```
+
+**Priorité :**
+🟠 PRIORITÉ 2 — IMPORTANTE
+
+**Justification :**
+La protection sociale est le thème le plus fréquent toutes catégories de concours MEF confondues (2022, 2025).

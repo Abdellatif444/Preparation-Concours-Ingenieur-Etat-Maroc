@@ -109,6 +109,13 @@
 \newunicodechar{⚪}{\textcolor{gray!60!black}{\textbf{\large$\circ$}}}
 \emergencystretch=2em
 
+% Tous les encadrés peuvent se poursuivre sur la page suivante (évite le texte coupé)
+\tcbset{breakable}
+
+% Encadré multi-pages pour les dissertations rédigées (copies modèles)
+\newtcolorbox{copiemodele}[1]{breakable, enhanced, colback=green!3!white, colframe=green!40!black, fonttitle=\bfseries, title={Copie modèle rédigée --- #1}, before upper={\setlength{\parskip}{0.6em}}}
+\newcommand{\partiecopie}[1]{\par\medskip{\color{green!40!black}\textbf{#1}}\par}
+
 \geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
 \counterwithin{figure}{chapter}
 \renewcommand{\thefigure}{\thechapter-\arabic{figure}}
