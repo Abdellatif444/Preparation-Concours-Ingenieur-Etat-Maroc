@@ -24,6 +24,8 @@ Chaque visuel a une fonction pédagogique précise : ancrage mémoriel, clarific
 | **IMG-REPORT-010** | Chapitre 4 (Fiche 1) | Organisation et Directions du MEF | Cartographie fonctionnelle des pôles opérationnels du MEF | `images/img_010_mef_poles_organigramme.png` | 16:9 | Ecosystem Topology Map | À générer | 🔴 |
 | **IMG-REPORT-011** | Chapitre 4 (Fiche 3) | Calendrier Budgétaire LOF 130-13 | Frise des 4 jalons constitutionnels du PLF (20 oct.) | `images/img_011_lof_calendrier_budgetaire.png` | 16:9 | Milestone Roadmap Infographic | À générer | 🔴 |
 | **IMG-REPORT-012** | Chapitre 5 | Planning Commando J-3 | Matrice d'urgence 72h heure par heure avant le 20 septembre | `images/img_012_planning_commando_j3_matrice.png` | 16:9 | Tactical Schedule Dashboard | À générer | 🔴 |
+| **IMG-REPORT-013** | Chapitre 1 (1.5) | Stratégie Documentaire et Veille Critique | Entonnoir budgétaire (Budget Citoyen $\rightarrow$ REF) et prisme d'audit (Cour des Comptes) | `images/img_013_strategie_documentaire_audit_pyramide.png` | 16:9 | Funnel & Audit Prism Infographic | À générer | 🔴 |
+| **IMG-REPORT-014** | Chapitre 1 (1.6) | Préparation Épreuve Orale (Approche Top-Down) | Pyramide d'excellence des 11 piliers de l'oral (Posture, Métier, MEF, Gouvernance) | `images/img_014_oral_mef_approche_topdown_11piliers.png` | 16:9 | Pyramid Roadmap Infographic | À générer | 🔴 |
 
 ---
 
@@ -821,3 +823,151 @@ NEGATIVE CONSTRAINTS: Avoid anxious or chaotic imagery, messy handwritten sticky
 
 **Justification :**
 Ce planning est le fil conducteur opérationnel du candidat pour les dernières 72 heures avant le 20 septembre, évitant le piège de la panique et de la surcharge cognitive.
+
+---
+
+## IMG-REPORT-013
+
+**Section :**
+Chapitre 1 : Structure de l'Épreuve Écrite et Méthodologie de Réussite — 1.5 Stratégie Documentaire et Veille Critique
+
+**Texte associé :**
+Méthode de lecture budgétaire graduée (Budget Citoyen de la DB pour l'initiation, Note de présentation du PLF pour le cadrage macro et les réformes fiscales, et Rapport Économique et Financier - REF de la DEPF pour l'analyse approfondie), couplée aux rapports de contrôle et d'audit (Cour des Comptes, CESE, CSMD, PCNS) pour dépasser la simple paraphrase institutionnelle et identifier les réels dysfonctionnements structurels dans la sous-partie I.B de la dissertation. Matrice de fiches de lecture en 4 quadrants.
+
+**Objectif visuel :**
+Visualiser l'entonnoir d'acquisition documentaire (des documents grand public aux rapports analytiques lourds) et le prisme d'esprit critique (audit externe / Cour des Comptes) permettant de transformer une description passive en une analyse critique d'ingénieur.
+
+**Type :**
+Funnel & Audit Prism Infographic / Critical Documentary Architecture
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_013_strategie_documentaire_audit_pyramide.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A high-clarity methodological infographic illustrating the 3-tier public finance documentary hierarchy crossed with an independent audit critical filter.
+
+CONTEXT: Civil service exam preparation for Moroccan State Engineers at the Ministry of Economy and Finance. Focus on analytical rigor, critical scrutiny of public policies, and synthesizing high-level economic reports.
+
+ENVIRONMENT: Ultra-clean executive canvas on pure white (#FFFFFF) with subtle grey baseline architectural grid, ample negative space.
+
+ACTION: Visual reading funnel on the left converging into a critical prism in the center, outputting structured 4-quadrant engineering reading sheets on the right.
+
+COMPOSITION: Symmetrical three-part horizontal workflow with prominent French typography:
+1. Left Section (L'Entonnoir Documentaire Gradué):
+   - Level 1 (Top / Widest): Light Blue card (#E1F5FE) labeled "1. Budget Citoyen (DB — Direction du Budget)" with subtitle "Vulgarisation & Pédagogie Fondamentale".
+   - Level 2 (Middle): Medium Navy card (#1976D2) labeled "2. Note de Présentation du PLF" with subtitle "Cadrage Macroéconomique & Mesures Phares de l'Année".
+   - Level 3 (Deepest / Core): Deep Sovereign Navy card (#0F3C6E) labeled "3. Rapport Économique et Financier (DEPF)" with subtitle "Projections Structurelles & Analyse Sectorielle".
+2. Central Section (Le Prisme d'Audit & Esprit Critique):
+   - A crystalline hexagonal prism icon with an analytical magnifying glass and golden balance scales, labeled "Le Prisme d'Audit Critique : Cour des Comptes, CESE, CSMD, PCNS".
+   - An explanatory callout badge reading "Dépassement de la Simple Description -> Identification des Dysfonctionnements & Contraintes Réelles (Sous-partie I.B)".
+3. Right Section (La Matrice de Restitution en 4 Quadrants):
+   - A neat 2x2 grid representing an executive reading sheet:
+     * Quadrant 1 (Navy): "1. Cadre Légal & Définitions Fondatrices"
+     * Quadrant 2 (Gold): "2. Chiffres Clés & Ordres de Grandeur"
+     * Quadrant 3 (Coral Red): "3. Contraintes & Défaillances Pointées par l'Audit"
+     * Quadrant 4 (Mint Green): "4. Recommandations d'Ingénierie & Leviers MEF"
+At the top, an institutional banner reads: "Stratégie Documentaire de l'Ingénieur : Du Budget Citoyen à l'Audit Critique".
+
+CAMERA: Frontal 2D orthographic diagram view, perfectly balanced spacing, generous margins.
+
+LIGHTING: Pure diffuse studio lighting, crisp contrast, no harsh specular highlights.
+
+COLOR LANGUAGE: Institutional analytical palette: Sovereign Navy (#0F3C6E), analytical Cyan (#00B4D8), audit Gold (#D4AF37), alert Coral (#E65100), operational Mint Green (#2A9D8F), pure white cards (#FFFFFF).
+
+VISUAL STYLE: High-end editorial technical infographic (McKinsey Insights / Harvard Kennedy School policy briefing style), crisp monoline vector iconography, Swiss typography in French.
+
+BRANDING: Discrete Moroccan star emblem at the apex of the central audit prism.
+
+REALISM / QUALITY: Vector perfection, 100% sharp text readability, zero chromatic aberration or artifacts.
+
+NEGATIVE CONSTRAINTS: Avoid messy unorganized book piles, crumpled papers, dark moody backgrounds, illegible pseudo-latin text, low-resolution raster artifacts.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Ce schéma ancre visuellement la méthode recommandée par les lauréats pour construire une dissertation analytique et percutante, en exploitant les rapports de la Cour des Comptes pour briller sur la partie critique (I.B).
+
+---
+
+## IMG-REPORT-014
+
+**Section :**
+Chapitre 1 : Structure de l'Épreuve Écrite et Méthodologie de Réussite — 1.6 Préparation Complète de l'Épreuve Orale : L'Approche « Top-Down » de l'Ingénieur d'État
+
+**Texte associé :**
+Feuille de route en 11 piliers de l'épreuve orale du concours MEF (coefficient 3) selon l'approche « Top-Down » des lauréats : du socle personnel (Pitch 3 min, CV méthode STAR, PFE et transposabilité MEF, motivations pour le service public) à la maîtrise technique, la connaissance institutionnelle nominative du ministère (Mme Nadia Fettah Alaoui, M. Fouzi Lekjaa, directeurs DGI, TGR, Douanes, DB, DTFE), les chiffres clés de l'économie, et le cadre régalien (LOF sur `lof.finances.gov.ma`, marchés publics, audit IGF, déontologie et secret professionnel).
+
+**Objectif visuel :**
+Offrir une pyramide d'excellence mémotechnique structurant les 11 piliers de l'entretien oral, permettant au candidat de visualiser instantanément l'architecture globale de sa préparation pour l'épreuve finale.
+
+**Type :**
+Pyramid Roadmap Infographic / Strategic Oral Examination Blueprint
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_014_oral_mef_approche_topdown_11piliers.png`
+
+**Prompt Flow :**
+```text
+SUBJECT: A prestigious 4-tier architectural pyramid infographic detailing the 11-pillar "Top-Down" oral examination roadmap for Moroccan State Engineers at the Ministry of Economy and Finance.
+
+CONTEXT: Final oral interview (Commission de Recrutement MEF, coefficient 3). Demonstrates complete candidate readiness: personal conviction, technical expertise, institutional command, and civil service ethics.
+
+ENVIRONMENT: Pristine executive white canvas (#FFFFFF) with refined gold and navy structural borders.
+
+ACTION: Upward progression through four stacked horizontal tiers organizing the 11 core pillars into an integrated pyramid of excellence.
+
+COMPOSITION: Centered 4-level ascending pyramid flanked by clean callout cards with French labels:
+1. Level 1 Base (Socle 1 : Fondations Personnelles & Posture — 4 Piliers) [Deep Navy #0F3C6E]:
+   - Pillar 1: "1. Pitch de Présentation (2-3 min chrono sans récitation)"
+   - Pillar 2: "2. CV & Méthode STAR (Situation, Tâche, Action, Résultat)"
+   - Pillar 3: "3. PFE & Transposabilité aux Besoins du MEF (Data, SI, Process)"
+   - Pillar 4: "4. Motivation & Conviction du Service Public (Pourquoi le MEF, Défauts/Qualités)"
+2. Level 2 (Socle 2 : Maîtrise Technique & Ingénierie — 1 Pilier Majeur) [Teal/Cyan #00838F]:
+   - Pillar 5: "5. Socle Scientifique & Informatique (SI, Cloud, Cybersécurité, Algorithmes, Honnêteté Intellectuelle)"
+3. Level 3 (Socle 3 : Écosystème MEF & Macroéconomie — 3 Piliers) [Refined Gold #B78103]:
+   - Pillar 6: "6. Organigramme Nominatif MEF (Mme Fettah Alaoui, M. Lekjaa, Dir. DGI, TGR, ADII, DB, DTFE)"
+   - Pillar 7: "7. Actualité Économique Nationale & Internationale (Stress Hydrique, Dette, Inflation)"
+   - Pillar 8: "8. Chiffres Clés de l'Économie (PIB, Croissance 3.4%, Inflation 1.5%, Chômage HCP, Déficit 4%)"
+4. Level 4 Apex (Sommet 4 : Cadre Légal, Régulation & Déontologie — 3 Piliers) [Imperial Ruby / Purple #4A148C]:
+   - Pillar 9: "9. Finances Publiques & LOF (Portail lof.finances.gov.ma, Décret Marchés Publics 2-22-431)"
+   - Pillar 10: "10. Mises en Situation & Déontologie (Mobilité, Secret Professionnel, Réserve)"
+   - Pillar 11: "11. Domaines Adjacents (Secteur Bancaire BAM, Audit IGF, Hiérarchie des Normes)"
+At the apex above the pyramid floats a seal of state excellence reading: "Ingénieur d'État du MEF : Rigueur Scientifique & Éthique Publique".
+Header bar: "Épreuve Orale du MEF — La Pyramide des 11 Piliers (Approche Top-Down)".
+
+CAMERA: Eye-level frontal diagram view, majestic structural symmetry, ample margins.
+
+LIGHTING: High-contrast digital studio lighting, subtle elevation shadows giving slight 2.5D depth to the pyramid steps.
+
+COLOR LANGUAGE: Moroccan royal civil service palette: Deep Sovereign Navy (#0F3C6E), Tech Teal (#00838F), Executive Gold (#B78103), Noble Amethyst (#4A148C), pure white (#FFFFFF).
+
+VISUAL STYLE: Modern corporate leadership infographic (McKinsey / ENA / French Grand Corps executive framework style), crisp monoline icons, Swiss font hierarchy in French.
+
+BRANDING: Official emblem of the Kingdom of Morocco subtly placed at the apex.
+
+REALISM / QUALITY: Vector perfection, 100% legible typography, flawless geometric symmetry.
+
+NEGATIVE CONSTRAINTS: Avoid casual job interview cartoons, stress/nervousness tropes, cluttered mind maps, blurry low-res text, skewed perspectives.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+L'épreuve orale est coefficient 3. Cette pyramide donne au candidat une vision complète, ordonnée et rassurante de tout ce qu'il doit maîtriser sans se disperser.
+
