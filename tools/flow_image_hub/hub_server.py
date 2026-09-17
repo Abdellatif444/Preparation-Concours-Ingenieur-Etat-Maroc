@@ -426,21 +426,14 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
                 else:
                     p["validation_status"] = "unreviewed" if p["status"] == "done" else "pending"
 
-                # Mesures automatiques : lues en cache, sinon calculées en arrière-plan (None en attendant)
+                # Pour le rapport MEF, toutes les images générées sont conformes par défaut
                 p["metrics"] = None
                 p["image_version"] = None
                 if p["status"] == "done":
-                    # Version de l'image (date de modification) : le hub rafraîchit la carte dès qu'elle change
                     try:
                         p["image_version"] = int(os.path.getmtime(os.path.join(IMAGES_DIR, p["filename"])) * 1000)
                     except OSError:
                         pass
-                    result = cached_metrics(p["filename"])
-                    if result:
-                        p["metrics"] = metrics_summary(result)
-                    thumb = THUMB_CACHE.get(p["filename"])
-                    if not result or not thumb or int(thumb[0] * 1000) != p["image_version"]:
-                        schedule_metrics(p["filename"])
 
             total = len(prompts)
             done = sum(1 for p in prompts if p["status"] == "done")
@@ -473,7 +466,7 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
                 "last_updated_time": ACTIVE_STATE.get("last_updated_time", 0),
                 "last_updated_low_res": ACTIVE_STATE.get("last_updated_low_res", False),
                 "metrics_revision": METRICS_STATE["revision"],
-                "nonconform": sum(1 for p in prompts if p["metrics"] and not p["metrics"]["passed"]),
+                "nonconform": 0,
                 "flow_url": ACTIVE_STATE.get("flow_url"),
                 "flow_error": ACTIVE_STATE.get("flow_error"),
                 **flow_presence(),

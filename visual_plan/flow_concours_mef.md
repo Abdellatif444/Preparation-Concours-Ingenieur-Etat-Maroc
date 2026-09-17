@@ -4,7 +4,7 @@ Ce plan visuel définit l'ensemble des spécifications et des prompts profession
 
 Chaque visuel a une fonction pédagogique précise : ancrage mémoriel, clarification de schémas institutionnels complexes, chronologie tactique d'épreuve, pipelines de données publiques et architecture des systèmes d'information étatiques.
 
-> **Note linguistique :** Tous les prompts Flow sont rédigés intégralement en **français**, garantissant ainsi une parfaite fidélité terminologique à l'administration marocaine, aux textes de lois (LOF 130-13, lois-cadres) et aux acronymes officiels du MEF (DGI, TGR, ADII, GID, RSU, etc.).
+> **Spécification linguistique optimale pour Google Flow / Imagen :** Les prompts d'ingénierie visuelle (style, éclairage, cadrage, composition, couleurs, contraintes négatives) sont formulés en **anglais** pour maximiser le rendu graphique et la richesse des détails sous Flow, tandis que **tous les textes, labels, titres institutionnels et étiquettes apparaissant dans les images sont strictement rédigés en français** (entre guillemets).
 
 ---
 
@@ -12,22 +12,22 @@ Chaque visuel a une fonction pédagogique précise : ancrage mémoriel, clarific
 
 | ID | Section | Passage associé | Objectif visuel | Nom fichier | Ratio | Type | Statut | Priorité |
 | :--- | :--- | :--- | :--- | :--- | :---: | :--- | :---: | :---: |
-| **IMG-REPORT-001** | Chapitre 0 (Intro) | Rôle de l'Ingénieur d'État au MEF | Écosystème des SI financiers étatiques (GID, GIR, BADR, SIMPL) | `images/img_001_intro_ecosysteme_si_mef.png` | 16:9 | Architecture Isométrique | À générer | 🔴 |
-| **IMG-REPORT-002** | Chapitre 1 (1.3) | Chrono 3h de l'épreuve écrite | Découpage tactique des 180 min (15m/30m/15m/105m/15m) | `images/img_002_methodo_chrono_3h.png` | 16:9 | Frise Chronologique Éditoriale | À générer | 🔴 |
-| **IMG-REPORT-003** | Chapitre 1 (1.4) | Structure canonique de la dissertation | Matrice du plan binaire équilibré (I. Diagnostic / II. Stratégie) | `images/img_003_methodo_plan_binaire_structure.png` | 16:9 | Schéma Analytique Modulaire | À générer | 🔴 |
-| **IMG-REPORT-004** | Chapitre 2 (2.1) | Maroc Digital 2030 (Sujet 2024) | Piliers et catalyseurs de la stratégie numérique 2030 | `images/img_004_digital_maroc_2030_pillars.png` | 16:9 | Schéma Stratégique Vectoriel | À générer | 🔴 |
-| **IMG-REPORT-005** | Chapitre 2 (2.2) | Transition Énergétique (Sujet 2024) | Mix électrique 52% EnR et filière Hydrogène Vert | `images/img_005_energie_mix_hydrogene_maroc.png` | 16:9 | Flux Énergétique Technique | À générer | 🟠 |
-| **IMG-REPORT-006** | Chapitre 2 (2.3) | Inflation et Politique Monétaire | Canal du taux directeur BAM et régulation des prix | `images/img_006_macro_inflation_bam_transmission.png` | 16:9 | Schéma Macroéconomique | À générer | 🟠 |
-| **IMG-REPORT-007** | Chapitre 2 (2.4) | Dette Publique et Déficit Budgétaire | Trajectoire de consolidation vers 3% du PIB et leviers MEF | `images/img_007_budget_dette_deficit_trajectoire.png` | 16:9 | Tableau de Bord Budgétaire | À générer | 🟠 |
-| **IMG-REPORT-008** | Chapitre 2 (2.5) | Protection Sociale & Ciblage RSU | Parcours de ciblage RNP $\rightarrow$ RSU $\rightarrow$ AMO / ASD | `images/img_008_social_rsu_ciblage_pipeline.png` | 16:9 | Pipeline de Données Publiques | À générer | 🔴 |
-| **IMG-REPORT-009** | Chapitre 2 (2.6) | Nouvelle Charte de l'Investissement | Inversion du ratio 2/3 privé et régimes de primes | `images/img_009_investissement_charte_ratio.png` | 16:9 | Infographie Comparative | À générer | 🟠 |
-| **IMG-REPORT-010** | Chapitre 4 (Fiche 1) | Organisation et Directions du MEF | Cartographie fonctionnelle des pôles opérationnels du MEF | `images/img_010_mef_poles_organigramme.png` | 16:9 | Organigramme Institutionnel | À générer | 🔴 |
-| **IMG-REPORT-011** | Chapitre 4 (Fiche 3) | Calendrier Budgétaire LOF 130-13 | Frise des 4 jalons constitutionnels du PLF (20 oct.) | `images/img_011_lof_calendrier_budgetaire.png` | 16:9 | Frise Budgétaire Constitutionnelle | À générer | 🔴 |
-| **IMG-REPORT-012** | Chapitre 5 | Planning Commando J-3 | Matrice d'urgence 72h heure par heure avant le 20 septembre | `images/img_012_planning_commando_j3_matrice.png` | 16:9 | Tableau de Bord Tactique | À générer | 🔴 |
+| **IMG-REPORT-001** | Chapitre 0 (Intro) | Rôle de l'Ingénieur d'État au MEF | Écosystème des SI financiers étatiques (GID, GIR, BADR, SIMPL) | `images/img_001_intro_ecosysteme_si_mef.png` | 16:9 | Isometric Enterprise Architecture | À générer | 🔴 |
+| **IMG-REPORT-002** | Chapitre 1 (1.3) | Chrono 3h de l'épreuve écrite | Découpage tactique des 180 min (15m/30m/15m/105m/15m) | `images/img_002_methodo_chrono_3h.png` | 16:9 | Editorial Timeline Infographic | À générer | 🔴 |
+| **IMG-REPORT-003** | Chapitre 1 (1.4) | Structure canonique de la dissertation | Matrice du plan binaire équilibré (I. Diagnostic / II. Stratégie) | `images/img_003_methodo_plan_binaire_structure.png` | 16:9 | Modular Analytical Card | À générer | 🔴 |
+| **IMG-REPORT-004** | Chapitre 2 (2.1) | Maroc Digital 2030 (Sujet 2024) | Piliers et catalyseurs de la stratégie numérique 2030 | `images/img_004_digital_maroc_2030_pillars.png` | 16:9 | Pedagogical Flat Diagram | À générer | 🔴 |
+| **IMG-REPORT-005** | Chapitre 2 (2.2) | Transition Énergétique (Sujet 2024) | Mix électrique 52% EnR et filière Hydrogène Vert | `images/img_005_energie_mix_hydrogene_maroc.png` | 16:9 | Technical Energy Flow | À générer | 🟠 |
+| **IMG-REPORT-006** | Chapitre 2 (2.3) | Inflation et Politique Monétaire | Canal du taux directeur BAM et régulation des prix | `images/img_006_macro_inflation_bam_transmission.png` | 16:9 | Macroeconomic Flow Diagram | À générer | 🟠 |
+| **IMG-REPORT-007** | Chapitre 2 (2.4) | Dette Publique et Déficit Budgétaire | Trajectoire de consolidation vers 3% du PIB et leviers MEF | `images/img_007_budget_dette_deficit_trajectoire.png` | 16:9 | Financial Dashboard Infographic | À générer | 🟠 |
+| **IMG-REPORT-008** | Chapitre 2 (2.5) | Protection Sociale & Ciblage RSU | Parcours de ciblage RNP $\rightarrow$ RSU $\rightarrow$ AMO / ASD | `images/img_008_social_rsu_ciblage_pipeline.png` | 16:9 | Data Journey Architecture | À générer | 🔴 |
+| **IMG-REPORT-009** | Chapitre 2 (2.6) | Nouvelle Charte de l'Investissement | Inversion du ratio 2/3 privé et régimes de primes | `images/img_009_investissement_charte_ratio.png` | 16:9 | Comparative Infographic | À générer | 🟠 |
+| **IMG-REPORT-010** | Chapitre 4 (Fiche 1) | Organisation et Directions du MEF | Cartographie fonctionnelle des pôles opérationnels du MEF | `images/img_010_mef_poles_organigramme.png` | 16:9 | Ecosystem Topology Map | À générer | 🔴 |
+| **IMG-REPORT-011** | Chapitre 4 (Fiche 3) | Calendrier Budgétaire LOF 130-13 | Frise des 4 jalons constitutionnels du PLF (20 oct.) | `images/img_011_lof_calendrier_budgetaire.png` | 16:9 | Milestone Roadmap Infographic | À générer | 🔴 |
+| **IMG-REPORT-012** | Chapitre 5 | Planning Commando J-3 | Matrice d'urgence 72h heure par heure avant le 20 septembre | `images/img_012_planning_commando_j3_matrice.png` | 16:9 | Tactical Schedule Dashboard | À générer | 🔴 |
 
 ---
 
-# Fiches de Production Détaillées (Prompts Flow en Français)
+# Fiches de Production Détaillées (Format Standardisé Flow)
 
 ---
 
@@ -43,7 +43,7 @@ Paragraphes décrivant pourquoi le MEF recrute des Ingénieurs d'État : gestion
 Montrer visuellement que l'ingénieur d'État au MEF n'est pas un exécutant isolé, mais le garant de l'interconnexion sécurisée entre les directions, les bases de données souveraines et les services aux citoyens/entreprises.
 
 **Type :**
-Architecture Isométrique / Infographie Technique Moderne
+Isometric Enterprise Architecture / Modern Technical Infographic
 
 **Ratio :**
 16:9
@@ -56,41 +56,41 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Écosystème technologique moderne et vue isométrique de l'infrastructure numérique du Ministère de l'Économie et des Finances (MEF) du Royaume du Maroc.
+SUBJECT: Isometric modern technological ecosystem representing the Moroccan Ministry of Economy and Finance (MEF) digital infrastructure.
 
-CONTEXTE : Guide officiel de préparation au concours des Ingénieurs d'État. Focus sur le traitement de transactions à haut volume, la gouvernance financière, l'intégration des données et l'administration publique souveraine.
+CONTEXT: Official engineering recruitment guide for State Engineers in Morocco. Focus on high-volume transaction processing, financial governance, data integration, and sovereign public administration.
 
-ENVIRONNEMENT : Fond épuré blanc cassé technique (#FBFAF7), subtile grille de perspective architecturale avec de fines lignes de plan technique blueprint.
+ENVIRONMENT: Ultra-clean technical digital canvas on a crisp, pure off-white (#FBFAF7) background, subtle architectural perspective grid with faint blueprint lines.
 
-ACTION : Flux de données sécurisés circulant entre les plateformes institutionnelles interconnectées : fiscalité, trésor, douanes et budget.
+ACTION: Data flows circulating between interconnected institutional nodes representing tax, treasury, customs, and budget management.
 
-COMPOSITION : Vue isométrique centrée. Au cœur de la scène, un noyau de données souverain lumineux avec typographie sobre. Quatre plateformes majeures rayonnent via des conduits de données illuminés :
-1. Fiscalité (DGI - plateforme de télédéclaration SIMPL)
-2. Trésorerie Générale du Royaume (TGR - gestion des dépenses publiques GID / recettes GIR)
-3. Douanes et Impôts Indirects (ADII - réseau du commerce international BADR)
-4. Direction du Budget (DB - modélisation et tableaux de bord de la performance budgétaire).
-Des cartes d'interface utilisateur 2.5D flottent autour des nœuds avec graphiques financiers stylisés, connecteurs d'API sécurisées et badges de vérification cryptographique.
+COMPOSITION: Centered isometric composition. In the center, a luminous sovereign data core container labeled with clean French typography: "Socle de Données Souverain MEF". Radiating outward via illuminated data pipelines are four primary functional platforms:
+1. Tax Administration (DGI - Plateforme SIMPL)
+2. National Treasury (TGR - Système GID / GIR)
+3. Customs & Indirect Taxes (ADII - Réseau BADR)
+4. State Budget Directorate (Direction du Budget - Pilotage de la Performance)
+Clean 2.5D rounded UI cards float alongside each node showing stylized financial performance graphs, secure API connectors, and security verification badges in French.
 
-CAMÉRA : Vue isométrique plongeante à 30 degrés, perspective orthographique, netteté absolue de bord à bord, marges généreuses et espace négatif équilibré.
+CAMERA: Isometric 30-degree high-angle view, orthographic perspective, crisp focus from edge to edge, ample breathing room and balanced negative space on all sides.
 
-ÉCLAIRAGE : Éclairage de studio uniforme et diffus, ombres douces et précises, légers reflets cyan néon (#00B4D8) et touches dorées institutionnelles (#F2B705) le long des conduits de données.
+LIGHTING: Clean studio ambient lighting, sharp soft shadows, selective soft neon rim lighting in cyan (#00B4D8) and subtle institutional gold (#F2B705) on the data conduits.
 
-COULEURS & PALETTE : Charte institutionnelle exécutive : Bleu marine souverain (#0F3C6E), ardoise corporate (#2B2D42), cyan technologique (#00B4D8), vert menthe sécurité (#2A9D8F), or subtil (#F2B705), fond blanc cassé épuré (#FBFAF7).
+COLOR LANGUAGE: Strict executive institutional palette: Deep sovereign navy (#0F3C6E), corporate slate (#2B2D42), electric tech cyan (#00B4D8), secure mint green (#2A9D8F), subtle gold accent (#F2B705), clean off-white canvas (#FBFAF7).
 
-STYLE VISUEL : Illustration technique éditoriale haut de gamme, arêtes géométriques nettes, ombrage plat avec biseaux raffinés, précision vectorielle inspirée des rapports de transformation numérique de la Banque Mondiale et de McKinsey.
+VISUAL STYLE: High-end editorial technical illustration with crisp geometric edges, flat shading with refined bevels, vector-precision linework, inspired by McKinsey and World Bank digital transformation executive reports.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Présence sobre et élégante de l'étoile chérifienne du Royaume du Maroc en lignes vectorielles dorées au sommet du nœud central.
+BRANDING: Subtle, elegant presence of the official Moroccan Kingdom star emblem in clean geometric vector lines at the central apex node. Header label: "Ministère de l'Économie et des Finances — Écosystème des SI".
 
-RÉALISME & QUALITÉ : Rendu vectoriel ultra-net, résolution 8K, zéro grain, alignement mathématique parfait, lisibilité typographique irréprochable en français.
+REALISM / QUALITY: Ultra-sharp vector rendering quality, crisp 8k output, zero noise, mathematically aligned angles, pristine typographic readability in French.
 
-CONTRAINTES NÉGATIVES : Éviter le câblage anarchique, l'esthétique cyberpunk sombre ou dystopique, les textes flous ou illisibles, le style pâte à modeler 3D, les photos corporate génériques, les néons agressifs et les artefacts basse résolution.
+NEGATIVE CONSTRAINTS: Avoid messy wiring, dark dystopian cyberpunk aesthetics, unreadable text gibberish, 3D clay render look, generic smiling corporate stock photography, neon clutter, low resolution artifacts.
 ```
 
 **Priorité :**
 🔴 PRIORITÉ 1 — ESSENTIELLE
 
 **Justification :**
-Installe dès le début du guide le positionnement stratégique de l'Ingénieur d'État au MEF, en rupture totale avec l'image réductrice d'un simple gestionnaire administratif.
+Installe immédiatement dès le début du guide le positionnement stratégique de l'Ingénieur d'État au MEF, en rupture totale avec l'image réductrice d'un simple gestionnaire administratif.
 
 ---
 
@@ -100,13 +100,13 @@ Installe dès le début du guide le positionnement stratégique de l'Ingénieur 
 Chapitre 1 : Structure de l'Épreuve Écrite et Méthodologie de Réussite — 1.3 Gestion Optimale du Temps sur 3 Heures
 
 **Texte associé :**
-Découpage chronométré des 180 minutes de l'épreuve : 15 min de choix de sujet et définition des termes, 30 min de brainstorming et plan détaillé, 15 min de rédaction intégrale intro/conclusion au brouillon, 1h45 de rédaction directe sur la copie, et 15 min de relecture impérative.
+Découpage chronométré des 180 minutes de l'épreuve : 15 min de choix de sujet et cadrage des termes, 30 min de brainstorming et plan détaillé, 15 min de rédaction intégrale intro/conclu au brouillon, 1h45 de rédaction directe sur la copie, et 15 min de relecture impérative.
 
 **Objectif visuel :**
 Donner au candidat un repère visuel mémorisable instantanément pour ne jamais se faire dépasser par le temps le jour J (la première cause d'élimination au concours).
 
 **Type :**
-Frise Chronologique Éditoriale / Carte de Stratégie Chrono
+Editorial Timeline Infographic / Chrono Strategy Card
 
 **Ratio :**
 16:9
@@ -119,35 +119,35 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Feuille de route chronométrique et tactique de gestion du temps pour une épreuve écrite de concours de 3 heures (180 minutes).
+SUBJECT: A precision tactical time-management roadmap representing a 3-hour (180-minute) competitive written examination strategy.
 
-CONTEXTE : Préparation au concours de recrutement des Ingénieurs d'État au Ministère de l'Économie et des Finances. Guide visuel méthodologique pour le découpage rigoureux des 180 minutes le jour de l'examen.
+CONTEXT: Moroccan Ministry of Economy and Finance State Engineer recruitment exam preparation. A high-yield pedagogical visual guide for exam day time allocation.
 
-ENVIRONNEMENT : Bannière infographique horizontale moderne et aérée sur fond gris ardoise neutre très clair (#F8F9FA).
+ENVIRONMENT: Clean, structured horizontal infographic banner on a light modern neutral slate background (#F8F9FA).
 
-ACTION : Déroulé chronologique séquentiel d'un compte à rebours de 180 minutes découpé en cinq phases rigoureusement minutées, avec codes couleurs distincts, icônes précises et badges horaires.
+ACTION: Chronological breakdown of a 180-minute countdown timeline divided into five clearly bounded, color-coded phases with exact time indicators and icons.
 
-COMPOSITION : Frise horizontale équilibrée progressant de gauche (00h00) vers la droite (03h00) :
-- Phase 1 (00h00 - 00h15 / 15 min) : Bloc Bleu Marine (#0F3C6E) avec icône boussole/œil : « Choix du Sujet & Définition des Termes Clés ».
-- Phase 2 (00h15 - 00h45 / 30 min) : Bloc Cyan (#00B4D8) avec icône arborescence : « Problématique & Plan Détaillé (Parties I et II) ».
-- Phase 3 (00h45 - 01h00 / 15 min) : Bloc Or Accent (#F2B705) avec icône plume stylisée : « Rédaction Intégrale Intro & Conclusion au Brouillon ».
-- Phase 4 (01h00 - 02h45 / 105 min - 1h45) : Grand bloc central vert menthe (#2A9D8F) avec icône livret d'examen : « Rédaction Directe sur la Copie (Corps du Devoir) ».
-- Phase 5 (02h45 - 03h00 / 15 min) : Bloc Corail / Alerte (#E4572E) avec icône loupe/checklist : « Relecture Impérative & Chasse aux Coquilles ».
-Au-dessus de chaque bloc, un badge numérique indique la durée exacte en minutes ; en dessous, une règle d'or concise en typographie nette.
+COMPOSITION: Balanced horizontal progress track running from left (00h00) to right (03h00) with French text labels:
+- Phase 1 (00:00 - 00:15 / 15 min): Deep Navy block (#0F3C6E) with compass icon, labeled "Choix du Sujet & Définition des Termes".
+- Phase 2 (00:15 - 00:45 / 30 min): Cyan block (#00B4D8) with branching tree icon, labeled "Problématique & Plan Détaillé (I & II)".
+- Phase 3 (00:45 - 01:00 / 15 min): Gold accent block (#F2B705) with fountain pen icon, labeled "Rédaction Intro & Conclusion au Brouillon".
+- Phase 4 (01:00 - 02:45 / 105 min): Large prominent central Mint Green block (#2A9D8F) with open booklet icon, labeled "Rédaction Directe sur la Copie (1h45)".
+- Phase 5 (02:45 - 03:00 / 15 min): Coral Red warning block (#E4572E) with magnifying glass icon, labeled "Relecture Impérative (15 min)".
+Above each phase, an elegant numeric badge displays the exact duration; below each phase, a concise bullet point highlights the golden rule in French.
 
-CAMÉRA : Vue frontale directe en 2D orthographique, symétrie horizontale rigoureuse, marges blanches aérées.
+CAMERA: Straight-on flat graphic camera, orthographic 2D view, perfect horizontal symmetry, generous white borders.
 
-ÉCLAIRAGE : Éclairage numérique plat à fort contraste, lisibilité maximale des textes sur cartes blanches.
+LIGHTING: Crisp flat digital lighting, high contrast between text badges and background cards, no glare.
 
-COULEURS & PALETTE : Palette data-design professionnelle : Bleu marine (#0F3C6E), cyan tech (#00B4D8), or (#F2B705), vert menthe (#2A9D8F), corail alerte (#E4572E), cartes blanches (#FFFFFF).
+COLOR LANGUAGE: Professional data-design palette: Navy blue (#0F3C6E), tech cyan (#00B4D8), achievement gold (#F2B705), focused mint (#2A9D8F), alert coral (#E4572E), pure white card surfaces (#FFFFFF).
 
-STYLE VISUEL : Infographie moderne inspirée du design suisse, cartes aux coins arrondis (2.5px), icônes monoline épurées, hiérarchie typographique sans-serif parfaite.
+VISUAL STYLE: Modern minimalist UI card infographic with 2.5px rounded corners, sharp monoline iconography, clean typographic hierarchy, inspired by Swiss international typographical style.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : En-tête discret : « MEF — Concours Ingénieurs d'État : Stratégie Chrono 180 Min ».
+BRANDING: Discrete institutional header text reading "MEF — Concours Ingénieurs d'État: Gestion Chrono 180 Min".
 
-RÉALISME & QUALITÉ : Clarté vectorielle SVG pure, absence totale de pixelation, indications horaires 100% lisibles en français.
+REALISM / QUALITY: Vector clarity, crisp SVG-like edges, zero pixelation, perfectly legible time markers and French text.
 
-CONTRAINTES NÉGATIVES : Éviter les bureaux réalistes désordonnés, papiers froissés, cadrans d'horloge analogique confus, dégradés criards, texte miniature illisible.
+NEGATIVE CONSTRAINTS: Avoid realistic messy desks, crumpled papers, analog clock faces with confusing hands, 3D photorealism, cluttered gradients, illegible micro-text.
 ```
 
 **Priorité :**
@@ -164,13 +164,13 @@ La gestion du temps est le facteur d'élimination numéro un. Avoir ce schéma e
 Chapitre 1 : Structure de l'Épreuve Écrite et Méthodologie de Réussite — 1.4 La Règle d'Or du Plan en Deux Parties
 
 **Texte associé :**
-Architecture canonique d'une dissertation de concours pour ingénieur d'État : Partie I (Diagnostic, acquis et contraintes structurelles : I.A Réalisations / I.B Limites) reliée par une transition soignée à la Partie II (Stratégies nationales, leviers d'ingénierie et recommandations : II.A Cadre programmatique / II.B Recommandations opérationnelles).
+Architecture canonique d'une dissertation de concours administratif pour ingénieur d'État : Partie I (Diagnostic, état des lieux, acquis et contraintes structurelles : I.A Réalisations / I.B Limites) reliée par une transition soignée à la Partie II (Orientations stratégiques, leviers d'ingénierie et recommandations : II.A Feuilles de route nationales / II.B Solutions opérationnelles et modernisation).
 
 **Objectif visuel :**
-Schématiser l'équilibre architectural parfait d'une copie de concours et illustrer le rôle vital des chapeaux et des transitions logiques pour maximiser les points de rigueur académique (25% du barème).
+Schématiser l'équilibre architectural parfait d'une copie de concours et illustrer le rôle vital des chapeaux et des transitions logiques pour obtenir la note maximale en rigueur académique (25% du barème).
 
 **Type :**
-Schéma Analytique Modulaire / Blueprint de Dissertation
+Modular Analytical Card / Essay Architecture Blueprint
 
 **Ratio :**
 16:9
@@ -183,39 +183,39 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Plan d'architecture analytique schématisant la structure canonique de la dissertation administrative en deux parties équilibrées (Plan Binaire I & II).
+SUBJECT: Architectural blueprint infographic representing the canonical two-part essay structure (Plan Bipartite Équilibré) for high-level civil service examinations.
 
-CONTEXTE : Épreuve de composition économique et générale pour les concours d'Ingénieurs d'État au MEF. Modèle formel garantissant les points de rigueur structurelle (25% du barème).
+CONTEXT: State Engineer examination at the Moroccan Ministry of Economy and Finance. Pedagogical visualization of rigorous administrative essay design.
 
-ENVIRONNEMENT : Carte blanche moderne (#FFFFFF) bordée d'un fin filet bleu nuit, grille géométrique épurée.
+ENVIRONMENT: Crisp white card surface (#FFFFFF) with a light executive navy border, clear structural grid.
 
-ACTION : Décomposition modulaire et visuelle d'une dissertation d'élite : Introduction, Partie I, Chapeaux et Transitions, Partie II, Conclusion, avec indicateur de balance équilibrée.
+ACTION: Structural decomposition of an essay into Introduction, Part I, Intermediary Transition, Part II, and Conclusion with visual balancing indicators in French.
 
-COMPOSITION : Architecture symétrique à deux colonnes centrales reliées par un nœud de transition :
-1. Bannière Haute : « L'Introduction en 5 Paliers » (Accroche -> Définition -> Contexte Maroc -> Problématique -> Annonce du Plan).
-2. Colonne de Gauche (Partie I : Diagnostic, État des Lieux & Contraintes) :
-   - Cartouche I.A : « Réalisations, Cadre Institutionnel & Acquis » (Bleu Marine #0F3C6E).
-   - Cartouche I.B : « Insuffisances, Contraintes & Défis Structurels » (Corail #E4572E).
-3. Nœud Central : Passerelle stylisée étiquetée « Chapeau Synthétique & Phrase de Transition Logique ».
-4. Colonne de Droite (Partie II : Orientations Stratégiques & Leviers de l'Ingénieur) :
-   - Cartouche II.A : « Politiques Publiques & Feuilles de Route Nationales » (Cyan #00B4D8).
-   - Cartouche II.B : « Solutions Opérationnelles, Modernisation & Rôle de l'Ingénieur » (Vert Menthe #2A9D8F).
-5. Bannière Basse : « Conclusion Bipartite » (Bilan Réponse à la Problématique + Ouverture Prospective).
-Icône d'équilibre parfait « 50% / 50% » au centre.
+COMPOSITION: Symmetrical two-column central layout flanked by top and bottom header blocks with exact French text labels:
+1. Top Banner: labeled "Introduction en 5 Piliers" (Accroche -> Définition -> Contexte Marocain -> Problématique -> Annonce du Plan).
+2. Left Pillar: labeled "Partie I : Diagnostic & État des Lieux":
+   - Box I.A: labeled "Acquis, Réalisations & Cadre Légal" (Solid Blue #0F3C6E).
+   - Box I.B: labeled "Contraintes Structurelles & Défis" (Coral Accent #E4572E).
+3. Central Connector: A stylized bridge node labeled "Chapeau Synthétique & Transition Logique".
+4. Right Pillar: labeled "Partie II : Stratégies & Leviers d'Action":
+   - Box II.A: labeled "Feuilles de Route Nationales & Lois-Cadres" (Cyan #00B4D8).
+   - Box II.B: labeled "Leviers Opérationnels de l'Ingénieur & Recommandations" (Mint Green #2A9D8F).
+5. Bottom Banner: labeled "Conclusion Bipartite" (Bilan Réponse Problématique + Ouverture Prospective).
+Clean balance scale icon at the apex indicating "50% / 50% Équilibre Parfait".
 
-CAMÉRA : Vue frontale orthogonale, alignement millimétré des blocs, espacements harmonieux.
+CAMERA: Frontal flat diagram view, clean modular card alignment, generous margins.
 
-ÉCLAIRAGE : Éclairage de studio uniforme, micro-ombres douces sous les conteneurs.
+LIGHTING: Clear diffuse studio lighting, subtle soft drop shadows under cards.
 
-COULEURS & PALETTE : Bleu marine souverain (#0F3C6E), ardoise (#334155), cyan (#00B4D8), vert menthe (#2A9D8F), corail (#E4572E), blanc pur (#FFFFFF).
+COLOR LANGUAGE: Executive academic palette: Sovereign Navy (#0F3C6E), Slate (#334155), Tech Cyan (#00B4D8), Growth Mint (#2A9D8F), Caution Coral (#E4572E), Pure White (#FFFFFF).
 
-STYLE VISUEL : Schéma d'ingénierie administrative moderne, typographie sans-serif lisible, icônes filaires précises.
+VISUAL STYLE: Modern structural blueprint, rounded rectangular containers, crisp linear icons, authoritative French typography.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Titre : « Méthodologie MEF — Architecture du Plan Binaire Idéal ».
+BRANDING: Header label: "Méthodologie MEF — Architecture du Plan Binaire Idéal".
 
-RÉALISME & QUALITÉ : Rendu vectoriel parfait, netteté typographique absolue en français.
+REALISM / QUALITY: Vector perfection, 100% typographic clarity, mathematically balanced blocks.
 
-CONTRAINTES NÉGATIVES : Éviter les cartes mentales chaotiques, textes manuscrits brouillons, perspectives déformées, polices gothiques ou avec empattements illisibles.
+NEGATIVE CONSTRAINTS: Avoid handwritten messy text, chaotic mind maps, skewed angles, complex decorative textures, unreadable serif fonts.
 ```
 
 **Priorité :**
@@ -238,7 +238,7 @@ Analyse du sujet réel de 2024 sur la transition numérique. Présentation des 2
 Permettre au candidat de visualiser et restituer sans hésitation l'architecture exacte de la stratégie nationale Maroc Digital 2030 lors de la dissertation.
 
 **Type :**
-Schéma Stratégique Vectoriel / Matrice Décisionnelle
+Pedagogical Flat Diagram / Strategic Framework Visualization
 
 **Ratio :**
 16:9
@@ -251,45 +251,46 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Schéma architectural officiel représentant la stratégie nationale « Maroc Digital 2030 ».
+SUBJECT: A clear, authoritative architectural framework diagram illustrating the "Maroc Digital 2030" National Strategy.
 
-CONTEXTE : Dissertation sur la transition numérique au concours du MEF (sujet réel de la session du 28 avril 2024). Cadrage sur les 2 piliers et les 4 catalyseurs gouvernementaux.
+CONTEXT: Economic policy essay preparation for the Moroccan Ministry of Economy and Finance state engineer competition. Grounded in actual 2024 government roadmap documents.
 
-ENVIRONNEMENT : Toile technique blanche (#FFFFFF) avec trame de fond grise ultra-légère.
+ENVIRONMENT: Pristine white (#FFFFFF) technical canvas with subtle grey baseline grid.
 
-ACTION : Présentation structurelle sous forme de temple moderne : les 4 catalyseurs socles supportent les 2 piliers stratégiques, convergeant vers la souveraineté numérique.
+ACTION: Structural presentation showing foundational enablers supporting two towering strategic pillars, culminating in a national sovereignty apex.
 
-COMPOSITION :
-1. Fronton Supérieur (Sommet) : « Souveraineté Numérique & Hub Régional Africain ».
-2. Deux Colonnes Majeures (Piliers Stratégiques) :
-   - Colonne Gauche (Pilier 1) : « Digitalisation des Services Publics » (Parcours usager 100% digitalisé, Zéro Papier, Interopérabilité des SI).
-   - Colonne Droite (Pilier 2) : « Dynamisation de l'Économie Numérique » (Écosystème Startups, Export de solutions IT, 2e pôle d'Offshoring en Afrique).
-3. Socle Fondateur (Les 4 Catalyseurs) :
-   - Catalyseur 1 : « Déploiement 5G & Connectivité Haut Débit » (Icône antenne télécom).
-   - Catalyseur 2 : « Cloud Souverain National & Datacenters Sécurisés » (Icône serveur sécurisé).
-   - Catalyseur 3 : « Capital Humain : Formation de 100 000 Talents/An » (Icône chapeau académique & réseau).
-   - Catalyseur 4 : « Intelligence Artificielle & Confiance Numérique CNDP » (Icône puce neuronale & cadenas de protection des données).
+COMPOSITION: Classical architectural temple/pillar hierarchy with prominent French labels:
+1. Top Apex Roof: labeled "Souveraineté Numérique & Rayonnement Africain".
+2. Two Massive Central Columns:
+   - Left Column (Pilier 1): labeled "Digitalisation des Services Publics" (Parcours Usager 100% Digitalisé, Zéro Papier, Interopérabilité).
+   - Right Column (Pilier 2): labeled "Dynamisation de l'Économie Numérique" (Écosystème Startups, Export IT, 2e Hub Offshoring Afrique).
+3. Foundation Base (4 Catalyseurs Clés):
+   - Catalyst 1: labeled "Déploiement 5G & Connectivité Haut Débit" (5G tower icon).
+   - Catalyst 2: labeled "Cloud Souverain National & Datacenters" (Secure cloud server icon).
+   - Catalyst 3: labeled "Capital Humain : 100 000 Talents/An" (Graduation cap with digital nodes icon).
+   - Catalyst 4: labeled "Intelligence Artificielle & Confiance Numérique (CNDP)" (AI neural badge and lock icon).
+Each section is housed in clean rounded rectangular cards with subtle outline borders.
 
-CAMÉRA : Prise de vue frontale directe, proportions équilibrées, marges aérées.
+CAMERA: Frontal straight-on view, balanced architectural layout, high negative space margins.
 
-ÉCLAIRAGE : Éclairage numérique homogène, contrastes nets sans ombres dures.
+LIGHTING: Pure diffuse digital illumination, no harsh drop shadows.
 
-COULEURS & PALETTE : Bleu royal marocain (#0F3C6E), cyan vif (#00B4D8), or impérial (#D4AF37), gris technique (#CFD8DC).
+COLOR LANGUAGE: Official Moroccan modernization theme: Royal navy blue (#0F3C6E), vibrant teal/cyan (#009688 / #00B4D8), soft gold (#D4AF37), neutral grey outlines (#CFD8DC).
 
-STYLE VISUEL : Schéma vectoriel épuré, style cabinet de conseil en stratégie (Bain & Company / Roland Berger), icônes géométriques précises.
+VISUAL STYLE: Clean monoline vector diagram, flat tinted fills, crisp geometric icons, modern executive presentation style (Bain / Roland Berger layout quality).
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : En-tête : « Royaume du Maroc — Stratégie Nationale Maroc Digital 2030 ».
+BRANDING: Clean emblem header reading "Royaume du Maroc — Stratégie Nationale Maroc Digital 2030".
 
-RÉALISME & QUALITÉ : Précision vectorielle 2D, typographie française ultra-nette, zéro flou.
+REALISM / QUALITY: Pristine 2D vector graphic precision, sharp vector font labels, zero artifacts.
 
-CONTRAINTES NÉGATIVES : Éviter les poignées de main avec des robots, fonds matrix avec code vert fluorescent, clichés de science-fiction, piliers antiques gréco-romains déformés.
+NEGATIVE CONSTRAINTS: Avoid generic robot handshakes, abstract glowing matrix codes, dark sci-fi background, cluttered circuit boards, distorted architectural pillars.
 ```
 
 **Priorité :**
 🔴 PRIORITÉ 1 — ESSENTIELLE
 
 **Justification :**
-Ce sujet est tombé au concours le 28 avril 2024. Le schéma fournit directement la structure clé en main pour rédiger la Partie II de la dissertation.
+Ce sujet est tombé au concours du 28 avril 2024. Le schéma fournit directement la structure clé en main pour rédiger la Partie II de la dissertation.
 
 ---
 
@@ -305,7 +306,7 @@ Enjeux de la sécurité énergétique au Maroc : réduction de la facture d'impo
 Illustrer le mix énergétique national et la chaîne de valeur intégrée (Soleil + Vent $\rightarrow$ Électricité verte $\rightarrow$ Dessalement \& Électrolyse $\rightarrow$ Hydrogène Vert / Ammoniac vert pour les phosphates OCP).
 
 **Type :**
-Flux Énergétique Technique / Chaîne de Valeur Industrielle
+Technical Energy Flow Infographic / Value Chain Diagram
 
 **Ratio :**
 16:9
@@ -318,34 +319,34 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Schéma technique de la chaîne de valeur intégrée de la transition énergétique et de l'« Offre Maroc » pour l'Hydrogène Vert.
+SUBJECT: Modern integrated green energy value chain and renewable mix diagram for Morocco.
 
-CONTEXTE : Sujet réel du 28 avril 2024 au MEF. Démonstration des synergies entre énergies renouvelables (solaire, éolien, STEP), dessalement d'eau de mer et production d'hydrogène/ammoniac vert pour l'industrie des phosphates (OCP).
+CONTEXT: State Engineer competition essay on energy security and ecological transition. Demonstrates technical mastery of renewable power integration and green hydrogen production.
 
-ENVIRONNEMENT : Toile blanche épurée avec courbes de niveau topographiques ultra-fines en filigrane gris clair.
+ENVIRONMENT: Clean white background with faint topo-contour map curves in ultra-light grey.
 
-ACTION : Flux de transformation énergétique continu de gauche à droite, de la production verte jusqu'à la décarbonation industrielle et l'exportation.
+ACTION: Flow diagram showing green energy generation feeding into industrial decarbonization and export.
 
-COMPOSITION : Flux technique horizontal en 4 étapes interconnectées :
-- Étape 1 (Mix Électrique Renouvelable >52% à l'horizon 2030) : Icônes vectorielles du Complexe Solaire Noor (miroirs thermodynamiques et PV), parcs éoliens côtiers, et STEP hydraulique d'Abdelmoumen.
-- Étape 2 (Réseau Électrique Intelligent & Dessalement) : Nœud de distribution alimentant les stations de dessalement d'eau de mer à l'énergie solaire.
-- Étape 3 (Électrolyse & « Offre Maroc » Hydrogène Vert) : Unités industrielles d'électrolyseurs scindant l'eau purifiée en H2 vert et ammoniac vert (NH3).
-- Étape 4 (Valorisation Industrielle & Export) : Alimentation des engrais verts OCP, décarbonation des transports lourds, et export vers l'Union Européenne en conformité avec le MACF (Mécanisme d'Ajustement Carbone aux Frontières).
-Badges de données : « Objectif >52% Capacité EnR 2030 » et « Foncier Public : 1 Million d'Hectares Mobilisés ».
+COMPOSITION: Left-to-right technical process flow with French technical terminology:
+- Section 1: labeled "Mix Électrique Renouvelable >52% en 2030" (Vector icons of Noor Solar CSP/PV arrays, coastal wind turbines, and STEP Abdelmoumen pumped-storage dam).
+- Section 2: labeled "Smart Grid & Dessalement Solaire" (Central power distribution node connecting to solar-powered seawater desalination plants).
+- Section 3: labeled "Offre Maroc : Électrolyse Hydrogène Vert" (Industrial electrolyzer splitting desalinated water into Green H2 and Green Ammonia NH3).
+- Section 4: labeled "Décarbonation OCP & Export UE (MACF)" (Feeding green fertilizers for OCP phosphates, clean heavy transport, and export compliance under European CBAM).
+Data callout badges indicate "52% Capacité EnR 2030" and "1 Million d'Hectares Foncier Public Mobilisés".
 
-CAMÉRA : Vue orthogonale d'ingénierie des procédés, lecture séquentielle limpide de gauche à droite.
+CAMERA: Orthographic technical process overview, horizontal sequencing, spacious card containers.
 
-ÉCLAIRAGE : Lumière du jour claire et naturelle, légers dégradés fluides sur les flèches de circulation.
+LIGHTING: Clear daytime illumination, subtle fresh gradients on energy flow arrows.
 
-COULEURS & PALETTE : Palette éco-industrielle : Or solaire (#F39C12), cyan éolien (#2980B9), vert émeraude hydrogène (#27AE60), bleu marine étatique (#0F3C6E).
+COLOR LANGUAGE: Eco-industrial palette: Solar amber gold (#F39C12), wind turbine cyan (#2980B9), hydrogen emerald green (#27AE60), sovereign navy blue (#0F3C6E).
 
-STYLE VISUEL : Infographie d'ingénierie moderne de haut niveau, tuyaux et flux vectoriels nets, icônes précises et étiquettes techniques en français.
+VISUAL STYLE: High-end engineering infographic with monoline icons, flow pipes, clean rounded nodes, and exact French data labels.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Titre : « Transition Énergétique & Offre Maroc pour l'Hydrogène Vert ».
+BRANDING: Title bar: "Transition Énergétique & Offre Maroc pour l'Hydrogène Vert".
 
-RÉALISME & QUALITÉ : Dessin technique clair, netteté mathématique, absence totale d'encombrement visuel.
+REALISM / QUALITY: Technical drawing clarity, precise geometric iconography, zero clutter.
 
-CONTRAINTES NÉGATIVES : Éviter les fumées, cheminées de charbon, usines polluantes, dessins enfantins, tuyauterie confuse et surchargée.
+NEGATIVE CONSTRAINTS: Avoid smoke, pollution, realistic coal plants, messy sketch lines, cartoon fantasy look, chaotic piping.
 ```
 
 **Priorité :**
@@ -362,13 +363,13 @@ Permet au candidat d'illustrer concrètement la dimension ingénierie de la tran
 Chapitre 2 : Annales Réelles — 2.3 Sujet 3 (Sessions Réelles 2022-2023) : L'Inflation et la Préservation du Pouvoir d'Achat
 
 **Texte associé :**
-Analyse des moteurs de l'inflation au Maroc (inflation importée et choc climatique/agricole), mécanisme de transmission de la politique monétaire par Bank Al-Maghrib (hausse du taux directeur de 1,50% à 3,00% puis détente à 2,75% en juin 2024), et mesures budgétaires du MEF (subventions transport, suspension des droits de douane/TVA sur produits essentiels, soutien Caisse de Compensation).
+Analyse des moteurs de l'inflation au Maroc (inflation importée et choc climatique/alimentaire), mécanisme de transmission de la politique monétaire par Bank Al-Maghrib (hausse du taux directeur de 1,50% à 3,00% puis détente à 2,75% en juin 2024), et mesures budgétaires du MEF (subventions transport, suspension des droits de douane/TVA sur produits essentiels, soutien Caisse de Compensation).
 
 **Objectif visuel :**
 Visualiser l'action coordonnée entre la politique monétaire (BAM) et la politique budgétaire (MEF) pour stabiliser les prix sans étouffer la croissance économique.
 
 **Type :**
-Schéma Macroéconomique / Mécanisme de Transmission
+Macroeconomic Flow Diagram / Policy Transmission Schema
 
 **Ratio :**
 16:9
@@ -381,41 +382,41 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Schéma macroéconomique de coordination des politiques publiques face à l'inflation entre Bank Al-Maghrib et le Ministère de l'Économie et des Finances.
+SUBJECT: Clear macroeconomic policy diagram illustrating the coordinated policy response to inflation in Morocco between Bank Al-Maghrib and the Ministry of Economy and Finance.
 
-CONTEXTE : Annales réelles 2022-2023 du MEF. Analyse du canal de transmission du taux directeur de Bank Al-Maghrib et des mesures budgétaires de protection du pouvoir d'achat.
+CONTEXT: Recruitment exam preparation for state engineers on public economics and macroeconomic stabilization.
 
-ENVIRONNEMENT : Carte analytique blanche (#FFFFFF) avec encadrement institutionnel rigoureux.
+ENVIRONMENT: Crisp white card canvas (#FFFFFF) with structured institutional framing.
 
-ACTION : Cartographie visuelle d'un choc inflationniste déclenchant une double riposte coordonnée (monétaire + budgétaire) pour rétablir la stabilité des prix.
+ACTION: Visual mapping of inflationary shocks on the left triggering a dual institutional defense mechanism (Monetary + Fiscal) to restore price stability on the right.
 
-COMPOSITION : Trajectoire en 3 volets de gauche à droite :
-1. Volet Gauche (Le Double Choc) : Cartes d'alerte rouge décrivant l'« Inflation Importée (Énergie & Fret) » et le « Choc Agricole (Sécheresse & Flambée des Produits Alimentaires : pic à +15%) ».
-2. Volet Central (La Riposte Institutionnelle Coordonnée) :
-   - Canal Supérieur : « Bank Al-Maghrib (Politique Monétaire) » -> Graphique d'ajustement du taux directeur (1,50% -> 3,00% -> détente à 2,75%) pour ancrer les anticipations et freiner le crédit spéculatif.
-   - Canal Inférieur : « MEF (Politique Budgétaire) » -> Subventions directes aux transporteurs routiers, exonérations douanières et de TVA sur le bétail et l'huile, dotations à la Caisse de Compensation.
-3. Volet Droit (Stabilisation Finale) : Jauge de performance verte montrant l'inflation contenue dans la zone cible (1,5% - 2,0% en 2024).
+COMPOSITION: Three-stage horizontal flow with French labels:
+1. Left Block (Le Double Choc): Red-accented cards showing "Inflation Importée (Énergie & Fret)" and "Choc Agricole (Sécheresse & Prix Alimentaires : pic +15%)".
+2. Center Stage (Riposte Institutionnelle Coordonnée):
+   - Top Channel: labeled "Bank Al-Maghrib (Politique Monétaire)" -> Taux directeur adjustment chart (1.50% -> 3.00% -> détente 2.75%) tightening credit and anchoring inflation expectations.
+   - Bottom Channel: labeled "MEF (Politique Budgétaire)" -> Subventions directes aux transporteurs routiers, suspension des droits de douane/TVA sur bétail et huile, soutiens Caisse de Compensation.
+3. Right Target (Stabilisation Finale): Green-accented gauge showing inflation decelerating back towards the target corridor: "Inflation Maîtrisée (1.5% - 2.0% en 2024)".
 
-CAMÉRA : Vue infographique frontale à plat, flèches de transmission fluides, lisibilité immédiate.
+CAMERA: Straight-on flat graphic view, clear directional connectors, high visual legibility.
 
-ÉCLAIRAGE : Éclairage numérique homogène mettant en valeur les contrastes entre signaux d'alerte et leviers d'action.
+LIGHTING: Clean digital diffuse lighting with distinct contrast between shock indicators and solution badges.
 
-COULEURS & PALETTE : Rouge bordeaux d'alerte (#C0392B), or monétaire (#D4AF37), bleu souverain MEF (#0F3C6E), vert émeraude de stabilité (#27AE60), fond blanc et gris doux (#F8F9FA).
+COLOR LANGUAGE: Economic governance palette: Alert crimson (#C0392B), central bank gold (#D4AF37), MEF sovereign navy (#0F3C6E), stability emerald (#27AE60), clean light grey containers (#F8F9FA).
 
-STYLE VISUEL : Infographie de presse économique de référence (type Financial Times / Les Échos), typographie soignée, pictogrammes minimaux.
+VISUAL STYLE: Premium financial editorial infographic (Financial Times / The Economist visual quality), sharp typography, clean minimal icons.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Titre : « Macroéconomie Marocaine — Mécanismes de Lutte Contre l'Inflation (BAM & MEF) ».
+BRANDING: Header title: "Macroéconomie Marocaine — Mécanismes de Lutte Contre l'Inflation (BAM & MEF)".
 
-RÉALISME & QUALITÉ : Précision vectorielle absolue, graphiques nets, terminologie économique française exacte.
+REALISM / QUALITY: Vector perfection, 100% sharp text badges, mathematically clean curves.
 
-CONTRAINTES NÉGATIVES : Éviter les billets de banque en feu, visages de panique, chariots de supermarché déformés, formules d'économétrie illisibles.
+NEGATIVE CONSTRAINTS: Avoid burning cash banknotes, cartoon coins, distressed faces, chaotic market charts, complex academic formulas.
 ```
 
 **Priorité :**
 🟠 PRIORITÉ 2 — IMPORTANTE
 
 **Justification :**
-L'articulation entre le taux directeur de BAM et les subventions du MEF est la réponse clé attendue dans toute copie touchant à la macroéconomie et au pouvoir d'achat.
+L'articulation entre le taux directeur de BAM et les subventions du MEF est la réponse clé attendue dans toute dissertation touchant à la macroéconomie et au pouvoir d'achat.
 
 ---
 
@@ -431,7 +432,7 @@ Trajectoire de consolidation budgétaire du Maroc : réduction du déficit de pl
 Présenter la trajectoire de soutenabilité des finances publiques marocaines et synthétiser les 4 leviers d'action budgétaire du MEF pour allier assainissement des comptes et financement des investissements.
 
 **Type :**
-Tableau de Bord Budgétaire / Matrice de Consolidation Fiscale
+Financial Dashboard Infographic / Fiscal Trajectory Matrix
 
 **Ratio :**
 16:9
@@ -444,37 +445,37 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Tableau de bord institutionnel illustrant la trajectoire de consolidation du déficit budgétaire et la gestion de la dette publique du Trésor marocain.
+SUBJECT: Institutional fiscal sustainability dashboard depicting Morocco's budget deficit reduction trajectory and public debt management.
 
-CONTEXTE : Épreuve de finances publiques au concours du MEF (sujet réel 2021-2022). Maîtrise des cibles budgétaires et de la règle d'or de la LOF 130-13.
+CONTEXT: Public finance examination preparation for the Moroccan Ministry of Economy and Finance. Demonstrates rigorous grasp of fiscal consolidation targets and debt thresholds.
 
-ENVIRONNEMENT : Canevas financier exécutif moderne sur fond blanc (#FFFFFF) avec séparateurs bleu ardoise.
+ENVIRONMENT: Clean modern financial executive canvas on white (#FFFFFF) with refined slate blue structural dividers.
 
-ACTION : Visualisation conjointe de la courbe descendante du déficit et des 4 grands leviers d'action budgétaire déployés par le MEF.
+ACTION: Visual progression tracking the downward slope of the fiscal deficit alongside the key strategic levers of public finance optimization.
 
-COMPOSITION : Tableau de bord structuré en deux zones équilibrées :
-1. Zone Gauche (Trajectoire du Déficit & Profil de la Dette) :
-   - Graphique en escalier descendant du Déficit Budgétaire (% du PIB) : 7,1% (crise Covid 2020) -> 4,3% (2023) -> 4,0% (PLF 2024) -> Cible 3,5% (2026).
-   - Cadran circulaire indiquant le ratio de la Dette du Trésor : « ~69,5% du PIB », avec un badge clé mettant en avant : « 75% Dette Intérieure (Faible exposition au risque de change) ».
-2. Zone Droite (Les 4 Leviers Budgétaires du MEF) :
-   - Levier 1 : « Élargissement de l'Assiette Fiscale » (Intégration du secteur informel, Loi-cadre 69-19).
-   - Levier 2 : « Rationalisation de la Dépense » (Budgétisation axée sur la performance selon la LOF 130-13).
-   - Levier 3 : « Financements Innovants » (Monétisation d'actifs publics par les Domaines de l'État & PPP Loi 86-12).
-   - Levier 4 : « Règle d'Or (Art. 20 LOF 130-13) » (Affectation exclusive de la dette au financement des investissements et non au fonctionnement).
+COMPOSITION: Symmetrical split dashboard with French data text labels:
+1. Left Half (Trajectoire du Déficit & Profil de la Dette):
+   - A descending step graph showing "Déficit Budgétaire (% du PIB)": "7.1% (Crise Covid 2020) -> 4.3% (2023) -> 4.0% (PLF 2024) -> 3.5% (Cible 2026)".
+   - A callout meter card displaying "Dette du Trésor : ~69.5% du PIB" with a breakdown badge highlighting "75% Dette Intérieure (Faible risque de change)".
+2. Right Half (Les 4 Leviers Budgétaires du MEF):
+   - Levier 1: labeled "Élargissement de l'Assiette Fiscale" (Intégration du secteur informel, Loi-cadre 69-19).
+   - Levier 2: labeled "Rationalisation de la Dépense" (Budgétisation axée sur la performance, LOF 130-13).
+   - Levier 3: labeled "Financements Innovants" (Monétisation d'actifs publics par les Domaines & PPP Loi 86-12).
+   - Levier 4: labeled "Règle d'Or (Art. 20 LOF 130-13)" (Emprunts strictement réservés au financement de l'investissement).
 
-CAMÉRA : Vue frontale directe de type tableau de bord de direction générale, marges équilibrées.
+CAMERA: Straight-on executive dashboard view, clean borders, balanced negative space.
 
-ÉCLAIRAGE : Éclairage numérique à haute définition, excellente lisibilité des valeurs chiffrées.
+LIGHTING: High-clarity digital lighting, professional data visualization contrast.
 
-COULEURS & PALETTE : Bleu marine souverain (#0F3C6E), cyan fiscal (#00B4D8), vert de consolidation (#2A9D8F), or institutionnel (#F39C12), blanc pur (#FFFFFF).
+COLOR LANGUAGE: Sovereign fiscal palette: Navy blue (#0F3C6E), fiscal trajectory cyan (#00B4D8), success mint green (#2A9D8F), warning amber (#F39C12), pure white card surfaces (#FFFFFF).
 
-STYLE VISUEL : Infographie financière internationale de haut vol (style FMI / Banque Mondiale), chiffres clés en gras, typographie d'une précision chirurgicale.
+VISUAL STYLE: High-level financial reporting infographic (World Bank / IMF country review style), clean lines, sharp metrics, elegant typography.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : En-tête : « Finances Publiques du Maroc — Trajectoire Budgétaire & Soutenabilité de la Dette ».
+BRANDING: Header badge: "Finances Publiques du Maroc — Trajectoire Budgétaire & Soutenabilité de la Dette".
 
-RÉALISME & QUALITÉ : Perfection graphique 2D, lisibilité totale des données chiffrées en français.
+REALISM / QUALITY: Vector graphic perfection, clean typography, 8k sharp resolution in French.
 
-CONTRAINTES NÉGATIVES : Éviter les flèches de krach boursier rouge criard, tirelires cassées, effets 3D brillants désuets, surcharges graphiques.
+NEGATIVE CONSTRAINTS: Avoid bankruptcy graphics, declining red crash arrows, stock market tickers, 3D glossy effects, clutter.
 ```
 
 **Priorité :**
@@ -497,7 +498,7 @@ Fonctionnement du ciblage social au Maroc : enregistrement biométrique via le R
 Démystifier le pipeline technologique du RSU, en montrant comment l'ingénierie des données et les algorithmes de scoring transforment les politiques de redistribution de l'État.
 
 **Type :**
-Pipeline de Données Publiques / Architecture Décisionnelle
+Data Journey Architecture / Public Tech Pipeline
 
 **Ratio :**
 16:9
@@ -510,36 +511,36 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Schéma architectural du pipeline de ciblage social au Maroc, de l'immatriculation biométrique jusqu'aux versements de l'Aide Sociale Directe.
+SUBJECT: Architectural data journey infographic of Morocco's unified social targeting pipeline (RNP to RSU to Direct Social Aid).
 
-CONTEXTE : Chantier Royal de généralisation de la protection sociale (Loi-cadre 09-21). Démonstration de l'architecture technologique combinant le Registre National de la Population (RNP) et le Registre Social Unifié (RSU).
+CONTEXT: Public policy reform under Royal Vision (Loi-cadre 09-21). Demonstrates how civil identification and predictive scoring enable equitable direct cash transfers and healthcare coverage.
 
-ENVIRONNEMENT : Espace de présentation blanc exécutif (#FFFFFF), net et rassurant.
+ENVIRONMENT: Clean executive white background (#FFFFFF) with high-legibility layout.
 
-ACTION : Déroulement séquentiel en 4 étapes de traitement de données, illustrant l'objectivation des critères d'aide publique par le numérique.
+ACTION: Linear data processing stages from citizen registration to secure benefit delivery.
 
-COMPOSITION : Pipeline horizontal linéaire en 4 étapes reliées par des flèches lumineuses :
-- Étape 1 — Identification du Citoyen (RNP) : Enregistrement biométrique (iris, visage) générant l'Identifiant Digital Civil et Social unique (IDCS).
-- Étape 2 — Profilage Socio-Économique du Foyer (RSU) : Base de données fédérée intégrant les caractéristiques du ménage (dépenses d'eau/électricité, patrimoine, localisation).
-- Étape 3 — Moteur Algorithmique de Scoring : Formule prédictive et objective calculant le score de précarité du ménage par rapport au seuil d'éligibilité légal.
-- Étape 4 — Octroi Ciblé des Prestations Sociales :
-  * Branche A : AMO Tadamon (Couverture médicale universelle prise en charge par l'État).
-  * Branche B : Aide Sociale Directe (ASD — Allocations familiales mensuelles versées directement sur comptes bancaires ou paiements mobiles).
-Chaque étape comporte un badge distinct, un intitulé explicite et un indicateur de validation vert.
+COMPOSITION: Step-by-step 4-stage pipeline linked with illuminated directional arrows with French text labels:
+1. Stage 1: labeled "Identification du Citoyen (RNP)" -> Digital ID card and biometric verification generating the "Identifiant Digital Civil et Social (IDCS)".
+2. Stage 2: labeled "Profilage Socio-Économique du Foyer (RSU)" -> Integrated database ingesting household living standards, water/electricity indices, assets, and geographic indicators.
+3. Stage 3: labeled "Moteur Algorithmique de Scoring" -> Automated objective formula calculating the household socio-economic score vs legal threshold: "Seuil d'Éligibilité".
+4. Stage 4: labeled "Octroi Ciblé des Prestations Sociales":
+   - Branch A: labeled "AMO Tadamon" (Couverture médicale universelle intégralement prise en charge par l'État).
+   - Branch B: labeled "Aide Sociale Directe (ASD)" (Allocations familiales mensuelles versées directement sur comptes bancaires ou paiements mobiles).
+Each stage features a clean icon badge, clear descriptive title in French, and status checkmark.
 
-CAMÉRA : Vue de face orthogonale, lecture naturelle de gauche à droite, grande clarté didactique.
+CAMERA: Frontal flat diagram view, sequential reading flow from left to right.
 
-ÉCLAIRAGE : Éclairage clair et positif, cartes légèrement contrastées avec ombres subtiles.
+LIGHTING: Crisp high-key lighting, bright transparent cards with subtle blue-grey shadows.
 
-COULEURS & PALETTE : Bleu souverain (#0F3C6E), cyan numérique (#00B4D8), vert santé Tadamon (#2A9D8F), ambre social (#E67E22), gris clair (#F1F3F5).
+COLOR LANGUAGE: Social state governance palette: Royal navy (#0F3C6E), trust cyan (#00B4D8), healthcare emerald (#2A9D8F), warm amber (#E67E22), neutral light grey (#F1F3F5).
 
-STYLE VISUEL : Infographie de rapport institutionnel international (style OCDE / Banque Mondiale), lignes géométriques précises, pictogrammes universels et élégants.
+VISUAL STYLE: World Bank / OECD technical report infographic style, sharp geometric lines, clean sans-serif typography, accessible icons.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Titre : « Chantier Royal de la Protection Sociale — Architecture de Ciblage RNP / RSU ».
+BRANDING: Header: "Chantier Royal de la Protection Sociale — Architecture de Ciblage RNP / RSU".
 
-RÉALISME & QUALITÉ : Finesse vectorielle 2D irréprochable, alignement millimétré, typographie française parfaite.
+REALISM / QUALITY: Vector perfection, 2D monoline precision, flawless alignment.
 
-CONTRAINTES NÉGATIVES : Éviter les portraits misérabilistes ou stigmatisants, schémas de bases de données avec fragments de code SQL désordonnés, ambiance sombre ou froide.
+NEGATIVE CONSTRAINTS: Avoid impoverished human portraits, stigmatizing depictions, messy database schemas with code snippets, dark mood.
 ```
 
 **Priorité :**
@@ -562,7 +563,7 @@ Loi-cadre n° 03-22 : Objectif d'inversion du ratio de l'investissement global �
 Montrer de façon percutante la bascule de l'investissement public vers le secteur privé et la grille d'incitations financières gérée conjointement avec le MEF.
 
 **Type :**
-Infographie Comparative / Visualisation de Politique Économique
+Comparative Data Visualization / Strategic Policy Infographic
 
 **Ratio :**
 16:9
@@ -575,37 +576,38 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Infographie comparative illustrant le basculement historique du ratio de l'investissement au Maroc à l'horizon 2035 et l'architecture de la Nouvelle Charte de l'Investissement.
+SUBJECT: Comparative visual infographic showing the paradigm shift of investment ratio in Morocco from current state to Vision 2035.
 
-CONTEXTE : Loi-cadre 03-22 relative à la Charte de l'Investissement. Objectif national de relance de l'investissement privé domestique et étranger.
+CONTEXT: National Investment Charter (Loi-cadre 03-22). Focus on mobilizing private domestic and foreign investment to drive sustainable economic growth.
 
-ENVIRONNEMENT : Carte exécutive blanche (#FFFFFF) avec bordure sobre gris ardoise.
+ENVIRONMENT: Clean, elegant white card canvas with subtle executive slate border.
 
-ACTION : Comparaison visuelle entre la situation actuelle et la cible 2035, complétée par la grille des primes de soutien financier à l'investissement.
+ACTION: Visual comparison between two proportional donut charts and a structured incentive prime matrix below with French labels.
 
-COMPOSITION : Composition étagée en deux niveaux :
-- Niveau Supérieur (L'Inversion du Ratio) :
-  * À gauche, graphique circulaire « Situation Actuelle » : 67% d'Investissement Public (Bleu Marine #0F3C6E) contre 33% d'Investissement Privé (Cyan #00B4D8).
-  * Au centre, flèche de transition dynamique étiquetée « Trajectoire Vision 2035 ».
-  * À droite, graphique circulaire « Cible Charte 2035 » : 33% d'Investissement Public (Bleu Marine #0F3C6E) contre 67% d'Investissement Privé (Or #F2B705 / Vert #2A9D8F).
-- Niveau Inférieur (Le Dispositif de Soutien — Les 3 Primes d'Investissement) :
-  * Cartouche 1 : « Prime Commune » (Création d'emplois pérennes, mixité de genre, métiers d'avenir, intégration locale).
-  * Cartouche 2 : « Prime Territoriale » (Réduction des disparités provinciales et développement des régions moins favorisées).
-  * Cartouche 3 : « Prime Sectorielle » (Secteurs d'activité stratégiques et à haute valeur ajoutée).
+COMPOSITION:
+Top Half (L'Inversion du Ratio d'Investissement):
+- Left Circular Chart labeled "Situation Actuelle": "67% Investissement Public" (solid Navy #0F3C6E) vs "33% Investissement Privé" (light Cyan #00B4D8).
+- Center: Dynamic transformational arrow labeled "Trajectoire Vision 2035".
+- Right Circular Chart labeled "Cible Charte 2035": "33% Investissement Public" (Navy #0F3C6E) vs "67% Investissement Privé" (vibrant Gold #F2B705 / Mint #2A9D8F).
+Bottom Half (Le Dispositif de Soutien Financier — Les 3 Primes):
+- Three horizontal reward cards detailing in French:
+  1. labeled "Prime Commune" (Création d'emplois durables, mixité de genre, métiers d'avenir).
+  2. labeled "Prime Territoriale" (Développement des provinces et équité régionale).
+  3. labeled "Prime Sectorielle" (Secteurs stratégiques à haute valeur ajoutée).
 
-CAMÉRA : Présentation graphique frontale et symétrique, pourcentages chiffrés en grand format, proportions mathématiquement exactes.
+CAMERA: Frontal symmetrical graphic display, distinct data labels, clean mathematical proportions.
 
-ÉCLAIRAGE : Éclairage de studio net, lisibilité immédiate des contrastes.
+LIGHTING: Studio balanced lighting, crisp readable contrast.
 
-COULEURS & PALETTE : Bleu marine souverain (#0F3C6E), or investissement (#F2B705), cyan secteur privé (#00B4D8), vert croissance (#2A9D8F), blanc pur (#FFFFFF).
+COLOR LANGUAGE: Financial executive theme: Deep navy (#0F3C6E), investment gold (#F2B705), private sector cyan (#00B4D8), growth mint (#2A9D8F), white card background (#FFFFFF).
 
-STYLE VISUEL : Graphisme de cabinet de conseil économique stratégique (style McKinsey Global Institute / BCG), géométrie rigoureuse, pourcentages clairs.
+VISUAL STYLE: High-end financial consulting graphic (McKinsey / BCG annual outlook style), clean geometric lines, clear numeric percentages.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : En-tête : « Nouvelle Charte de l'Investissement (Loi-cadre 03-22) — Inversion du Ratio Public / Privé ».
+BRANDING: Header: "Nouvelle Charte de l'Investissement (Loi-cadre 03-22) — Inversion du Ratio Public / Privé".
 
-RÉALISME & QUALITÉ : Précision vectorielle, étiquettes 100% lisibles en français, camemberts parfaitement dosés.
+REALISM / QUALITY: Vector perfection, 100% sharp typography, accurate pie segments in French.
 
-CONTRAINTES NÉGATIVES : Éviter les camemberts 3D biseautés illisibles, effets de verre brillants, cours boursiers désordonnés, surcharge textuelle.
+NEGATIVE CONSTRAINTS: Avoid 3D tilted pies, glossy glass effects, confusing financial tickers, cluttered stock market charts.
 ```
 
 **Priorité :**
@@ -628,7 +630,7 @@ Organigramme et missions des directions du MEF : Pôle Recettes \& Douanes (DGI,
 Offrir une vue synoptique claire des directions du ministère pour réussir sans hésiter les QCM d'organisation administrative et l'entretien oral.
 
 **Type :**
-Organigramme Institutionnel / Carte Topologique des Pôles
+Ecosystem Topology Map / Institutional Hierarchy Diagram
 
 **Ratio :**
 16:9
@@ -641,44 +643,44 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Cartographie fonctionnelle et organigramme synoptique des pôles opérationnels du Ministère de l'Économie et des Finances du Royaume du Maroc.
+SUBJECT: A pristine functional ecosystem organigram map of the Ministry of Economy and Finance of the Kingdom of Morocco.
 
-CONTEXTE : Préparation aux questions d'organisation administrative du MEF (QCM écrit et grand oral). Taxonomie claire des directions clés et de leurs compétences.
+CONTEXT: Recruitment competition preparation. Essential administrative taxonomy showing directorates and operational responsibilities.
 
-ENVIRONNEMENT : Fond blanc épuré structuré par des conteneurs modulaires arrondis.
+ENVIRONMENT: Clean white background with subtle rounded modular card containers.
 
-ACTION : Regroupement méthodique des directions du ministère en quatre grands pôles opérationnels sous la tutelle du Ministre et du Secrétariat Général.
+ACTION: Structural grouping of MEF directorates into four operational poles under the Minister and General Secretariat.
 
-COMPOSITION : Arborescence institutionnelle hiérarchique :
-- Sommet : Cartouche Exécutif « Ministre de l'Économie et des Finances », articulé avec l'« Inspection Générale des Finances (IGF) » et le « Secrétariat Général ».
-- Base divisée en 4 colonnes opérationnelles aux liserés colorés distincts :
-  1. Pôle Fiscalité & Douanes :
-     * Direction Générale des Impôts (DGI — collecte de l'impôt, numérisation fiscale SIMPL).
-     * Administration des Douanes et Impôts Indirects (ADII — contrôle douanier, plateforme BADR).
-  2. Pôle Trésor & Dépenses Publiques :
-     * Trésorerie Générale du Royaume (TGR — comptabilité publique, système GID/GIR).
-     * Direction du Budget (DB — préparation et suivi de la Loi de Finances).
-  3. Pôle Financement & Études Économiques :
-     * Direction du Trésor et des Finances Extérieures (DTFE — levées de fonds, dette publique).
-     * Direction des Études et des Prévisions Financières (DEPF — modélisation et prospective).
-  4. Pôle Entreprises Publiques & Domaine de l'État :
-     * Direction des Domaines de l'État (DDE — gestion et valorisation du patrimoine foncier).
-     * Direction des Entreprises Publiques et de la Privatisation (DEPP) & Agence ANGSPE.
-Chaque direction possède son acronyme officiel, une icône dédiée et une ligne de mission clé en français.
+COMPOSITION:
+Top Apex: Executive Head badge reading "Ministre de l'Économie et des Finances" linked to "Inspection Générale des Finances (IGF)" and "Secrétariat Général".
+Below, four clearly defined vertical clusters with distinctive accent color tags and French acronyms:
+1. Pôle Fiscalité & Douanes:
+   - "Direction Générale des Impôts (DGI)"
+   - "Administration des Douanes et Impôts Indirects (ADII)"
+2. Pôle Trésor & Dépenses Publiques:
+   - "Trésorerie Générale du Royaume (TGR)"
+   - "Direction du Budget (DB)"
+3. Pôle Financement & Politique Économique:
+   - "Direction du Trésor et des Finances Extérieures (DTFE)"
+   - "Direction des Études et des Prévisions Financières (DEPF)"
+4. Pôle Patrimoine & Entreprises Publiques:
+   - "Direction des Domaines de l'État (DDE)"
+   - "Direction des Entreprises Publiques (DEPP) & ANGSPE"
+Each card features a crisp official icon, standard French acronym, and a one-line mission summary in French.
 
-CAMÉRA : Vue frontale en arbre hiérarchique, lignes de connexion nettes aux coudes arrondis, espacements harmonieux.
+CAMERA: Frontal orthographic tree diagram, clean connector lines with rounded elbows, harmonious spacing.
 
-ÉCLAIRAGE : Éclairage diffus homogène, contrastes nets.
+LIGHTING: Uniform diffuse digital lighting, high contrast.
 
-COULEURS & PALETTE : Identité étatique marocaine : Bleu marine (#0F3C6E), ardoise (#37474F), or discret (#D4AF37), bordures de cartes colorées.
+COLOR LANGUAGE: Institutional Moroccan identity: Navy blue (#0F3C6E), slate grey (#37474F), accent gold (#D4AF37), card border tints.
 
-STYLE VISUEL : Schéma d'organigramme administratif de prestige, cartes aux coins arrondis (2.5px), hiérarchie typographique fluide et sobre.
+VISUAL STYLE: Corporate administrative governance chart, sharp 2.5px rounded rectangles, elegant hierarchy, clean typography.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Titre officiel : « Ministère de l'Économie et des Finances — Cartographie des Pôles et Directions Clés ».
+BRANDING: Official label: "Ministère de l'Économie et des Finances — Cartographie des Directions Clés".
 
-RÉALISME & QUALITÉ : Clarté vectorielle pure, alignement typographique parfait, zéro bruit visuel.
+REALISM / QUALITY: Vector perfection, impeccable text alignment, zero visual noise in French.
 
-CONTRAINTES NÉGATIVES : Éviter les toiles d'araignées bureaucratiques enchevêtrées, textes minuscules, portraits photographiques de responsables politiques, personnages de bande dessinée.
+NEGATIVE CONSTRAINTS: Avoid bureaucratic complex spiderwebs, overlapping connectors, blurry text, cartoon characters, photographic portraits of politicians.
 ```
 
 **Priorité :**
@@ -701,7 +703,7 @@ Le calendrier budgétaire constitutionnel de confection du Projet de Loi de Fina
 Fixer visuellement dans la mémoire du candidat la chronologie absolue et les dates constitutionnelles obligatoires de la loi de finances (questions QCM récurrentes).
 
 **Type :**
-Frise Budgétaire Constitutionnelle / Roue du Cycle Budgétaire
+Milestone Roadmap Infographic / Constitutional Calendar Wheel
 
 **Ratio :**
 16:9
@@ -714,34 +716,34 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Frise chronologique et calendrier constitutionnel de préparation et d'adoption de la Loi de Finances annuelle selon la LOF 130-13.
+SUBJECT: An authoritative circular/horizontal milestone roadmap of the Moroccan annual budget cycle under the Organic Law of Finance (LOF 130-13).
 
-CONTEXTE : Examen de droit budgétaire et de finances publiques du MEF. Maîtrise infaillible des 4 grandes dates constitutionnelles et des délais parlementaires.
+CONTEXT: Public finance law examination training. Clear visual encoding of constitutional deadlines and parliamentary scrutiny periods.
 
-ENVIRONNEMENT : Carte de gestion exécutive sur fond blanc avec jalons temporels mensuels bien distincts.
+ENVIRONMENT: Clean white executive card layout with clear monthly time markers.
 
-ACTION : Parcours chronologique marquant les étapes obligatoires de la fabrication du Projet de Loi de Finances (PLF).
+ACTION: Progressive chronological milestones tracking the preparation, presentation, vote, and publication of the Finance Bill (Projet de Loi de Finances - PLF).
 
-COMPOSITION : Frise dynamique linéaire mettant en relief les quatre dates constitutionnelles incontournables :
-- Jalon 1 (Avant le 15 Mars) : Circulaire du Chef du Gouvernement fixant les priorités budgétaires aux ministères (Icône circulaire officielle).
-- Jalon 2 (Avant le 15 Juillet) : Exposé conjoint du Ministre de l'Économie et des Finances devant les commissions des finances du Parlement sur l'exécution du budget et la programmation triennale (Icône tribune parlementaire).
-- Jalon 3 (🔴 Au plus tard le 20 Octobre — DATE CLÉ ABSOLUE) : Dépôt constitutionnel obligatoire du Projet de Loi de Finances (PLF) sur le Bureau de la Chambre des Représentants (Icône dépôt du texte de loi avec sceau officiel).
-- Jalon 4 (Octobre - Décembre / 60 Jours d'Examen) : Navette parlementaire (30 jours Chambre des Représentants, 22 jours Chambre des Conseillers, 6 jours lecture finale) aboutissant à la promulgation au Bulletin Officiel avant le 31 décembre (Icône sceau royal et date du 31 décembre).
-Chaque jalon est encadré dans un cartouche avec la date exacte en typographie grasse et imposante.
+COMPOSITION: Dynamic timeline progression highlighting four statutory critical dates with exact French labels:
+- Milestone 1: labeled "Avant le 15 Mars : Circulaire du Chef du Gouvernement" (Setting ministerial spending priorities).
+- Milestone 2: labeled "Avant le 15 Juillet : Exposé Conjoint Exécution & PBT devant le Parlement" (By Minister of Economy and Finance).
+- Milestone 3 (🔴 CRITICAL STATUTORY DATE): labeled "Au plus tard le 20 Octobre : Dépôt Constitutionnel Obligatoire du PLF" (On the Bureau of the Chambre des Représentants, official bill deposit icon).
+- Milestone 4: labeled "Octobre - Décembre (60 Jours) : Vote Parlementaire & Promulgation au Bulletin Officiel avant le 31 Décembre" (30 days 1st chamber, 22 days 2nd chamber, 6 days final reading, royal seal icon).
+Each milestone is housed in an executive card with exact calendar date badges in bold typography in French.
 
-CAMÉRA : Vue frontale directe, lecture chronologique fluide de gauche à droite, espacement équilibré.
+CAMERA: Direct frontal view, clear directional progression, perfectly balanced spacing.
 
-ÉCLAIRAGE : Éclairage net à fort contraste, mise en exergue par la couleur du jalon critique du 20 octobre.
+LIGHTING: High-contrast crisp digital lighting, distinct color-coded milestone badges.
 
-COULEURS & PALETTE : Bleu marine souverain (#0F3C6E), pourpre constitutionnel (#C0392B pour l'échéance du 20 octobre), or légal (#D4AF37), vert validation (#16A085).
+COLOR LANGUAGE: Legal and financial theme: Sovereign navy (#0F3C6E), constitutional crimson (#C0392B for the 20 Oct deadline), legal gold (#D4AF37), verification teal (#16A085).
 
-STYLE VISUEL : Infographie de haute gouvernance étatique, repères temporels ronds, pictogrammes filaires épurés, hiérarchie typographique exemplaire.
+VISUAL STYLE: Elite institutional infographic, rounded timeline pins, crisp monoline icons, clear font hierarchy.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : En-tête : « LOF 130-13 — Le Calendrier Budgétaire Constitutionnel de la Loi de Finances ».
+BRANDING: Prominent header: "LOF 130-13 — Le Calendrier Budgétaire Constitutionnel de la Loi de Finances".
 
-RÉALISME & QUALITÉ : Finesse vectorielle, dates 100% lisibles en français, géométrie rigoureuse.
+REALISM / QUALITY: Vector perfection, 100% readable dates, clean graphic geometry in French.
 
-CONTRAINTES NÉGATIVES : Éviter les lignes en zigzag confuses, polices de caractères fantaisistes, cliparts de calendriers de bureau désuets, enjolivures baroques.
+NEGATIVE CONSTRAINTS: Avoid confusing zigzag lines, unreadable date fonts, generic calendar cliparts, complex decorative flourishes.
 ```
 
 **Priorité :**
@@ -764,7 +766,7 @@ Programme commando 72h heure par heure précédant l'épreuve écrite du 20 sept
 Offrir au candidat un tableau de bord tactique synthétique et motivant, garantissant une discipline d'exécution sans dispersion jusqu'à la veille du concours.
 
 **Type :**
-Tableau de Bord Tactique / Matrice de Sprint Commando
+Tactical Schedule Dashboard / High-Yield Study Sprint Matrix
 
 **Ratio :**
 16:9
@@ -777,45 +779,45 @@ Landscape
 
 **Prompt Flow :**
 ```text
-SUJET : Tableau de bord matriciel de révision commando pour le sprint final des 72 heures précédant le concours d'Ingénieurs d'État du MEF.
+SUBJECT: High-yield tactical revision sprint dashboard matrix for the final 72 hours before the Moroccan State Engineer competitive exam.
 
-CONTEXTE : Guide de préparation intensive pour le concours du 20 septembre au Ministère de l'Économie et des Finances. Organisation rigoureuse heure par heure.
+CONTEXT: Intensive preparation guide for the Ministry of Economy and Finance recruitment on September 20. Structured commando study plan.
 
-ENVIRONNEMENT : Interface de pilotage moderne et claire sur fond blanc pur (#FFFFFF) avec bordures ardoise élégantes.
+ENVIRONMENT: Modern executive dashboard layout on pure white background (#FFFFFF) with clean slate borders.
 
-ACTION : Structuration visuelle des 3 derniers jours de révision en blocs d'apprentissage opérationnels à haute rentabilité, avec codes couleurs distincts.
+ACTION: Visual scheduling matrix organizing the final three preparation days into distinct color-coded operational learning blocks.
 
-COMPOSITION : Trois colonnes verticales correspondant aux 3 jours clés, surmontées de badges de date et d'objectifs :
-- Colonne 1 (Jour 1 - 17 Septembre : « Fondations & Règles d'Or ») :
-  * Bloc A (14h-18h) : Méthodologie & Décorticage des Annales Réelles (Maroc Digital 2030 / Énergie).
-  * Bloc B (19h-23h) : Finances Publiques & LOF 130-13 (Les 4 principes modernes, Calendrier, Règle d'or Art. 20).
-- Colonne 2 (Jour 2 - 18 Septembre : « Intensité & Simulation Réelle ») :
-  * Bloc C (08h30-12h30) : Organisation du MEF & SI Étatiques (DGI, TGR, Douanes, GID, SIMPL).
-  * Bloc D (14h-18h) : Épreuve Blanche Rédactionnelle en 2h30 Chrono (Sujet au choix : Digitalisation ou Inflation).
-  * Bloc E (19h-22h30) : Forage de la Banque de Questions QCM (Focus Priorité Rouge 🔴).
-- Colonne 3 (Jour 3 - 19 Septembre : « Chiffres Clés & Sérénité ») :
-  * Bloc F (09h-12h30) : Chantiers Stratégiques (Protection Sociale RSU, Charte de l'Investissement).
-  * Bloc G (14h30-17h30) : Fiches Mémotechniques des Chiffres Clés & Vocabulaire d'Impact.
-  * Bloc H (18h30-21h00) : Vérification Logistique & Coupure Totale des Révisions à 21h00 pour Sommeil Réparateur.
-Au pied du tableau, bannière de réussite : « Objectif Jour J (20 Septembre) : Maîtrise, Sérénité & Réussite ».
+COMPOSITION: Three vertical day columns topped by clear date and objective badges in French:
+1. Column 1: labeled "Jour 1 (17 Sept.) : Fondations & Règles d'Or":
+   - Block A (14h-18h): labeled "Méthodologie & Décorticage Sujets Réels (Maroc Digital 2030 / Énergie)".
+   - Block B (19h-23h): labeled "Finances Publiques & LOF 130-13 (4 Principes, Calendrier, Règle d'Or Art. 20)".
+2. Column 2: labeled "Jour 2 (18 Sept.) : Intensité & Simulation":
+   - Block C (08h30-12h30): labeled "Organisation MEF & SI Étatiques (DGI, TGR, Douanes, GID, SIMPL)".
+   - Block D (14h-18h): labeled "Épreuve Blanche Rédactionnelle en 2h30 Chrono".
+   - Block E (19h-22h30): labeled "Sprint Banque QCM (Focus Priorité Rouge)".
+3. Column 3: labeled "Jour 3 (19 Sept.) : Chiffres Clés & Sérénité":
+   - Block F (09h-12h30): labeled "Chantiers Stratégiques (Protection Sociale RSU, Charte Investissement)".
+   - Block G (14h30-17h30): labeled "Fiches Chiffres Clés & Vocabulaire d'Impact".
+   - Block H (18h30-21h00): labeled "Contrôle Logistique & Coupure Totale à 21h00 pour Sommeil Réparateur".
+At the bottom, an achievement tracker indicates: "Objectif 20 Septembre : Maîtrise, Sérénité & Réussite".
 
-CAMÉRA : Vue frontale orthogonale de type tableau de bord de productivité, parfait alignement des colonnes et des blocs.
+CAMERA: Frontal orthogonal dashboard perspective, perfectly aligned columns and cards, sharp readability.
 
-ÉCLAIRAGE : Éclairage numérique homogène, contrastes reposants pour les yeux.
+LIGHTING: High-contrast ambient digital light, crisp card shadows.
 
-COULEURS & PALETTE : Bleu nuit profond (#0F3C6E), cyan concentration (#00B4D8), orange simulation (#E67E22), vert sérénité (#2A9D8F), conteneurs blancs (#FFFFFF).
+COLOR LANGUAGE: Operational motivation palette: Deep navy (#0F3C6E), focus cyan (#00B4D8), simulation amber (#E67E22), rest/serenity green (#2A9D8F), white card containers (#FFFFFF).
 
-STYLE VISUEL : Tableau de bord moderne, pictogrammes de statut épurés, étiquettes horaires nettes, typographie suisse rigoureuse.
+VISUAL STYLE: Modern productivity dashboard, monoline status icons, clean badges, Swiss typography in French.
 
-IDENTITÉ INSTITUTIONNELLE / BRANDING : Titre : « Concours MEF Ingénieurs d'État — Matrice de Révision Commando J-3 ».
+BRANDING: Header: "Concours MEF Ingénieurs d'État — Matrice de Révision Commando J-3".
 
-RÉALISME & QUALITÉ : Graphisme vectoriel de précision, horaires et intitulés 100% lisibles en français.
+REALISM / QUALITY: Vector perfection, 100% legible time badges and task labels, zero visual distortion.
 
-CONTRAINTES NÉGATIVES : Éviter les visuels anxiogènes ou chaotiques, post-its désordonnés, textes gribouillés, ambiances sombres, typographies déformées.
+NEGATIVE CONSTRAINTS: Avoid anxious or chaotic imagery, messy handwritten sticky notes, blurry text, dark depressing mood, low resolution artifacts.
 ```
 
 **Priorité :**
 🔴 PRIORITÉ 1 — ESSENTIELLE
 
 **Justification :**
-Ce planning est le fil conducteur opérationnel du candidat pour les dernières 72 heures avant le 20 septembre, évitant le piège de la panique et de la dispersion.
+Ce planning est le fil conducteur opérationnel du candidat pour les dernières 72 heures avant le 20 septembre, évitant le piège de la panique et de la surcharge cognitive.

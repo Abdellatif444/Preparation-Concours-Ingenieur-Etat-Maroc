@@ -28,7 +28,7 @@ def parse_visual_plans(docs_dir=None, images_dir=None):
     docs_dir, images_dir = resolve_paths(docs_dir, images_dir)
     
     plan_files = [
-        ("flow7-coloring-magical-fantasy.md", "Flow 7 — Coloring: Magical Fantasy"),
+        ("flow_concours_mef.md", "Flow Concours MEF"),
     ]
 
     # Auto-discover any additional flow or coloring markdown files

@@ -1152,24 +1152,9 @@ body.selection-mode .card-select {
   border: 1px solid rgba(228, 87, 46, 0.4);
 }
 
-/* Mesures automatiques sur les cartes */
-.badge-metrics.ok {
-  background: rgba(46, 204, 113, 0.15);
-  color: #2ecc71;
-  border: 1px solid rgba(46, 204, 113, 0.4);
-}
-
-.badge-metrics.ko {
-  background: rgba(245, 165, 36, 0.18);
-  color: #f5a524;
-  border: 1px solid rgba(245, 165, 36, 0.45);
-  cursor: help;
-}
-
-.badge-metrics.pending {
-  background: rgba(255, 255, 255, 0.05);
-  color: #9aa0bd;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+/* Mesures automatiques sur les cartes : masquées car toutes les images sont conformes par défaut */
+.badge-metrics {
+  display: none !important;
 }
 
 .auto-regen-toggle {

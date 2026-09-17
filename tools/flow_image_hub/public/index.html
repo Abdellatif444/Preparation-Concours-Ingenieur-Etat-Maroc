@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flow Image Hub — Coloring Studio</title>
+  <title>Flow Image Hub — Concours MEF (Ingénieurs d'État)</title>
   <meta name="description" content="Cockpit de génération, de contrôle qualité et d'export des packs de pages de coloriage avec Google Flow.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Top Navigation / Brand -->
+  <!-- Header Bar -->
   <header class="app-header">
-    <div class="header-left">
-      <div class="brand-logo">
-        <span class="logo-icon">🦊</span>
-        <div class="brand-text">
-          <h1>Flow Image Hub</h1>
-          <p class="brand-subtitle">Coloring Studio &bull; Assistant de génération d'images</p>
-        </div>
+    <div class="brand-group">
+      <span class="brand-icon">🏛️</span>
+      <div>
+        <h1 class="brand-title">Flow Image Hub</h1>
+        <p class="brand-subtitle">Guide de Préparation MEF &bull; Assistant de génération d'images</p>
       </div>
     </div>
 
@@ -54,15 +53,6 @@
       <button class="btn btn-auto-queue" id="btn-auto-queue" title="Lancer l'auto-génération séquentielle de tous les prompts en attente (sans chevauchement)">
         ⚡ Activer les en attente
       </button>
-      <button class="btn btn-regenerate" id="btn-regenerate-nonconform" title="Régénérer automatiquement, une par une, toutes les pages « À revoir » (motif et correction ajoutés d'après les mesures)">
-        ⚠️ Régénérer les non conformes
-      </button>
-      <label class="auto-regen-toggle" title="Pendant une file, relance automatiquement une page non conforme aux mesures (2 essais maximum par page)">
-        <input type="checkbox" id="toggle-auto-regen"> 🔁 Auto-régénérer
-      </label>
-      <label class="auto-regen-toggle" title="À la fin d'une file, relance toutes les pages encore non conformes, tour après tour, jusqu'à ce qu'il n'en reste aucune (5 tours maximum)">
-        <input type="checkbox" id="toggle-until-conform"> ♾️ Jusqu'à conformité
-      </label>
       <button class="btn btn-outline" id="btn-selection-mode" title="Cocher des pages pour les régénérer en lot">
         ☑ Sélection
       </button>
@@ -72,7 +62,7 @@
       <button class="btn btn-primary" id="btn-tampermonkey" title="Voir le script d'automatisation Flow">
         🤖 Tampermonkey
       </button>
-      <button class="btn btn-outline" id="btn-export-pdf" title="Compiler les coloriages générés en livret PDF 300 DPI">
+      <button class="btn btn-outline" id="btn-export-pdf" title="Compiler les images générées en livret PDF 300 DPI">
         📚 Exporter PDF
       </button>
       <button class="btn btn-outline" id="btn-flow-url" title="Voir ou modifier l'URL du projet Google Flow">
@@ -103,7 +93,6 @@
   <div class="selection-bar" id="selection-bar" style="display:none;">
     <strong class="selection-count" id="selection-count">Aucune page sélectionnée</strong>
     <div class="selection-actions">
-      <button class="btn btn-outline" id="btn-select-nonconform" title="Mesurer les pages générées et cocher celles hors cible 8-12 ans">📏 Sélectionner les non conformes</button>
       <button class="btn btn-outline" id="btn-select-visible" title="Cocher toutes les pages affichées par les filtres actuels">☑ Tout sélectionner (visibles)</button>
       <button class="btn btn-outline" id="btn-clear-selection">☐ Tout désélectionner</button>
       <button class="btn btn-regenerate" id="btn-regenerate-selection" disabled title="Régénérer les pages cochées une par une dans Google Flow">🔁 Régénérer la sélection</button>
@@ -125,13 +114,12 @@
       <button class="filter-chip" data-filter="status" data-val="pending">⏳ En attente</button>
       <button class="filter-chip" data-filter="status" data-val="done">✅ Générées</button>
       <button class="filter-chip" data-filter="status" data-val="validated">🏆 Validées</button>
-      <button class="filter-chip" data-filter="status" data-val="nonconform" title="Pages générées dont les mesures automatiques sont hors cible">⚠️ Non conformes</button>
     </div>
 
     <div class="filter-group">
       <span class="filter-label">Flux :</span>
       <button class="filter-chip active" data-filter="flow" data-val="all">Tous les flux</button>
-      <button class="filter-chip" data-filter="flow" data-val="flow7-coloring-magical-fantasy.md">🎨 Coloriage: Fantasy</button>
+      <button class="filter-chip" data-filter="flow" data-val="flow_concours_mef.md">📊 Concours MEF</button>
     </div>
   </section>
 

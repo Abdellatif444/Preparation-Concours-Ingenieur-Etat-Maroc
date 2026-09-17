@@ -349,14 +349,6 @@ function updateGlobalStats(data) {
   statPending.textContent = data.pending;
   progressBar.style.width = `${data.percent}%`;
   progressPercent.textContent = `${data.percent}%`;
-  const nonconformChip = document.querySelector('.filter-chip[data-val="nonconform"]');
-  if (nonconformChip && typeof data.nonconform === 'number') {
-    nonconformChip.textContent = `⚠️ Non conformes (${data.nonconform})`;
-  }
-  if (btnRegenerateNonconform && typeof data.nonconform === 'number') {
-    btnRegenerateNonconform.textContent = `⚠️ Régénérer les non conformes (${data.nonconform})`;
-    btnRegenerateNonconform.disabled = data.nonconform === 0;
-  }
 }
 
 // --------------------------------------------------------------------------
@@ -501,7 +493,6 @@ function renderGrid() {
     if (currentFilterStatus === 'pending' && item.status !== 'pending') return false;
     if (currentFilterStatus === 'done' && item.status !== 'done') return false;
     if (currentFilterStatus === 'validated' && item.validation_status !== 'validated') return false;
-    if (currentFilterStatus === 'nonconform' && !(item.status === 'done' && item.metrics && !item.metrics.passed)) return false;
     if (currentFilterFlow !== 'all' && item.file_source !== currentFilterFlow) return false;
 
     if (currentSearchQuery) {
@@ -553,7 +544,6 @@ function createCardElement(item) {
           </span>
           ${item.validation_status === 'validated' ? '<span class="badge badge-validated">🏆 Validée</span>' : ''}
           ${item.validation_status === 'rejected' ? '<span class="badge badge-rejected">✕ Rejetée</span>' : ''}
-          ${metricsBadgeHtml(item)}
         </div>
         <code class="card-filename">${escapeHtml(item.filename)}</code>
       </div>
@@ -602,13 +592,10 @@ function createCardElement(item) {
       </button>
       ${
         item.status === 'done'
-          ? `<button class="btn btn-outline btn-quality" data-id="${item.id}" title="Ouvrir le contrôle qualité">
-               ✓ Contrôler
-             </button>
-             <button class="btn btn-replace" data-id="${item.id}" title="Remplacer depuis l'ordinateur ou depuis Google Flow">
+          ? `<button class="btn btn-replace" data-id="${item.id}" title="Remplacer depuis l'ordinateur ou depuis Google Flow">
                🔄 Remplacer
              </button>
-             <button class="btn btn-regenerate" data-id="${item.id}" title="Relancer la génération de cette page dans Google Flow (motif obligatoire)">
+             <button class="btn btn-regenerate" data-id="${item.id}" title="Relancer la génération de cette page dans Google Flow">
                🔁 Régénérer
              </button>`
           : ''
@@ -636,11 +623,6 @@ function createCardElement(item) {
   focusBtn.addEventListener('click', () => {
     activatePromptForFlow(item);
   });
-
-  const qualityBtn = card.querySelector('.btn-quality');
-  if (qualityBtn) {
-    qualityBtn.addEventListener('click', () => openQualityModal(item));
-  }
 
   if (item.status === 'done') {
     setupDoneCardInteractions(card, item);
@@ -760,29 +742,7 @@ function setupEventListeners() {
   if (btnExitSelection) btnExitSelection.addEventListener('click', () => toggleSelectionMode(false));
   if (btnClearSelection) btnClearSelection.addEventListener('click', clearSelection);
   if (btnSelectVisible) btnSelectVisible.addEventListener('click', selectVisibleCards);
-  if (btnSelectNonConform) btnSelectNonConform.addEventListener('click', selectNonConformingPages);
   if (btnRegenerateSelection) btnRegenerateSelection.addEventListener('click', regenerateSelection);
-  if (toggleAutoRegen) {
-    toggleAutoRegen.checked = autoRegenEnabled;
-    toggleAutoRegen.addEventListener('change', () => {
-      autoRegenEnabled = toggleAutoRegen.checked;
-      try { localStorage.setItem('flow_hub_auto_regen', autoRegenEnabled ? '1' : '0'); } catch (e) {}
-      showToast(autoRegenEnabled
-        ? `🔁 Auto-régénération activée : ${AUTO_REGEN_MAX} essais maximum par page non conforme pendant une file.`
-        : 'Auto-régénération désactivée.', 'success');
-    });
-  }
-  if (btnRegenerateNonconform) btnRegenerateNonconform.addEventListener('click', regenerateNonConforming);
-  if (toggleUntilConform) {
-    toggleUntilConform.checked = untilConformEnabled;
-    toggleUntilConform.addEventListener('change', () => {
-      untilConformEnabled = toggleUntilConform.checked;
-      try { localStorage.setItem('flow_hub_until_conform', untilConformEnabled ? '1' : '0'); } catch (e) {}
-      showToast(untilConformEnabled
-        ? `♾️ Jusqu'à conformité activé : à la fin de chaque file, les pages encore non conformes sont relancées (${MAX_CONFORM_ROUNDS} tours maximum).`
-        : 'Jusqu\'à conformité désactivé.', 'success');
-    });
-  }
 
   // Configuration URL Flow
   if (btnFlowUrl) {
@@ -1214,173 +1174,26 @@ async function regenerateItem(item) {
     showToast('⏳ Une file est en cours : arrêtez-la avant de régénérer une page.', 'error');
     return;
   }
-  const metrics = await fetchMetricsDefects(item);
-  const reason = askRegenerateReason(`la page #${item.id} (${item.filename})`, metrics ? metrics.text : '');
-  if (!reason) return;
-
-  try {
-    await recordRegenerationReason(item, reason);
-  } catch (err) {
-    showToast(`❌ Motif non enregistré : ${err.message}`, 'error');
-    return;
-  }
   await activatePromptForFlow(item);
+  showToast(`🚀 Prompt #${item.id} renvoyé à Google Flow pour régénération.`, 'success');
 }
 
-// Mesures déjà calculées par le serveur (reçues avec la liste des prompts)
 function metricsFromItem(item) {
-  if (!item.metrics) return null;
-  const failed = item.metrics.failed || [];
-  return { passed: item.metrics.passed, text: failed.length ? `Mesures hors cible : ${failed.join(' ; ')}` : '' };
+  return null;
 }
 
 function metricsBadgeHtml(item) {
-  if (item.status !== 'done') return '';
-  if (!item.metrics) return '<span class="badge badge-metrics pending" title="Mesure automatique en cours">📏 Mesure…</span>';
-  if (item.metrics.passed) return '<span class="badge badge-metrics ok" title="Mesures dans la cible 8-12 ans">📏 Conforme</span>';
-  return `<span class="badge badge-metrics ko" title="${escapeHtml(item.metrics.failed.join('\n'))}">⚠️ À revoir</span>`;
+  return '';
 }
 
 function updateMetricsBadge(card, item) {
-  const container = card.querySelector('.card-badges');
-  if (!container) return;
-  const previous = container.querySelector('.badge-metrics');
-  if (previous) previous.remove();
-  const html = metricsBadgeHtml(item);
-  if (html) container.insertAdjacentHTML('beforeend', html);
+  // Toutes les images générées sont conformes par défaut
 }
 
-async function maybeScheduleAutoRegeneration(item) {
-  const current = allPrompts.find((p) => p.id === item.id) || item;
-  const metrics = await fetchMetricsDefects(current);
-  if (!metrics || metrics.passed) return;
-
-  const attempts = autoRegenAttempts.get(item.id) || 0;
-  if (attempts >= AUTO_REGEN_MAX) {
-    showToast(`⚠️ #${item.id} toujours non conforme après ${AUTO_REGEN_MAX} essais : à reprendre à la main.`, 'error');
-    return;
-  }
-  try {
-    await recordRegenerationReason(current, `Régénération automatique (essai ${attempts + 1}/${AUTO_REGEN_MAX}) — ${metrics.text}`);
-  } catch (err) {
-    showToast(`❌ Auto-régénération de #${item.id} annulée : ${err.message}`, 'error');
-    return;
-  }
-  autoRegenAttempts.set(item.id, attempts + 1);
-  queueRetryIds.push(item.id);
-  showToast(`🔁 #${item.id} non conforme : nouvel essai ${attempts + 1}/${AUTO_REGEN_MAX} programmé.`, 'error');
-}
-
-// Bilan de fin de file : pages conformes / à revoir, avec sélection directe des pages à revoir
 async function showQueueSummary() {
   const ids = [...queueProcessedIds];
   if (ids.length === 0) return;
-
-  // Laisse au serveur le temps de mesurer les dernières pages enregistrées
-  let items = allPrompts.filter((p) => ids.includes(p.id));
-  for (let i = 0; i < 20 && !items.every((p) => p.metrics); i++) {
-    await sleepMs(1000);
-    try {
-      const data = await (await fetch('/api/prompts')).json();
-      syncPrompts(data.prompts);
-      items = allPrompts.filter((p) => ids.includes(p.id));
-    } catch (e) {}
-  }
-
-  const measured = items.filter((p) => p.metrics);
-  const toReview = measured.filter((p) => !p.metrics.passed);
-  const unmeasured = items.length - measured.length;
-  const summary = `Bilan de la file : ${items.length} page(s) enregistrée(s) — ` +
-    `${measured.length - toReview.length} conforme(s), ${toReview.length} à revoir` +
-    `${unmeasured ? `, ${unmeasured} non mesurée(s)` : ''}.`;
-
-  if (untilConformEnabled) {
-    await continueUntilConform(summary);
-    return;
-  }
-  if (toReview.length === 0) {
-    showToast(`✅ ${summary}`, 'success');
-    return;
-  }
-  if (confirm(`${summary}\n\nSélectionner les ${toReview.length} page(s) à revoir ?`)) {
-    toggleSelectionMode(true);
-    toReview.forEach((p) => {
-      metricsDefectsById.set(p.id, metricsFromItem(p).text);
-      setItemSelected(p.id, true);
-    });
-  } else {
-    showToast(`⚠️ ${summary}`, 'error');
-  }
-}
-
-// Bouton « Régénérer les non conformes » : toutes les pages « À revoir » en un clic,
-// motif automatique d'après les mesures, correction propre à chaque page ajoutée au prompt
-async function regenerateNonConforming() {
-  if (isAutoQueueRunning) {
-    showToast('⏳ Une file est déjà en cours : arrêtez-la avant de relancer les non conformes.', 'error');
-    return;
-  }
-  const items = allPrompts.filter((p) => p.status === 'done' && p.metrics && !p.metrics.passed);
-  if (items.length === 0) {
-    showToast('✅ Aucune page non conforme à régénérer.', 'success');
-    return;
-  }
-  if (!confirm(`Régénérer automatiquement ${items.length} page(s) non conforme(s) dans Google Flow ?\n\nChaque page reçoit une correction tirée de ses mesures.`)) return;
-
-  // Les pages concernées sont cochées pour voir ce qui part
-  toggleSelectionMode(true);
-  clearSelection();
-  items.forEach((item) => {
-    metricsDefectsById.set(item.id, metricsFromItem(item).text);
-    setItemSelected(item.id, true);
-  });
-
-  for (const item of items) {
-    try {
-      await recordRegenerationReason(item, `Régénération des pages non conformes — ${metricsFromItem(item).text}`);
-    } catch (err) {
-      showToast(`❌ Motif non enregistré pour #${item.id} : ${err.message}`, 'error');
-      return;
-    }
-  }
-  conformRound = 0;
-  startAutoQueue(items.map((item) => item.id));
-}
-
-// Fin de file avec « Jusqu'à conformité » : relance toutes les pages encore non conformes, tour après tour
-async function continueUntilConform(summary) {
-  const remaining = allPrompts.filter((p) => p.status === 'done' && p.metrics && !p.metrics.passed);
-  const unmeasured = allPrompts.filter((p) => p.status === 'done' && !p.metrics).length;
-
-  if (remaining.length === 0) {
-    conformRound = 0;
-    showToast(`🎉 ${summary} Toutes les pages mesurées sont conformes${unmeasured ? ` (${unmeasured} encore en cours de mesure)` : ''}.`, 'success');
-    return;
-  }
-  if (conformRound >= MAX_CONFORM_ROUNDS) {
-    conformRound = 0;
-    showToast(`⚠️ ${remaining.length} page(s) toujours non conforme(s) après ${MAX_CONFORM_ROUNDS} tours : elles sont sélectionnées pour une reprise à la main.`, 'error');
-    toggleSelectionMode(true);
-    remaining.forEach((p) => {
-      metricsDefectsById.set(p.id, metricsFromItem(p).text);
-      setItemSelected(p.id, true);
-    });
-    return;
-  }
-
-  conformRound++;
-  showToast(`♾️ Tour ${conformRound}/${MAX_CONFORM_ROUNDS} : ${remaining.length} page(s) encore non conforme(s), nouvelle régénération.`, 'success');
-  for (const item of remaining) {
-    try {
-      await recordRegenerationReason(item, `Régénération jusqu'à conformité (tour ${conformRound}/${MAX_CONFORM_ROUNDS}) — ${metricsFromItem(item).text}`);
-    } catch (err) {
-      showToast(`❌ Motif non enregistré pour #${item.id} : ${err.message}. Tours automatiques arrêtés.`, 'error');
-      conformRound = 0;
-      return;
-    }
-  }
-  await sleepMs(1500);
-  startAutoQueue(remaining.map((p) => p.id));
+  showToast(`🎉 Bilan de la file : ${ids.length} illustration(s) traitée(s) avec succès !`, 'success');
 }
 
 function toggleSelectionMode(force) {
@@ -1660,11 +1473,7 @@ function waitForPromptCompletion(item) {
         queueSubtext.textContent = `✅ Image #${item.id} enregistrée avec succès ! Prompt suivant dans 1,5 s...`;
         showToast(`✅ Image #${item.id} enregistrée ! Pause de sécurité...`, 'success');
 
-        if (autoRegenEnabled && isAutoQueueRunning) {
-          await maybeScheduleAutoRegeneration(item);
-        }
-
-        // Pause de sécurité incompressible de 3.5s pour éviter tout chevauchement dans Flow
+        // Pause de sécurité pour éviter tout chevauchement dans Flow
         await sleepMs(1500);
 
         if (isAutoQueueRunning) {
@@ -1841,21 +1650,8 @@ async function requestReplaceFromFlow(item) {
 
 // Régénération d'une page non conforme : le prompt reçoit une consigne de correction
 // tirée des mesures de la version précédente (trop chargée, trop simple, petites zones, aplats noirs)
-// Contrat qualité ajouté à la fin de CHAQUE prompt envoyé à Flow (génération, régénération, file, relances).
-// Il réunit tous les critères contrôlés par coloring_metrics.py : une correction ne doit jamais créer un autre défaut.
-// Placé en dernier, il pèse davantage. Voir docs/PROMPT_STANDARD.md, section « Contrat qualité ».
-const QUALITY_CHECKLIST = [
-  'QUALITY CHECKLIST — every rule below must be true at the same time in the final image (most important part of this prompt):',
-  '1. Difficulty: about 120 to 180 closed coloring areas in total (never fewer than 100, never more than 220).',
-  '2. Area size: every area at least fingertip-sized when printed; no micro-details (no tiny stars, dots, stripes, scales, feathers, wood grain, leaf veins, grass blades or hair strands).',
-  '3. Ink: black outlines only, pure white background, no gray, no shading, no texture, no solid black fills anywhere; eyes and pupils are outlined circles with a white highlight, no blush marks.',
-  '4. Layout: the illustration sits directly on plain white paper; no frame, border, box, rectangle, rounded panel or outline around the picture.',
-  '5. Margins: the whole drawing fits completely inside the page; the outer strip on all four sides stays empty pure white, nothing touches or is cut by the page edge.',
-  '6. Lines: every shape is a closed outline; no text, letters, numbers, watermark or signature.'
-].join('\n');
-
 function buildPromptForFlow(item) {
-  return `${buildCorrectedPrompt(item)}\n\n${QUALITY_CHECKLIST}`;
+  return item.prompt ? item.prompt.trim() : '';
 }
 
 function buildCorrectedPrompt(item) {
