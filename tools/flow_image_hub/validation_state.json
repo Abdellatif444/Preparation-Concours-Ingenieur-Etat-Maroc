@@ -1,0 +1,42 @@
+{
+  "10": {
+    "status": "validated",
+    "filename": "col-mf-10-starlight-unicorn.png",
+    "time": 1789520640.3276145,
+    "defects": "Pages non conformes aux mesures de difficulté 8-12 ans — Mesures hors cible : Bord coupé haut (cible marge blanche sur les 4 bords)",
+    "strengths": "",
+    "correction": "Régénération demandée depuis le Hub"
+  },
+  "21": {
+    "status": "validated",
+    "filename": "col-mf-21-knight-dragon-picnic.png",
+    "time": 1789520579.1453204,
+    "defects": "Pages non conformes aux mesures de difficulté 8-12 ans — Mesures hors cible : Bord coupé gauche, droite (cible marge blanche sur les 4 bords)",
+    "strengths": "",
+    "correction": "Régénération demandée depuis le Hub"
+  },
+  "23": {
+    "status": "validated",
+    "filename": "col-mf-23-sea-serpent-pirate-ship.png",
+    "time": 1789520603.2375982,
+    "defects": "Pages non conformes aux mesures de difficulté 8-12 ans — Mesures hors cible : Bord coupé haut, gauche, droite (cible marge blanche sur les 4 bords)",
+    "strengths": "",
+    "correction": "Régénération demandée depuis le Hub"
+  },
+  "24": {
+    "status": "validated",
+    "filename": "col-mf-24-ice-palace-snow-owls.png",
+    "time": 1789520610.2326,
+    "defects": "Pages non conformes aux mesures de difficulté 8-12 ans — Mesures hors cible : Bord coupé gauche, droite (cible marge blanche sur les 4 bords)",
+    "strengths": "",
+    "correction": "Régénération demandée depuis le Hub"
+  },
+  "30": {
+    "status": "validated",
+    "filename": "col-mf-30-moon-garden-sleeping-dragon.png",
+    "time": 1789520586.8811364,
+    "defects": "Pages non conformes aux mesures de difficulté 8-12 ans — Mesures hors cible : Bord coupé gauche, droite (cible marge blanche sur les 4 bords)",
+    "strengths": "",
+    "correction": "Régénération demandée depuis le Hub"
+  }
+}

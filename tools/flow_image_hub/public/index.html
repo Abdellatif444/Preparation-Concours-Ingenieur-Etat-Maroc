@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Image Hub — Coloring Studio</title>
+  <meta name="description" content="Cockpit de génération, de contrôle qualité et d'export des packs de pages de coloriage avec Google Flow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation / Brand -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="brand-logo">
+        <span class="logo-icon">🦊</span>
+        <div class="brand-text">
+          <h1>Flow Image Hub</h1>
+          <p class="brand-subtitle">Coloring Studio &bull; Assistant de génération d'images</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global Progress Bar & Stats -->
+    <div class="header-stats">
+      <div class="stats-overview">
+        <div class="stat-pill">
+          <span class="stat-label">Total :</span>
+          <span class="stat-val" id="stat-total">0</span>
+        </div>
+        <div class="stat-pill success">
+          <span class="stat-label">Générées :</span>
+          <span class="stat-val" id="stat-done">0</span>
+        </div>
+        <div class="stat-pill warning">
+          <span class="stat-label">En attente :</span>
+          <span class="stat-val" id="stat-pending">0</span>
+        </div>
+        <div class="stat-pill warning" id="flow-status-pill" title="Onglets Google Flow connectés au hub">
+          <span class="stat-label">Google Flow :</span>
+          <span class="stat-val" id="flow-status-val">…</span>
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 0%;"></div>
+        <span class="progress-text" id="progress-percent">0%</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-auto-queue" id="btn-auto-queue" title="Lancer l'auto-génération séquentielle de tous les prompts en attente (sans chevauchement)">
+        ⚡ Activer les en attente
+      </button>
+      <button class="btn btn-regenerate" id="btn-regenerate-nonconform" title="Régénérer automatiquement, une par une, toutes les pages « À revoir » (motif et correction ajoutés d'après les mesures)">
+        ⚠️ Régénérer les non conformes
+      </button>
+      <label class="auto-regen-toggle" title="Pendant une file, relance automatiquement une page non conforme aux mesures (2 essais maximum par page)">
+        <input type="checkbox" id="toggle-auto-regen"> 🔁 Auto-régénérer
+      </label>
+      <label class="auto-regen-toggle" title="À la fin d'une file, relance toutes les pages encore non conformes, tour après tour, jusqu'à ce qu'il n'en reste aucune (5 tours maximum)">
+        <input type="checkbox" id="toggle-until-conform"> ♾️ Jusqu'à conformité
+      </label>
+      <button class="btn btn-outline" id="btn-selection-mode" title="Cocher des pages pour les régénérer en lot">
+        ☑ Sélection
+      </button>
+      <button class="btn btn-outline" id="btn-next-pending" title="Passer au prochain prompt en attente">
+        ⏭️ Suivant
+      </button>
+      <button class="btn btn-primary" id="btn-tampermonkey" title="Voir le script d'automatisation Flow">
+        🤖 Tampermonkey
+      </button>
+      <button class="btn btn-outline" id="btn-export-pdf" title="Compiler les coloriages générés en livret PDF 300 DPI">
+        📚 Exporter PDF
+      </button>
+      <button class="btn btn-outline" id="btn-flow-url" title="Voir ou modifier l'URL du projet Google Flow">
+        🔗 URL Flow
+      </button>
+    </div>
+  </header>
+
+  <!-- Auto Queue Active Banner -->
+  <div class="auto-queue-banner" id="auto-queue-banner" style="display:none;">
+    <div class="queue-pulse-indicator"></div>
+    <div class="queue-info-col">
+      <div class="queue-header-line">
+        <span class="badge badge-queue-active">AUTO-FILE EN COURS</span>
+        <strong id="queue-current-title">Traitement séquentiel...</strong>
+        <span class="queue-counter" id="queue-counter">0/0</span>
+      </div>
+      <div class="queue-subtext" id="queue-subtext">
+        Attente de la génération et confirmation de l'enregistrement de l'image...
+      </div>
+    </div>
+    <div class="queue-actions-col">
+      <button class="btn btn-danger-queue" id="btn-stop-queue">⏹️ Arrêter la file</button>
+    </div>
+  </div>
+
+  <!-- Selection Bar (régénération par lot) -->
+  <div class="selection-bar" id="selection-bar" style="display:none;">
+    <strong class="selection-count" id="selection-count">Aucune page sélectionnée</strong>
+    <div class="selection-actions">
+      <button class="btn btn-outline" id="btn-select-nonconform" title="Mesurer les pages générées et cocher celles hors cible 8-12 ans">📏 Sélectionner les non conformes</button>
+      <button class="btn btn-outline" id="btn-select-visible" title="Cocher toutes les pages affichées par les filtres actuels">☑ Tout sélectionner (visibles)</button>
+      <button class="btn btn-outline" id="btn-clear-selection">☐ Tout désélectionner</button>
+      <button class="btn btn-regenerate" id="btn-regenerate-selection" disabled title="Régénérer les pages cochées une par une dans Google Flow">🔁 Régénérer la sélection</button>
+      <button class="btn btn-outline" id="btn-exit-selection" title="Quitter le mode sélection">✕ Quitter</button>
+    </div>
+  </div>
+
+  <!-- Filter & Controls Toolbar -->
+  <section class="controls-toolbar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Rechercher par titre, fichier, mot-clé, ratio (ex: 16:9)...">
+      <button id="clear-search" class="clear-btn" style="display:none;">✕</button>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Statut :</span>
+      <button class="filter-chip active" data-filter="status" data-val="all">Tous</button>
+      <button class="filter-chip" data-filter="status" data-val="pending">⏳ En attente</button>
+      <button class="filter-chip" data-filter="status" data-val="done">✅ Générées</button>
+      <button class="filter-chip" data-filter="status" data-val="validated">🏆 Validées</button>
+      <button class="filter-chip" data-filter="status" data-val="nonconform" title="Pages générées dont les mesures automatiques sont hors cible">⚠️ Non conformes</button>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Flux :</span>
+      <button class="filter-chip active" data-filter="flow" data-val="all">Tous les flux</button>
+      <button class="filter-chip" data-filter="flow" data-val="flow7-coloring-magical-fantasy.md">🎨 Coloriage: Fantasy</button>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Active Prompt Sticky Bar (Displays currently focused prompt for rapid copying) -->
+    <div class="active-prompt-banner" id="active-prompt-banner" style="display:none;">
+      <div class="active-banner-info">
+        <span class="badge badge-flow" id="active-flow-badge">Flow 2-3</span>
+        <span class="badge badge-ratio" id="active-ratio-badge">16:9</span>
+        <strong id="active-title">Titre du prompt actif</strong>
+        <code id="active-filename">f2-c07-...jpeg</code>
+      </div>
+      <div class="active-banner-actions">
+        <button class="btn btn-gold" id="btn-active-copy">📋 Copier le prompt</button>
+        <button class="btn btn-outline" id="btn-active-open-flow">🚀 Ouvrir Flow</button>
+        <button class="btn btn-close-banner" id="btn-close-banner">✕</button>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="prompts-grid" id="prompts-grid">
+      <!-- Generated dynamically by app.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+      <span class="empty-icon">🔎</span>
+      <h3>Aucun prompt ne correspond à vos filtres</h3>
+      <p>Essayez d'effacer la recherche ou de changer de filtre de statut.</p>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Modal Automatisation / Tampermonkey -->
+  <div class="modal-overlay" id="tampermonkey-modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>🤖 Automatisation Flow (Google ImageFX / Flow)</h2>
+        <button class="modal-close" id="btn-close-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Le script Tampermonkey s'exécute directement sur l'onglet de votre compte Flow pour éliminer toute manipulation manuelle :</p>
+        
+        <div class="workflow-steps">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <div>
+              <strong>Installez l'extension Tampermonkey</strong>
+              <p>Disponible gratuitement sur le Chrome Web Store.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <div>
+              <strong>Installez le script local</strong>
+              <p>Fichier disponible dans : <code>tools/flow_image_hub/flow_tampermonkey.user.js</code></p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <div>
+              <strong>Rendez-vous sur votre compte Flow</strong>
+              <p>Le panneau du Flow Copilot apparaît directement sur la page avec le bouton <em>"Générer suivant"</em>, la sélection automatique du ratio et le renommage instantané !</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <a class="btn btn-primary" href="/flow_tampermonkey.user.js" target="_blank" download>
+            📥 Télécharger le script Tampermonkey (.user.js)
+          </a>
+          <button class="btn btn-outline" id="btn-dismiss-modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Preview Modal -->
+  <div class="modal-overlay" id="preview-modal" style="display:none;">
+    <div class="modal-card image-preview-card">
+      <div class="modal-header">
+        <h2 id="preview-modal-title">Aperçu</h2>
+        <button class="modal-close" id="btn-close-preview">✕</button>
+      </div>
+      <div class="modal-body preview-modal-body">
+        <img id="preview-modal-img" src="" alt="Aperçu agrandi">
+        <div class="preview-modal-meta">
+          <p><strong>Fichier :</strong> <span id="preview-modal-filename"></span></p>
+          <p><strong>Emplacement :</strong> <span id="preview-modal-location"></span></p>
+        </div>
+        <div class="preview-modal-actions" style="display:flex; gap:10px; margin-top:16px; justify-content:flex-end;">
+          <button class="btn btn-outline btn-replace" id="btn-modal-replace" title="Remplacer cette image par un nouveau fichier">
+            🔄 Remplacer cette image
+          </button>
+          <button class="btn btn-primary" id="btn-modal-focus" title="Activer ce prompt dans Google Flow">
+            🚀 Activer dans Flow
+          </button>
+          <input type="file" id="modal-file-input" accept="image/jpeg,image/png" style="display:none">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Alerte Quota / Erreur Flow -->
+  <div class="modal-overlay" id="flow-error-modal" style="display:none;">
+    <div class="modal-card modal-card-warning">
+      <div class="modal-header header-warning">
+        <h2 id="error-modal-heading">⚠️ Limite de Compte Google Flow Atteinte</h2>
+        <button class="modal-close" id="btn-close-error-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert-box-warning">
+          <span class="alert-icon">🛑</span>
+          <div>
+            <strong id="error-modal-title">Votre compte Google Flow ne peut plus produire d'images !</strong>
+            <p id="error-modal-reason">Le quota quotidien de génération a été atteint sur ce compte ou une restriction temporaire est survenue.</p>
+          </div>
+        </div>
+        <div class="change-account-guide">
+          <h3>👉 Procédure pour continuer sans interruption :</h3>
+          <ol>
+            <li>Ouvrez votre onglet <strong>Google Flow</strong>.</li>
+            <li>Basculez vers un <strong>autre compte Google</strong> (ou ouvrez un projet Flow sur un compte actif).</li>
+            <li>Le script Tampermonkey synchronise <strong>automatiquement</strong> la nouvelle URL vers ce Hub.</li>
+            <li>Cliquez ci-dessous pour <strong>reprendre immédiatement</strong> l'auto-génération des illustrations restantes !</li>
+          </ol>
+        </div>
+        <div class="modal-actions" style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+          <button class="btn btn-outline" id="btn-open-flow-switch">🚀 Ouvrir Google Flow</button>
+          <button class="btn btn-gold" id="btn-resume-queue">⚡ Reprendre l'auto-génération</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Configuration URL Flow -->
+  <div class="modal-overlay" id="flow-url-modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>🔗 URL du Projet Google Flow</h2>
+        <button class="modal-close" id="btn-close-url-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>L'URL du projet Google Flow vers lequel le Hub envoie les prompts et active le copilot.</p>
+        <div style="margin: 10px 0;">
+          <label style="display:block; margin-bottom:6px; font-weight:600; color:var(--text-secondary);">URL active :</label>
+          <input type="text" id="input-flow-url" style="width:100%; padding:10px; background:var(--bg-input); border:1px solid var(--border-color); border-radius:var(--radius-sm); color:#fff; font-family:var(--font-mono); font-size:12px;">
+        </div>
+        <small style="color:var(--text-muted); display:block; margin-bottom:15px;">
+          💡 <strong>Synchronisation automatique :</strong> Dès que vous ouvrez n'importe quel projet sur Google Flow, le script Tampermonkey met à jour cette URL automatiquement !
+        </small>
+        <div class="modal-actions" style="display:flex; justify-content:flex-end; gap:10px;">
+          <button class="btn btn-outline" id="btn-dismiss-url-modal">Fermer</button>
+          <button class="btn btn-primary" id="btn-save-flow-url">Enregistrer l'URL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Remplacement d'image : ordinateur ou Google Flow -->
+  <div class="modal-overlay" id="replace-modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="replace-modal-title">🔄 Remplacer l'image</h2>
+        <button class="modal-close" id="btn-close-replace-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Fichier remplacé : <code id="replace-modal-file"></code></p>
+        <div class="workflow-steps">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <div>
+              <strong>Depuis l'ordinateur</strong>
+              <p>Choisissez un fichier PNG ou JPEG : il est converti au bon format et renommé automatiquement.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <div>
+              <strong>Depuis Google Flow</strong>
+              <p>L'onglet Flow déjà ouvert passe en mode sélection (il n'est ouvert que s'il n'existe pas) : cliquez ensuite sur l'image voulue dans la galerie.</p>
+            </div>
+          </div>
+        </div>
+        <p style="color:var(--text-muted); font-size:12px;">La nouvelle image repasse en « non contrôlée » : pensez à la recontrôler.</p>
+        <div class="modal-actions" style="display:flex; justify-content:flex-end; gap:10px;">
+          <button class="btn btn-outline" id="btn-replace-from-computer">💻 Depuis l'ordinateur</button>
+          <button class="btn btn-primary" id="btn-replace-from-flow">🌐 Depuis Google Flow</button>
+          <input type="file" id="replace-modal-file-input" accept="image/jpeg,image/png" style="display:none">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Contrôle Qualité & Validation Humaine -->
+  <div class="modal-overlay" id="quality-modal" style="display:none;">
+    <div class="modal-card quality-modal-card">
+      <div class="modal-header">
+        <h2 id="quality-modal-title">✓ Contrôle Qualité &amp; Validation</h2>
+        <button class="modal-close" id="btn-close-quality">✕</button>
+      </div>
+      <div class="modal-body quality-modal-body">
+        <div class="quality-image-col">
+          <img id="quality-modal-img" src="" alt="Image en contrôle">
+          <p class="quality-img-caption" id="quality-modal-file"></p>
+        </div>
+        <div class="quality-form-col">
+          <div class="quality-section-title">📏 Mesures automatiques</div>
+          <div class="quality-metrics" id="quality-metrics"><span class="quality-hint">Mesure en cours…</span></div>
+
+          <div class="quality-section-title">📋 Grille de contrôle de production (Coloriage &amp; Bundle)</div>
+          <p class="quality-hint">Cochez les critères respectés. Les éléments décochés alimentent automatiquement la liste des défauts pour garantir la traçabilité.</p>
+          
+          <div class="quality-checklist" id="quality-checklist">
+            <label class="check-item"><input type="checkbox" data-crit="contours"> <span>Contours 100% fermés (aucune fuite d'encre lors du coloriage)</span></label>
+            <label class="check-item"><input type="checkbox" data-crit="background"> <span>Fond blanc pur #FFFFFF (aucun grisâtre, texture ni dégradé)</span></label>
+            <label class="check-item"><input type="checkbox" data-crit="no-shading"> <span>Zéro hachure ou ombrage parasite (pas de cross-hatching/trames)</span></label>
+            <label class="check-item"><input type="checkbox" data-crit="margins"> <span>Marges de sécurité de 15% respectées (aucun tracé tronqué au bord)</span></label>
+            <label class="check-item"><input type="checkbox" data-crit="resolution"> <span>Netteté du trait et résolution exploitable 300 DPI</span></label>
+            <label class="check-item"><input type="checkbox" data-crit="tasteful"> <span>Composition propre, esthétique et adaptée au public cible</span></label>
+          </div>
+
+          <label class="field-label">Points forts observés :</label>
+          <textarea id="quality-strengths" rows="2" placeholder="Ex: Tracé régulier, sujet bien centré, découpage harmonieux des zones..."></textarea>
+
+          <label class="field-label">Défauts constatés <em style="color:#f87171;">(obligatoire si rejet)</em> :</label>
+          <textarea id="quality-defects" rows="3" placeholder="Ex: Lignes ouvertes au niveau de l'aile, zone de texture grise sur le rocher..."></textarea>
+
+          <label class="field-label">Correction à appliquer au prompt dans le markdown :</label>
+          <textarea id="quality-correction" rows="2" placeholder="Ex: Renforcer 'solid closed outline' et ajouter 'no gray wash' dans Avoid..."></textarea>
+
+          <div class="quality-modal-actions">
+            <button class="btn btn-danger" id="btn-quality-reject">✕ Rejeter &amp; Consigner</button>
+            <button class="btn btn-success" id="btn-quality-validate">✓ Valider l'illustration</button>
+          </div>
+          <small class="quality-footer-note">Règle absolue du projet : tout rejet sans motif documenté est bloqué côté serveur. Pas de régénération aveugle.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
