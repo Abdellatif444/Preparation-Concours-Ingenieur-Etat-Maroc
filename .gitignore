@@ -32,3 +32,7 @@ PROGRESS.md
 
 # Images rejetées (non conformes), en attente de régénération
 images_a_regenerer/
+
+# Réglages et état locaux de Flow Hub (propres à chaque poste)
+tools/flow_image_hub/flow_config.json
+tools/flow_image_hub/validation_state.json
