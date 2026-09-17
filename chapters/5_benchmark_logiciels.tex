@@ -1,0 +1,139 @@
+% ============================================================
+%  CHAPITRE 5 : Benchmark des logiciels de modélisation 3D
+% ============================================================
+\chapter{Benchmark des logiciels de modélisation 3D}
+\label{chap:benchmark_logiciels}
+
+% SECTION 5.1 : INTRODUCTION
+\section{Introduction}
+\label{sec:introduction_benchmark}
+
+La modélisation 3D des écoulements dans les ouvrages hydrauliques est devenue un outil essentiel pour l'analyse et l'optimisation des performances. De nombreux logiciels CFD sont disponibles, chacun présentant des caractéristiques spécifiques en termes de méthodes numériques, de modèles physiques, de type de maillage et d'accessibilité (open source ou commercial). Ce chapitre propose une analyse comparative des principales solutions logicielles adaptées à la modélisation des écoulements à surface libre, afin de justifier le choix d'OpenFOAM pour la présente étude.
+
+% SECTION 5.2 : PRÉSENTATION DES LOGICIELS
+\section{Présentation des logiciels}
+\label{sec:presentation_logiciels}
+
+\subsection{TELEMAC-3D}
+\label{subsec:telemac}
+
+TELEMAC-3D est un code de calcul open source développé par le Laboratoire National d'Hydraulique et Environnement (LNHE) d'EDF R\&D. Il résout les équations de Navier-Stokes pour les écoulements à surface libre, en utilisant la méthode des \textbf{éléments finis}. Il est particulièrement adapté à l'hydrodynamique côtière, estuarienne et fluviale, ainsi qu'au transport de sédiments et à la qualité de l'eau. Sa flexibilité et sa gratuité en font un outil académique et professionnel de premier plan, mais sa prise en main peut être complexe \cite{galland1991telemac, hervouet2007hydrodynamics}.
+
+\subsection{Flow-3D}
+\label{subsec:flow3d}
+
+Flow-3D est un logiciel commercial CFD développé par Flow Science. Il est réputé pour sa capacité à modéliser avec précision les écoulements à surface libre grâce à la méthode \textbf{VOF (Volume of Fluid)}, dont il est l'un des pionniers \cite{hirt1981volume}. Il utilise un maillage structuré cartésien, ce qui simplifie la génération du maillage. Sa méthode \textbf{FAVOR (Fractional Area/Volume Obstacle Representation)} permet de représenter des géométries complexes sur un maillage simple \cite{flow2016user}. Il est très utilisé en hydraulique (déversoirs, ressauts, dissipateurs d'énergie) mais est payant.
+
+\subsection{ANSYS Fluent}
+\label{subsec:ansys_fluent}
+
+Ansys Fluent est l'un des logiciels CFD commerciaux les plus complets et les plus utilisés dans le monde, toutes industries confondues (aéronautique, automobile, énergie, hydraulique). Il utilise la méthode des \textbf{volumes finis} sur des maillages non structurés (polyédriques, tétraédriques, hexaédriques). Il dispose d'une très large bibliothèque de modèles physiques (turbulence, multiphasique, combustion, etc.) et d'une interface utilisateur graphique très avancée \cite{ansys2020fluent, matsson2022introduction}. Sa puissance a un coût élevé en termes de licence.
+
+\subsection{XFlow}
+\label{subsec:xflow}
+
+XFlow est un logiciel CFD commercial de nouvelle génération développé par Dassault Systèmes. Il se distingue par son approche innovante : il n'utilise pas de maillage traditionnel mais une méthode particulaire basée sur la \textbf{méthode de Lattice Boltzmann} \cite{chen1998lattice, kruger2017lattice}. Cette approche sans maillage est très efficace pour traiter des géométries complexes en mouvement et des écoulements instationnaires. Il est plus récent et son application en hydraulique "classique" est en développement.
+
+\subsection{STAR-CCM+}
+\label{subsec:starccm}
+
+STAR-CCM+ est un logiciel commercial CFD développé par Siemens. Il est reconnu pour son interface unifiée et son workflow intégré, de la préparation de la géométrie à l'analyse des résultats. Il utilise également la méthode des volumes finis et a popularisé l'utilisation de maillages polyédriques, qui offrent un bon compromis entre précision et nombre de cellules \cite{cd2019star, peric2005advantage}. Il est très présent dans les secteurs automobile et aéronautique.
+
+\subsection{OpenFOAM}
+\label{subsec:openfoam}
+
+OpenFOAM (Open Field Operation and Manipulation) est la principale solution \textbf{open source} en CFD. Développé par OpenCFD Ltd, il s'agit d'une bibliothèque de solveurs et d'outils écrits en C++, permettant de résoudre une vaste gamme de problèmes en mécanique des fluides (et des solides) \cite{weller1998tensorial, jasak2009openfoam}. Il utilise la méthode des volumes finis sur des maillages non structurés. Son principal avantage est sa gratuité, sa transparence (code source accessible) et sa flexibilité : l'utilisateur peut modifier les solveurs existants ou en créer de nouveaux. L'inconvénient est l'absence d'interface graphique native et une courbe d'apprentissage plus raide.
+
+\subsection{SimScale}
+\label{subsec:simscale}
+
+SimScale est une plateforme de simulation \textbf{cloud} (SaaS - Software as a Service). Elle propose un accès à des solveurs de CFD (basés sur OpenFOAM) et d'analyse par éléments finis via un navigateur web \cite{simscale2021documentation, bletzinger2017cloud}. Elle fonctionne sur un modèle freemium (compte gratuit avec des limitations) ou par abonnement. Son avantage est l'accessibilité sans nécessiter de matériel puissant, mais la confidentialité des données peut être une préoccupation.
+
+\subsection{Autres logiciels}
+\label{subsec:autres_logiciels}
+
+D'autres logiciels complètent le paysage des solutions disponibles :
+\begin{itemize}
+    \item \textbf{Autodesk CFD} : Solution commerciale d'Autodesk, basée sur la méthode des éléments finis, intégrée dans l'écosystème de conception.
+    \item \textbf{ANSYS CFX} : Autre solveur CFD majeur d'Ansys, réputé pour sa robustesse et sa précision, notamment pour les turbomachines.
+    \item \textbf{MIKE 3 Wave FM} : Logiciel commercial de DHI, spécialisé dans l'hydrodynamique côtière et maritime (vagues, courants) \cite{dhi2020mike}.
+    \item \textbf{COMSOL Multiphysics} : Plateforme commerciale permettant de coupler la CFD avec d'autres physiques (électromagnétisme, thermique, mécanique des structures) \cite{comsol2021reference}.
+\end{itemize}
+
+% SECTION 5.3 : COMPARAISON ENTRE LES LOGICIELS
+\section{Comparaison entre les logiciels}
+\label{sec:comparaison_logiciels}
+
+Le tableau suivant regroupe les principales caractéristiques des logiciels présentés :
+
+\begin{table}[H]
+    \centering
+    \caption{Comparaison des principaux logiciels de CFD}
+    \label{tab:comparaison_logiciels_cfd}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|c|c|c|c|c|}
+        \hline
+        \textbf{Logiciel} & \textbf{Interface graphique} & \textbf{Méthode} & \textbf{Maillage 3D} & \textbf{Open source} & \textbf{Coût} \\
+        \hline
+        TELEMAC-3D & Oui & Éléments finis & Non structuré & \textbf{Oui} & \textbf{Gratuit} \\
+        \hline
+        Flow-3D & Oui & Volumes finis & Cartésien structuré & Non & Payant \\
+        \hline
+        ANSYS Fluent & Oui & Volumes finis & Non structuré (polyédrique) & Non & Payant \\
+        \hline
+        XFlow & Oui & Lattice Boltzmann & Sans maillage & Non & Payant \\
+        \hline
+        STAR-CCM+ & Oui & Volumes finis & Non structuré (polyédrique) & Non & Payant \\
+        \hline
+        \textbf{OpenFOAM} & \textbf{Non} (via ParaView) & Volumes finis & Non structuré & \textbf{Oui} & \textbf{Gratuit} \\
+        \hline
+        SimScale & Oui (cloud) & Volumes finis / EF & Automatique (cloud) & Basé sur OpenFOAM & Freemium \\
+        \hline
+        ANSYS CFX & Oui & Volumes finis (couplé) & Non structuré & Non & Payant \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+% SECTION 5.4 : LE LOGICIEL AUTODESK REVIT
+\section{Le logiciel Autodesk Revit}
+\label{sec:revit}
+
+Bien que n'étant pas un logiciel de CFD, Autodesk Revit joue un rôle important dans la chaîne de modélisation pour la création de la géométrie.
+
+\subsection{Présentation du logiciel}
+\label{subsec:presentation_revit}
+
+Autodesk Revit est un logiciel de \textbf{BIM (Building Information Modeling)} dédié à l'architecture, l'ingénierie et la construction. Contrairement aux logiciels de CAO traditionnels (comme AutoCAD) qui manipulent des entités géométriques indépendantes (lignes, cercles), Revit travaille avec des \textbf{objets paramétriques intelligents} \cite{autodesk2021revit, eastman2011bim}. Un mur, une fenêtre, une poutre ne sont pas de simples dessins, mais des objets qui contiennent des informations (matériau, dimensions, fonction) et des relations avec les autres objets.
+
+\subsection{Intérêt pour la modélisation des ouvrages hydrauliques}
+\label{subsec:interet_revit}
+
+Pour la modélisation des ouvrages hydrauliques complexes comme le barrage Ahl Souss, Revit présente plusieurs avantages significatifs :
+
+\begin{itemize}
+    \item \textbf{Modélisation paramétrique} : Les éléments du barrage (corps du barrage, seuil Creager, coursier, conduites de vidange, murs bajoyers, prises d'eau) peuvent être créés avec des paramètres dimensionnels. Si une cote change, tout le modèle se met à jour automatiquement, garantissant la cohérence géométrique \cite{kensek2014building}.
+    \item \textbf{Exportation vers les formats CAO standards} : Revit permet d'exporter les modèles 3D vers de nombreux formats, notamment le format \textbf{STL (Standard Tessellation Language)} \cite{szalapaj2005contemporary}. Ce format, qui décrit une géométrie par un maillage de triangles, est compatible avec la plupart des logiciels de CFD, dont OpenFOAM.
+    \item \textbf{Intégration BIM} : La maquette numérique ne se limite pas à la géométrie ; elle peut intégrer des données essentielles pour la gestion de l'ouvrage (volumes de béton par zone, type de matériau, dates de construction, etc.).
+    \item \textbf{Coordination multidisciplinaire} : Dans un projet de barrage, plusieurs corps d'état interviennent (génie civil, hydromécanique, instrumentation). Revit permet de coordonner tous ces acteurs autour d'un modèle unique et partagé, réduisant les risques d'erreur et d'incohérence.
+\end{itemize}
+
+\subsection{Démarche de modélisation}
+\label{subsec:demarche_revit}
+
+Le processus de modélisation avec Revit pour notre étude comprend les étapes suivantes :
+\begin{enumerate}
+    \item Création d'un projet Revit avec les unités appropriées (mètres).
+    \item Modélisation du terrain naturel à partir des données topographiques (courbes de niveau).
+    \item Création du corps du barrage par extrusion du profil type (paramètres : cote de fondation, fruit des parements, largeur en crête).
+    \item Modélisation de l'évacuateur de crues (seuil Creager, coursier, cuillère).
+    \item Modélisation de la vidange de fond (conduites, chambre des vannes, bassin de dissipation).
+    \item Modélisation des prises d'eau et de la galerie.
+    \item Exportation au format STL pour une utilisation dans OpenFOAM \cite{krygiel2008green}.
+\end{enumerate}
+
+% SECTION 5.5 : CONCLUSION
+\section{Conclusion}
+\label{sec:conclusion_benchmark}
+
+Le choix d'OpenFOAM pour cette étude se justifie par plusieurs avantages : sa gratuité, l'accès au code source permettant une transparence totale et une flexibilité maximale, sa capacité de calcul parallèle (HPC) pour traiter des géométries complexes, et sa large communauté d'utilisateurs qui garantit un support et un partage de connaissances. Sa structure modulaire permet d'adapter précisément les modèles physiques aux spécificités des ouvrages du barrage Ahl Souss. Associé à Autodesk Revit pour la modélisation géométrique paramétrique, cet ensemble d'outils constitue une chaîne de simulation complète, performante et économiquement accessible.
+

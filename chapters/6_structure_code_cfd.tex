@@ -1,0 +1,55 @@
+% ============================================================
+%  CHAPITRE 6 : Structure d'un code CFD
+% ============================================================
+\chapter{Structure d'un code CFD}
+\label{chap:structure_code_cfd}
+
+% SECTION 6.1 : INTRODUCTION
+\section{Introduction}
+\label{sec:introduction_structure_cfd}
+
+La mécanique des fluides numérique (CFD) permet de simuler des écoulements complexes en résolvant numériquement les équations de conservation. Pour cela, un code CFD suit une structure bien définie, articulée autour de trois étapes principales : le pré-traitement, la résolution et le post-traitement \cite{wendt2009computational}. Chacune de ces phases est indispensable pour garantir la fiabilité des résultats, depuis la préparation du modèle jusqu'à l'analyse des données simulées.
+
+% SECTION 6.2 : PRÉ-TRAITEMENT (PRE-PROCESSING)
+\section{Pré-traitement (Pre-processing)}
+\label{sec:preprocessing}
+
+Cette étape consiste à préparer les données nécessaires à la simulation. Cela inclut la définition du domaine géométrique sous forme maillée, le choix des phénomènes physiques à modéliser (comme la turbulence, les écoulements multiphasiques ou la cavitation), ainsi que la spécification des propriétés physiques du fluide et des conditions aux limites adaptées au cas étudié \cite{thompson1999handbook}. Les grandeurs à calculer, telles que la vitesse, la pression et la température, sont associées aux nœuds de chaque cellule du maillage.
+
+La qualité du maillage est cruciale pour la précision des résultats. Les paramètres clés incluent la résolution spatiale, la qualité des cellules (skewness, orthogonalité) et le raffinement local dans les zones à forts gradients \cite{knupp1993fundamentals}.
+
+% SECTION 6.3 : RÉSOLUTION (PROCESSING)
+\section{Résolution (Processing)}
+\label{sec:processing}
+
+Le rôle du solveur est d'appliquer les algorithmes permettant \cite{patankar1980numerical} :
+\begin{itemize}
+    \item D'intégrer les équations de conservation sur chaque volume de contrôle.
+    \item De transformer ces équations intégrales en un système algébrique.
+    \item D'en estimer la solution à l'aide de méthodes itératives.
+\end{itemize}
+
+La majorité des logiciels de CFD, dont OpenFOAM, utilise la méthode des \textbf{volumes finis}, qui repose sur l'application directe des bilans sur chaque volume de contrôle. Cette approche est largement adoptée en raison de sa rigueur et de son efficacité, ce qui explique son succès auprès des éditeurs de logiciels de simulation numérique \cite{versteeg2007introduction}.
+
+% SECTION 6.4 : POST-TRAITEMENT (POST-PROCESSING)
+\section{Post-traitement (Post-processing)}
+\label{sec:postprocessing}
+
+Le post-traitement vise avant tout à évaluer la qualité de la solution obtenue. Il s'agit notamment de vérifier si cette solution est indépendante de la taille du maillage, du critère de convergence et des schémas numériques utilisés \cite{roache1998verification}. Il est également essentiel de s'assurer que le modèle de turbulence ainsi que les conditions aux limites ont été choisis de manière pertinente, et d'analyser dans quelle mesure les résultats dépendent de ces choix.
+
+En général, le solveur fournit une grande quantité de données brutes, telles que les champs de vitesse (u, v, w), de pression (p), etc., pour chaque point du maillage. Ces données doivent être converties en représentations visuelles afin de faciliter leur analyse et leur compréhension \cite{schroeder2006visualization}.
+
+Les principaux résultats généralement présentés lors du post-traitement sont les suivants \cite{hansen2011visualization} :
+\begin{itemize}
+    \item La représentation de la géométrie du domaine et des détails du maillage.
+    \item L'évolution de la convergence au cours des itérations (graphique des résidus).
+    \item Les champs et profils de vitesse (contours, vecteurs, lignes de courant).
+    \item Les tracés des distributions de pression.
+    \item Les animations et visualisations dynamiques des écoulements simulés.
+\end{itemize}
+
+% SECTION 6.5 : CONCLUSION
+\section{Conclusion}
+\label{sec:conclusion_structure_cfd}
+
+La simulation CFD repose sur trois étapes essentielles : le pré-traitement, la résolution et le post-traitement. Chacune joue un rôle clé dans la qualité et l'interprétation des résultats. Une bonne préparation du modèle, un solveur fiable et une analyse rigoureuse garantissent des simulations précises et exploitables.

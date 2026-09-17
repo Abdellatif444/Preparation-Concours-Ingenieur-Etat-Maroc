@@ -1,0 +1,206 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{rapportECL}
+
+% Informations pour la page de garde
+\title{GUIDE DE PRÉPARATION INTENSIVE\\CONCOURS DE RECRUTEMENT DES INGÉNIEURS D'ÉTAT (1\textsuperscript{ER} GRADE)\\[0.3cm]\Large MINISTÈRE DE L'ÉCONOMIE ET DES FINANCES}
+\author{
+    \hspace{0.5cm}$\blacktriangleright$ \textbf{Abdellatif GOURRI}\\[0.1cm]
+    \hspace{0.5cm}$\blacktriangleright$ Candidat Ingénieur d'État (1\textsuperscript{er} Grade)\\[0.1cm]
+}
+\date{\today}
+\establishment{\textbf{Royaume du Maroc --- Fonction Publique}}
+\department{Ministère de l'Économie et des Finances (MEF)}
+\filiere{Préparation Intensive \& Annales d'Épreuves Écrites}
+
+\supervisor{
+    \hspace{0.5cm}$\blacktriangleright$ Ministère de l'Économie et des Finances\\[0.1cm]
+    \hspace{0.5cm}$\blacktriangleright$ Commission Centrale des Concours
+}
+\academicyear{\textbf{Session du 20 Septembre 2026}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em plus 0.2em minus 0.1em}
+\linespread{1.15}
+
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+% --- Bibliographie ---
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{references.bib}
+\usepackage{needspace}
+\usepackage{csquotes}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage[most]{tcolorbox}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage{chngcntr}
+\usepackage{ltablex}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+\usepackage{listings}
+\usepackage{fontawesome5}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\usepackage{multirow}
+
+% =======================================================
+% CONFIGURATION TABLE DES MATIERES
+% =======================================================
+\renewcommand{\thesection}{\arabic{section}-}
+\renewcommand{\thesubsection}{\arabic{section} - \arabic{subsection} -}
+\renewcommand{\thesubsubsection}{\arabic{section} - \arabic{subsection} - \arabic{subsubsection} -}
+
+\renewcommand{\cftchappresnum}{Chapitre }
+\renewcommand{\cftchapaftersnum}{ :}
+\setlength{\cftchapnumwidth}{2.4cm}
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforechapskip}{0.3em}
+
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{1.5cm}
+\setlength{\cftsecnumwidth}{1.2cm}
+\setlength{\cftsubsecindent}{2.5cm}
+\setlength{\cftsubsecnumwidth}{2.0cm}
+
+\renewcommand{\cftchapfont}{\normalfont\bfseries}
+\renewcommand{\cftchappagefont}{\normalfont\bfseries}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+
+\renewcommand{\cftfigpresnum}{Figure }
+\renewcommand{\cftfigaftersnum}{ :}
+\setlength{\cftfignumwidth}{2.8cm}
+\renewcommand{\cftfigfont}{\normalfont}
+\renewcommand{\cftfigpagefont}{\normalfont}
+
+\renewcommand{\cfttabpresnum}{Tableau }
+\renewcommand{\cfttabaftersnum}{ :}
+\setlength{\cfttabnumwidth}{3.0cm}
+\renewcommand{\cfttabfont}{\normalfont}
+\renewcommand{\cfttabpagefont}{\normalfont}
+
+% Normalisation
+\newunicodechar{—}{---}
+\newunicodechar{–}{--}
+\newunicodechar{€}{\texteuro}
+\newunicodechar{œ}{\oe}
+\newunicodechar{Œ}{\OE}
+\newunicodechar{🔴}{\textcolor{red!80!black}{\textbf{\large$\bullet$}}}
+\newunicodechar{🟠}{\textcolor{orange!90!black}{\textbf{\large$\bullet$}}}
+\newunicodechar{🟡}{\textcolor{yellow!75!black}{\textbf{\large$\bullet$}}}
+\newunicodechar{⚪}{\textcolor{gray!60!black}{\textbf{\large$\circ$}}}
+\emergencystretch=2em
+
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+\counterwithin{figure}{chapter}
+\renewcommand{\thefigure}{\thechapter-\arabic{figure}}
+\counterwithin{table}{chapter}
+\renewcommand{\thetable}{\thechapter-\arabic{table}}
+
+\renewcommand{\thesection}{\arabic{section} -}
+\renewcommand{\thesubsection}{\arabic{section} - \arabic{subsection} -}
+\renewcommand{\thesubsubsection}{\arabic{section} - \arabic{subsection} - \arabic{subsubsection} -}
+
+\definecolor{chaporange}{RGB}{15, 60, 110}
+\titleformat{\chapter}[block]
+  {\normalfont\Large\bfseries\color{chaporange}\centering}
+  {\MakeUppercase{\chaptertitlename}~\thechapter~:}
+  {1em}
+  {\MakeUppercase}
+
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\Large\bfseries\color{chaporange}\centering}
+  {}
+  {0pt}
+  {\MakeUppercase}
+
+\AtBeginDocument{%
+  \setlength{\headheight}{25pt}
+  \pagestyle{fancy}
+  \fancyhf{}
+  \fancyhead[L]{\small\textbf{\textsf{MEF --- Concours Ingénieurs d'État (1\textsuperscript{er} Grade)}}}
+  \fancyhead[R]{\small\textbf{\textsf{Préparation Intensive 2026}}}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.5pt}
+  \fancypagestyle{plain}{%
+    \fancyhf{}
+    \fancyhead[L]{\small\textbf{\textsf{MEF --- Concours Ingénieurs d'État (1\textsuperscript{er} Grade)}}}
+    \fancyhead[R]{\small\textbf{\textsf{Préparation Intensive 2026}}}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0.5pt}%
+  }
+  \titleformat{\section}{\normalfont\Large\bfseries\color{black}}{\thesection}{1em}{}
+  \titleformat{\subsection}[block]{\normalfont\large\bfseries\color{black}\centering}{\thesubsection}{0.8em}{}
+  \definecolor{subsubsecblue}{RGB}{31,73,125}
+  \titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{subsubsecblue}}{\thesubsubsection}{0.5em}{}
+  \renewcommand{\labelitemi}{$\bullet$}
+  \renewcommand{\labelitemii}{$\circ$}
+}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\maketitle
+\thispagestyle{empty}
+\hypersetup{pageanchor=true}
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+\pagenumbering{Roman}
+\setcounter{page}{1}
+
+% --- Résumé Exécutif ---
+\input{chapters/0_resume}
+
+% --- Table des matières ---
+\tableofcontents
+\newpage
+
+% ---- Liste des sigles et acronymes ----
+\input{chapters/0_acronymes}
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/0_intro_generale}
+
+% --- PREMIÈRE PARTIE : MÉTHODOLOGIE ET ANNALES DE DISSERTATION ---
+\part{MÉTHODOLOGIE ET ANNALES DE DISSERTATION}
+
+\input{chapters/1_methodologie_epreuve}
+\input{chapters/2_annales_dissertation}
+
+% --- DEUXIÈME PARTIE : BANQUE DE QUESTIONS ET FICHES RÉVISIONS ---
+\part{BANQUE DE QUESTIONS / RÉPONSES ET FICHES MÉMOTECHNIQUES}
+
+\input{chapters/3_banque_questions_qcm}
+\input{chapters/4_fiches_revisions_mef}
+
+% --- TROISIÈME PARTIE : STRATÉGIE JOUR J ET PLANNING D'URGENCE ---
+\part{STRATÉGIE JOUR J ET PLANNING D'URGENCE}
+
+\input{chapters/5_planning_intensif}
+
+\end{document}

@@ -1,0 +1,23 @@
+ARGUMENTS CLÉS POUR L'ENCADRANT (PFE IA BTP)
+
+1. RISQUES AU MAROC (Chapitre 1)
+- Source : Basé sur le Code du Travail (Loi 65-99) et les rapports OIT Maroc.
+- Spécificités traitées : Climat, informel, co-activité.
+- Chiffres : 50 000+ accidents déclarés/an (MIEPEEC 2024).
+
+2. MESURES DE PRÉVENTION (Chapitre 2)
+- Règles Métier Précises (pour le paramétrage de l'IA) :
+  * Distance Piéton-Machine > 10m (Source : Guide APC/LafargeHolcim).
+  * Vitesse chantier < 30 km/h.
+  * Garde-corps > 110 cm.
+- Cadre Légal : Conformité au CCAG-Travaux Maroc et Dahir 1-03-194.
+
+3. IMPACT ÉCONOMIQUE (Introduction)
+- Justification du besoin de l'IA :
+  * Coût direct moyen d'un accident : 20 000 MAD.
+  * Coût total (direct + indirect) : ~5% du montant du marché.
+  * ROI : 1 DH investi en sécurité = 2,2 DH de gain de productivité.
+
+4. BIBLIOGRAPHIE
+- Nettoyée et académique (Bulletins Officiels, INRS, Rapports Ministériels).
+- Pas de liens internet instables.
