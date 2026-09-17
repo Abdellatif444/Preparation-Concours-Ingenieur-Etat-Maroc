@@ -24,3 +24,8 @@ __pycache__/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Documentation interne et suivi d'avancement IA (local uniquement, non pushé)
+documentation/
+AGENTS.md
+PROGRESS.md
