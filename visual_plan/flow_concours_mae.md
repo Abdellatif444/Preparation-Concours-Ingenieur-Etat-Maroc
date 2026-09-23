@@ -377,7 +377,7 @@ SUBJECT: A stylized strategic map of West Africa and the Atlantic showing Morocc
 
 CONTEXT: Study guide for a Moroccan Ministry of Foreign Affairs exam.
 
-ENVIRONMENT: Off-white canvas (#FBFAF7); the African continent drawn as a soft single silhouette without internal borders.
+ENVIRONMENT: Off-white canvas (#FBFAF7); the African continent drawn as ONE soft uniform silhouette with NO internal borders at all. Morocco is part of this silhouette as one continuous territory from Tangier to Lagouira, including its Southern provinces, with no line, dotted line, border or color change anywhere inside it.
 
 ACTION: A gold pipeline curve runs along the Atlantic coast from the Gulf of Guinea up to Morocco; teal arrows point from the Sahel toward the Atlantic coast.
 
@@ -395,7 +395,7 @@ BRANDING: Small stylized green star; no flags.
 
 REALISM / QUALITY: Vector crispness, legible French labels.
 
-NEGATIVE CONSTRAINTS: No English text, no national borders drawn, no flags, no invented figures.
+NEGATIVE CONSTRAINTS: No English text, absolutely no national or internal borders (no lines inside the continent), no flags, no invented figures.
 ```
 
 **Priorité :**
@@ -455,7 +455,7 @@ BRANDING: Small stylized green star; no real logos.
 
 REALISM / QUALITY: Vector crispness, legible French numbers exactly as given.
 
-NEGATIVE CONSTRAINTS: No English text, no additional invented numbers, no realistic faces.
+NEGATIVE CONSTRAINTS: No English text, no additional invented numbers, no realistic faces. Currency: write "DH" or "dirhams" only; never draw the symbols ₹, $, € or £ on coins or icons (use plain coins without any symbol).
 ```
 
 **Priorité :**
@@ -559,7 +559,7 @@ CONTEXT: Study guide for a Moroccan Ministry of Foreign Affairs exam.
 
 ENVIRONMENT: Off-white canvas (#FBFAF7).
 
-ACTION: Three concentric rings around a central medallion.
+ACTION: Three concentric rings around EXACTLY ONE central medallion (never draw a second medallion).
 
 COMPOSITION: Center medallion: "Royaume du Maroc — diplomatie de la diversification". Inner ring labels: "Union européenne — premier partenaire, statut avancé (2008), position commune sur l'autonomie (2026)"; "États-Unis — accord de libre-échange (2006), allié majeur non-OTAN". Middle ring: "Espagne et Portugal — Mondial 2030"; "France — partenariat d'exception renforcé (2024)"; "Pays du Golfe — investissements et solidarité"; "Afrique — coopération Sud-Sud, Union Africaine". Outer ring: "Chine — partenariat stratégique (2016), Nouvelles Routes de la Soie"; "Amérique latine et Asie — nouveaux horizons"; "Israël — ambassades (2026), avec un soutien constant à l'État palestinien". Header: "Les cercles de partenariat du Royaume".
 
@@ -575,7 +575,7 @@ BRANDING: Small stylized green star; absolutely no national flags.
 
 REALISM / QUALITY: Vector crispness, legible French.
 
-NEGATIVE CONSTRAINTS: No English text, no flags, no portraits, no clutter.
+NEGATIVE CONSTRAINTS: No English text, no flags, no portraits, no clutter, no duplicated medallion, no misspelled or invented words: copy every label letter by letter (for example "Royaume du Maroc", "Afrique — coopération Sud-Sud, Union Africaine").
 ```
 
 **Priorité :**
@@ -921,7 +921,7 @@ ENVIRONMENT: White canvas (#FFFFFF) with a faint grid.
 
 ACTION: Data flows from segmented local networks through redundant firewalls and an encrypted tunnel to headquarters.
 
-COMPOSITION: Left block titled "Ambassade" containing five VLAN boxes: "VLAN 10 — Postes administratifs", "VLAN 20 — Service consulaire", "VLAN 30 — Wi-Fi invités (Internet seulement)", "VLAN 40 — Téléphonie IP (QoS)", "VLAN 50 — Serveurs locaux"; a stacked switch labeled "Commutateurs empilés (802.1Q, 802.1X)"; a pair of firewalls labeled "Pare-feu redondants (IPS, filtrage)"; two uplinks labeled "Fibre opérateur (accès principal)" and "4G/5G ou VSAT (secours)". Middle: a padlocked tunnel labeled "Tunnel VPN IPsec chiffré". Right block titled "Administration centrale — Rabat" with "Passerelles VPN redondantes", "eConsulat et applications métier", "Supervision, SIEM, bastion d'administration". Header: "Architecture réseau type d'une ambassade".
+COMPOSITION: Left block titled "Ambassade" containing five VLAN boxes: "VLAN 10 — Postes administratifs", "VLAN 20 — Service consulaire", "VLAN 30 — Wi-Fi invités (Internet seulement)", "VLAN 40 — Téléphonie IP (QoS)", "VLAN 50 — Serveurs locaux"; a stacked switch labeled "Commutateurs empilés (802.1Q, 802.1X)"; a pair of firewalls labeled "Pare-feu redondants (IPS, filtrage)"; two DIFFERENT uplinks: the upper one labeled "Fibre opérateur (accès principal)" and the lower one labeled exactly "4G/5G ou VSAT (secours)" (never label the lower one "Fibre"). Middle: a padlocked tunnel labeled "Tunnel VPN IPsec chiffré". Right block titled "Administration centrale — Rabat" with "Passerelles VPN redondantes", "eConsulat et applications métier", "Supervision, SIEM, bastion d'administration". Header: "Architecture réseau type d'une ambassade".
 
 CAMERA: Frontal schematic view.
 
@@ -1161,7 +1161,7 @@ ENVIRONMENT: Off-white canvas (#FBFAF7).
 
 ACTION: Hexagonal badges around a central medallion, one badge dashed to show pending membership.
 
-COMPOSITION: Center: "Royaume du Maroc". Badges: "ONU — membre depuis 1956 ; présidence du Conseil des droits de l'homme (2024) ; candidat au Conseil de sécurité 2028-2029"; "Union Africaine — retour le 30 janvier 2017"; "Ligue des États Arabes"; "Organisation de la Coopération Islamique — présidence du Comité Al-Qods"; "Union européenne — statut avancé (2008), partenaire privilégié"; "Union pour la Méditerranée"; dashed badge: "CEDEAO — adhésion demandée en 2017, en attente". Header: "Le Maroc dans les organisations internationales".
+COMPOSITION: Center: "Royaume du Maroc". Badges: "ONU — membre depuis 1956 ; présidence du Conseil des droits de l'homme (2024) ; candidat au Conseil de sécurité 2028-2029"; "Union Africaine — retour le 30 janvier 2017"; "Ligue des États Arabes — membre depuis 1958"; "Organisation de la Coopération Islamique — présidence du Comité Al-Qods"; "Union européenne — statut avancé (2008), partenaire privilégié"; "Union pour la Méditerranée"; dashed badge: "CEDEAO — adhésion demandée en 2017, en attente". Header: "Le Maroc dans les organisations internationales".
 
 CAMERA: Frontal radial layout.
 
@@ -1175,7 +1175,7 @@ BRANDING: Small stylized green star; no organization logos.
 
 REALISM / QUALITY: Vector crispness, legible French.
 
-NEGATIVE CONSTRAINTS: No English text, no real logos or flags, no clutter.
+NEGATIVE CONSTRAINTS: No English text, no real logos or flags, no clutter, no added claims (never write "membre fondateur" next to the Ligue des États Arabes).
 ```
 
 **Priorité :**
@@ -1221,7 +1221,7 @@ ENVIRONMENT: White canvas (#FFFFFF).
 
 ACTION: A document travels through five numbered stations.
 
-COMPOSITION: Stations: "1. Rapport du Secrétaire général (chaque octobre)"; "2. Projet de résolution rédigé par le pays porte-plume"; "3. Négociations entre les 15 membres"; "4. Vote : 9 voix nécessaires, sans veto des 5 membres permanents"; "5. Résolution adoptée — exemple : résolution 2797 du 31 octobre 2025 (11 pour, 3 abstentions) ; MINURSO prorogée jusqu'au 31 octobre 2026". Header: "Comment naît une résolution du Conseil de sécurité".
+COMPOSITION: Stations: "1. Rapport du Secrétaire général (chaque octobre)"; "2. Projet de résolution rédigé par le pays porte-plume (rédacteur)"; "3. Négociations entre les 15 membres"; "4. Vote : 9 voix nécessaires, sans veto des 5 membres permanents"; "5. Résolution adoptée — exemple : résolution 2797 du 31 octobre 2025 (11 voix pour, 3 abstentions) ; MINURSO prorogée jusqu'au 31 octobre 2026". Header: "Comment naît une résolution du Conseil de sécurité".
 
 CAMERA: Frontal wide view.
 
@@ -1235,7 +1235,7 @@ BRANDING: Small stylized green star; no UN logo.
 
 REALISM / QUALITY: Vector crispness, legible French.
 
-NEGATIVE CONSTRAINTS: No English text, no real logos, no clutter.
+NEGATIVE CONSTRAINTS: No English text (the word "penholder" is forbidden), no real logos, no clutter, keep every number exactly as written ("11 voix pour").
 ```
 
 **Priorité :**
