@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.9
+// @version      6.0
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.9 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.0 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.9';
+        brand.textContent = '🦊 Flow Copilot v6.0';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1503,15 +1503,16 @@
     // Indices qu'une génération vient de démarrer. Attention : Flow GARDE le texte du prompt dans le champ
     // après l'envoi, donc « champ vidé » n'est qu'un indice parmi d'autres, jamais une condition.
     function generationSeemsStarted(inputEl, text, beforeImgCount) {
+        // Indices FIABLES seulement : le nombre d'images de la galerie et l'absence du bouton donnaient
+        // des faux positifs (vignettes chargées au défilement, bouton masqué pendant la saisie).
         if (!promptStillInInput(inputEl, text)) return 'champ vidé';
         if (findProgressPercent()) return 'pourcentage affiché';
         const btn = findSubmitButton(inputEl);
-        if (!btn) return 'bouton Générer masqué';
-        if (btn.disabled || btn.getAttribute('aria-disabled') === 'true') return 'bouton Générer désactivé';
-        const aria = ((btn.getAttribute('aria-label') || '') + ' ' + (btn.getAttribute('title') || '')).toLowerCase();
-        if (aria.includes('stop') || aria.includes('arrêter') || aria.includes('cancel') || aria.includes('annuler')) return 'bouton Stop visible';
-        const imgCount = document.querySelectorAll('img').length;
-        if (imgCount > beforeImgCount) return 'nouvelle vignette';
+        if (btn) {
+            if (btn.disabled || btn.getAttribute('aria-disabled') === 'true') return 'bouton Générer désactivé';
+            const aria = ((btn.getAttribute('aria-label') || '') + ' ' + (btn.getAttribute('title') || '')).toLowerCase();
+            if (aria.includes('stop') || aria.includes('arrêter') || aria.includes('cancel') || aria.includes('annuler')) return 'bouton Stop visible';
+        }
         return null;
     }
 
@@ -1649,9 +1650,20 @@
             const start = Date.now();
             let newImg = null;
             let detectedError = null;
+            let sawProgress = !!submitted;   // vrai dès qu'un signe de génération a été observé
+            let secondTryDone = false;
 
             while (Date.now() - start < 240000) {
                 const elapsedSinceClick = Date.now() - submitTime;
+                if (!sawProgress && findProgressPercent()) sawProgress = true;
+
+                // Aucun signe de génération après 20 s : un second essai par clic sur « Start generation »
+                if (!sawProgress && !secondTryDone && elapsedSinceClick > 20000) {
+                    secondTryDone = true;
+                    const retryBtn = findSubmitButton(input);
+                    console.warn('[Flow Copilot] Aucune génération visible après 20 s : second essai par clic', retryBtn);
+                    if (retryBtn) fireDeepClick(retryBtn); else dispatchEnter(input);
+                }
 
                 // A.0 Détection infaillible de Quota / Limite d'utilisation sur Google Flow
                 try {
@@ -1726,9 +1738,15 @@
 
                 // C. Toujours l'ancienne image : afficher la progression de Flow si elle est visible
                 const foundPct = findProgressPercent();
-                updateStatus(foundPct
-                    ? `Calcul en cours (${foundPct})...`
-                    : `Flow génère l'image (30 à 90 s en général)... ${Math.round(elapsedSinceClick / 1000)}s`, '#F2B705', true);
+                const secs = Math.round(elapsedSinceClick / 1000);
+                if (foundPct) {
+                    updateStatus(`Calcul en cours (${foundPct})...`, '#F2B705', true);
+                } else if (!sawProgress && elapsedSinceClick > 30000) {
+                    // Toujours aucun signe de génération : demander le clic manuel, sans arrêter l'attente de l'image
+                    updateStatus(`⚠️ Aucune génération visible dans Flow (${secs}s) : cliquez vous-même sur la flèche ➜, le copilote attend l'image.`, '#E4572E', true);
+                } else {
+                    updateStatus(`Flow génère l'image (30 à 90 s en général)... ${secs}s`, '#F2B705', true);
+                }
                 await sleep(1000);
             }
 
