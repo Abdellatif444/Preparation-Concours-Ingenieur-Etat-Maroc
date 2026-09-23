@@ -28,6 +28,7 @@
 | **IMG-REPORT-020** | Sigles (images) | Naissance d'une résolution du CS | Rapport SG → projet → vote 15 membres → résolution 2797 | `images/img_020_def_processus_resolution_onu.png` | 16:9 | Process Flow Infographic | À générer | 🟠 |
 | **IMG-REPORT-021** | Sigles (images) | Écosystème institutionnel des MRE | Ministère/DACS, consulats, CCME, Fondations, Marhaba | `images/img_021_def_ecosysteme_mre_institutions.png` | 16:9 | Institutional Map | À générer | 🟠 |
 | **IMG-REPORT-022** | Sigles (images) | Cycle d'un projet SI public | Besoin → cahier des charges → marché → développement → recette → exploitation | `images/img_022_def_cycle_projet_si_public.png` | 16:9 | Circular Cycle Diagram | À générer | 🟡 |
+| **IMG-REPORT-023** | Chapitre 1 | Actualité de dernière minute (23 sept. 2026) pour l'oral | Sahara/MINURSO (31 oct.), Maroc-Israël (non confirmé), élections (résultats non publiés) | `images/img_023_actualite_derniere_minute_oral.png` | 16:9 | Alert Briefing Card | À générer | 🔴 |
 
 ---
 
@@ -1361,3 +1362,63 @@ NEGATIVE CONSTRAINTS: No English text, no clutter, no dark theme. Spell "Express
 
 **Justification :**
 Sert l'oral (gestion de projet) et l'exercice 4.
+
+---
+
+## IMG-REPORT-023
+
+**Section :**
+Chapitre 1 — Actualité de dernière minute (vérifiée le 23 septembre 2026) pour l'oral
+
+**Texte associé :**
+Trois points d'actualité à garder en tête pour l'oral (non modifiables dans le PDF texte car datés du jour de la préparation) : échéance MINURSO du 31 octobre 2026 sur fond de tension Maroc-Algérie ; annonce du 16 septembre 2026 sur les ambassades Maroc-Israël, non confirmée officiellement ; élections législatives du 23 septembre 2026, résultats non publiés.
+
+**Objectif visuel :**
+Une fiche de synthèse « briefing » claire, avec un code couleur d'incertitude (confirmé / à surveiller / non confirmé) pour que le candidat sache exactement quoi dire et avec quelle prudence.
+
+**Type :**
+Alert Briefing Card
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_023_actualite_derniere_minute_oral.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A three-item last-minute briefing card for an oral exam, with a clear certainty code for each item.
+
+CONTEXT: Study guide for the Moroccan Ministry of Foreign Affairs engineer exam, oral interview, briefing dated 23 September 2026.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7) with a red top banner indicating urgency.
+
+ACTION: A red header banner, then three horizontal briefing cards stacked vertically, each with a colored certainty tag on its left edge.
+
+COMPOSITION: Header banner: "Actualité de dernière minute — vérifiée le 23 septembre 2026". Card 1, left tag "CONFIRMÉ" (green): "Sahara marocain — la tension diplomatique Maroc-Algérie s'intensifie au Conseil de sécurité avant l'échéance du 31 octobre 2026 (résolution 2797, six principes énoncés à l'ONU le 22 septembre 2026)". Card 2, left tag "À CONFIRMER" (orange): "Maroc-Israël — accord de principe annoncé le 16 septembre 2026 pour élever les bureaux de liaison en ambassades ; non confirmé officiellement par le Maroc au 23 septembre". Card 3, left tag "EN ATTENTE" (grey): "Élections législatives du 23 septembre 2026 — aucun résultat provisoire ou définitif publié ; ne pas évoquer de nouveau gouvernement". Footer band: "Conseil : vérifier diplomatie.ma, maroc.ma et la presse de référence le samedi 26 septembre au soir".
+
+CAMERA: Frontal, stacked cards.
+
+LIGHTING: Clean, slightly urgent studio light with a subtle red glow on the header.
+
+COLOR LANGUAGE: Navy (#0F3C6E) card backgrounds, green (#1B7A3D) / gold (#C9A227) / grey (#9AA0A6) certainty tags, red (#E4572E) header accent.
+
+VISUAL STYLE: Editorial briefing-note infographic, rounded cards, small clock/checkmark/question-mark icons matching each certainty tag.
+
+BRANDING: Small stylized green star; no real emblem.
+
+REALISM / QUALITY: Vector crispness, legible French, every date and number exactly as given.
+
+NEGATIVE CONSTRAINTS: No English text, no clutter, no invented facts beyond what is quoted, no flags.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Fixe visuellement, avec un code de certitude clair, les trois points d'actualité à mentionner (ou à éviter) à l'oral du 27 septembre.
