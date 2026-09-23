@@ -747,7 +747,11 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             try:
                 body = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
                 result = os_click(int(body.get("x")), int(body.get("y")), bool(body.get("restore", True)))
-                print(f"[Flow Hub] 🖱️ Clic système demandé en ({body.get('x')}, {body.get('y')}) -> {result}")
+                try:
+                    # Pas d'emoji ici : la console Windows (cp1252) ne les encode pas
+                    print(f"[Flow Hub] Clic systeme demande en ({body.get('x')}, {body.get('y')}) -> {result}")
+                except Exception:
+                    pass
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
