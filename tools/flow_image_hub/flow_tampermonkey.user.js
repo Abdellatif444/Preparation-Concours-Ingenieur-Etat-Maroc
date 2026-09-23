@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.2
+// @version      5.3
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.2 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.3 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.2';
+        brand.textContent = '🦊 Flow Copilot v5.3';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1355,24 +1355,73 @@
     }
 
     function findSubmitButton(inputEl) {
-        const buttons = Array.from(document.querySelectorAll('button, [role="button"]'));
+        const widget = document.getElementById('webnovel-flow-hub-widget');
+        const buttons = Array.from(document.querySelectorAll('button, [role="button"]'))
+            .filter(b => !(widget && widget.contains(b)));
 
-        const byArrow = buttons.find(b => {
-            const r = b.getBoundingClientRect();
-            if (r.top < window.innerHeight - 200 || r.width > 60 || r.height > 60) return false;
-            const t = (b.innerText || b.textContent || '');
-            if (t.includes('Banana') || t.includes('Agent') || t.includes('+')) return false;
-            return b.querySelector('svg') || t.includes('→') || t.includes('>');
-        });
-        if (byArrow) return byArrow;
-
+        // 1. Libellé accessible explicite (le plus fiable)
         const byAria = buttons.find(b => {
-            const aria = (b.getAttribute('aria-label') || '').toLowerCase();
-            return aria.includes('generate') || aria.includes('send') || aria.includes('submit') || aria.includes('create');
+            const aria = ((b.getAttribute('aria-label') || '') + ' ' + (b.getAttribute('title') || '')).toLowerCase();
+            return aria.includes('generate') || aria.includes('send') || aria.includes('submit')
+                || aria.includes('create') || aria.includes('générer') || aria.includes('envoyer');
         });
         if (byAria) return byAria;
 
+        // 2. Sinon : la flèche « → » est le petit bouton le PLUS À DROITE du composeur, en bas de page.
+        //    Le bouton « + » (ajout de média) est lui aussi petit et sans texte, mais tout à gauche :
+        //    on ne prend jamais un bouton situé à gauche du milieu du champ de prompt.
+        const inputRect = inputEl ? inputEl.getBoundingClientRect() : null;
+        const minX = inputRect ? inputRect.left + inputRect.width / 2 : window.innerWidth / 2;
+        const candidates = buttons.filter(b => {
+            const r = b.getBoundingClientRect();
+            if (r.width === 0 || r.height === 0) return false;
+            if (r.top < window.innerHeight - 200 || r.width > 60 || r.height > 60) return false;
+            if (r.left < minX) return false;
+            const t = (b.innerText || b.textContent || '').trim();
+            if (t.includes('Banana') || t.includes('Agent') || t === '+' || t.length > 3) return false;
+            if (b.disabled || b.getAttribute('aria-disabled') === 'true') return false;
+            return b.querySelector('svg') || t.includes('→') || t.includes('>');
+        });
+        if (candidates.length) {
+            candidates.sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
+            return candidates[0];
+        }
         return null;
+    }
+
+    // Le champ contient-il encore (presque) tout le prompt ? Flow vide le champ dès qu'il accepte la demande.
+    function promptStillInInput(inputEl, text) {
+        try {
+            const current = (inputEl.value !== undefined ? inputEl.value : (inputEl.innerText || inputEl.textContent || '')).trim();
+            if (!current) return false;
+            const head = text.trim().slice(0, 80);
+            return current.length > text.length * 0.6 && current.includes(head);
+        } catch (e) { return false; }
+    }
+
+    // Soumission avec vérification : clic sur la flèche, puis Enter si Flow n'a pas vidé le champ.
+    async function submitPromptVerified(inputEl, text) {
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            const btn = findSubmitButton(inputEl);
+            if (btn) {
+                console.log(`🚀 [Flow Copilot] Tentative ${attempt} : clic sur le bouton Générer`, btn);
+                try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
+                btn.click();
+            } else {
+                console.warn(`[Flow Copilot] Tentative ${attempt} : bouton Générer introuvable, envoi de la touche Entrée`);
+                try { inputEl.focus(); } catch (e) { }
+                for (const type of ['keydown', 'keypress', 'keyup']) {
+                    inputEl.dispatchEvent(new KeyboardEvent(type, { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, composed: true }));
+                }
+            }
+            // Flow vide le champ en moins de 2 s quand la demande est acceptée
+            for (let i = 0; i < 8; i++) {
+                await sleep(500);
+                if (!promptStillInInput(inputEl, text)) return true;
+            }
+            updateStatus(`Le prompt n'a pas été soumis (tentative ${attempt}/3), nouvel essai...`, '#F2B705', true);
+        }
+        return false;
     }
 
     // Pourcentage de progression affiché par Flow (ex. « 42% »), hors panneau du copilote.
@@ -1456,13 +1505,9 @@
             // 4. UN SEUL clic propre sur la flèche de génération
             updateStatus('Étape 3/3 : Lancement de la génération...', '#F2B705', true);
             const submitTime = Date.now();
-            const submitBtn = findSubmitButton(input);
-            if (submitBtn) {
-                console.log('🚀 [Flow Copilot] Clic unique sur le bouton Générer :', submitBtn);
-                submitBtn.click();
-            } else {
-                input.focus();
-                input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
+            const submitted = await submitPromptVerified(input, promptData.prompt);
+            if (!submitted) {
+                throw new Error("Flow n'a pas accepté le prompt (le champ n'est pas vidé). Cliquez vous-même sur la flèche ➜ en bas à droite, puis sur « 📸 Sauvegarder l'image de gauche » quand l'image apparaît.");
             }
 
             // 5. Attente active de la fin réelle de la génération
