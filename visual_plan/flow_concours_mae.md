@@ -381,7 +381,7 @@ ENVIRONMENT: Off-white canvas (#FBFAF7); the African continent drawn as ONE soft
 
 ACTION: A gold pipeline curve runs along the Atlantic coast from the Gulf of Guinea up to Morocco; teal arrows point from the Sahel toward the Atlantic coast.
 
-COMPOSITION: Top-left of the continent: a port icon labeled "Port Dakhla Atlantique — livraison 2028-2029". Teal arrows from inland labeled "Initiative Atlantique (2023) : accès à l'océan pour le Mali, le Burkina Faso, le Niger et le Tchad". Gold pipeline labeled "Gazoduc Nigeria–Maroc : 6 900 km, 25 milliards de dollars, 13 pays — accord CEDEAO du 19 juillet 2026". A medallion near the east reads "Union Africaine — retour du Maroc le 30 janvier 2017". Side cards: "AMCI — bourses et coopération Sud-Sud", "Fondation Mohammed VI des Oulémas Africains", "Observatoire africain des migrations — Rabat (2020)". Header: "L'ancrage africain du Royaume : projets structurants".
+COMPOSITION: Top-left of the continent: a port icon labeled "Port Dakhla Atlantique — livraison 2028-2029". Teal arrows from inland labeled "Initiative Atlantique (2023) : accès à l'océan pour le Mali, le Burkina Faso, le Niger et le Tchad". Gold pipeline with a short two-line label placed in a clear empty area away from the coastline: line 1 "Gazoduc Nigeria–Maroc" (bold), line 2 "6 900 km — 25 milliards de dollars — 13 pays" (smaller). A separate small caption below reads "Accord CEDEAO, 19 juillet 2026" (this exact date phrase appears only ONCE in the whole image, never repeated). A medallion near the east reads "Union Africaine — retour du Maroc le 30 janvier 2017". Side cards: "AMCI — bourses et coopération Sud-Sud", "Fondation Mohammed VI des Oulémas Africains", "Observatoire africain des migrations — Rabat (2020)". Header: "L'ancrage africain du Royaume : projets structurants".
 
 CAMERA: Slightly elevated map view, clean margins.
 
@@ -395,7 +395,7 @@ BRANDING: Small stylized green star; no flags.
 
 REALISM / QUALITY: Vector crispness, legible French labels.
 
-NEGATIVE CONSTRAINTS: No English text, absolutely no national or internal borders (no lines inside the continent), no flags, no invented figures.
+NEGATIVE CONSTRAINTS: No English text, absolutely no national or internal borders (no lines inside the continent), no flags, no invented figures, no duplicated words (the word "CEDEAO" must appear exactly once), no garbled or overlapping characters between text lines. Write each label ONCE, proofread it letter by letter before drawing it, never repeat a word twice in a row, never insert a stray short garbled word between two lines of the same label.
 ```
 
 **Priorité :**
@@ -441,7 +441,7 @@ ENVIRONMENT: Off-white canvas (#FBFAF7).
 
 ACTION: Left: four stat tiles; right: a two-pillar reform diagram.
 
-COMPOSITION: Left stat tiles: "Plus de 5 millions de Marocains du monde"; "Transferts 2024 : 117,7 milliards de dirhams (7,7 % du PIB)"; "Transferts 2025 : plus de 122 milliards de dirhams"; "Opération Marhaba 2026 : 4 137 594 personnes accueillies". Right: a header "Discours de la Marche Verte — 6 novembre 2024 : refonte globale" above two pillars: pillar one "CCME — réflexion stratégique et prospective", pillar two "Fondation Mohammedia des MRE — bras opérationnel (regroupe les attributions dispersées)"; beneath them a bar "Mécanisme national de mobilisation des compétences". A footer band: "Constitution de 2011 — articles 16, 17 et 18 : droits et participation des Marocains résidant à l'étranger". Header: "Les Marocains du monde : un pilier de la Nation".
+COMPOSITION: Left stat tiles: "Plus de 5 millions de Marocains du monde"; "Transferts 2024 : 117,7 milliards de dirhams (7,7 % du PIB)"; "Transferts 2025 : plus de 122 milliards de dirhams"; "Opération Marhaba 2026 : 4 137 594 personnes accueillies". Right: a header "Discours de la Marche Verte — 6 novembre 2024 : refonte globale" above two pillars: pillar one "CCME — réflexion et prospective" (short, two words only after the dash), pillar two "Fondation Mohammedia des MRE — bras opérationnel (regroupe les attributions dispersées)"; beneath them a bar "Mécanisme national de mobilisation des compétences". A footer band: "Constitution de 2011 — articles 16, 17 et 18 : droits et participation des Marocains résidant à l'étranger". Header: "Les Marocains du monde : un pilier de la Nation".
 
 CAMERA: Frontal dashboard layout.
 
@@ -455,7 +455,7 @@ BRANDING: Small stylized green star; no real logos.
 
 REALISM / QUALITY: Vector crispness, legible French numbers exactly as given.
 
-NEGATIVE CONSTRAINTS: No English text, no additional invented numbers, no realistic faces. Currency: write "DH" or "dirhams" only; never draw the symbols ₹, $, € or £ on coins or icons (use plain coins without any symbol).
+NEGATIVE CONSTRAINTS: No English text, no additional invented numbers, no realistic faces. Currency: write "DH" or "dirhams" only; never draw the symbols ₹, $, € or £ on coins or icons (use plain coins without any symbol). No doubled letters or typos: proofread every word before drawing it (for example "stratégique", not "stratégiquee"). Write each label ONCE, proofread it letter by letter before drawing it, never repeat a word twice in a row, never insert a stray short garbled word between two lines of the same label.
 ```
 
 **Priorité :**
@@ -535,10 +535,10 @@ Chapitre 4 — Fiche 6 : Partenariats stratégiques
 UE (premier partenaire, statut avancé 2008, position commune 2026), États-Unis (ALE 2006, allié majeur non-OTAN), Espagne et France, Chine (2016), pays du Golfe, Afrique, Israël (ambassades 2026) tout en défendant l'État palestinien.
 
 **Objectif visuel :**
-Cercles concentriques de partenaires autour du Maroc.
+Trois groupes de partenaires classés par intensité de la relation.
 
 **Type :**
-Concentric Partnership Map
+Grouped Card Infographic (straight horizontal cards, no circular or curved text)
 
 **Ratio :**
 16:9
@@ -553,38 +553,36 @@ Landscape
 ```text
 LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
 
-SUBJECT: Concentric circles showing Morocco's strategic partnerships.
+SUBJECT: A three-row grouped card infographic of Morocco's strategic partnerships. Do NOT use a circular, radial or curved layout: every label must be written on a straight horizontal line, left to right, never curved or rotated along an arc.
 
 CONTEXT: Study guide for a Moroccan Ministry of Foreign Affairs exam.
 
 ENVIRONMENT: Off-white canvas (#FBFAF7).
 
-ACTION: Three concentric rings around EXACTLY ONE central medallion (never draw a second medallion).
+ACTION: A small header banner "Royaume du Maroc — diplomatie de la diversification" at the top, above three horizontal rows of rectangular cards, each row on its own straight line.
 
-COMPOSITION: Center medallion: "Royaume du Maroc — diplomatie de la diversification". Inner ring labels: "Union européenne — premier partenaire, statut avancé (2008), position commune sur l'autonomie (2026)"; "États-Unis — accord de libre-échange (2006), allié majeur non-OTAN". Middle ring: "Espagne et Portugal — Mondial 2030"; "France — partenariat d'exception renforcé (2024)"; "Pays du Golfe — investissements et solidarité"; "Afrique — coopération Sud-Sud, Union Africaine". Outer ring: "Chine — partenariat stratégique (2016), Nouvelles Routes de la Soie"; "Amérique latine et Asie — nouveaux horizons"; "Israël — ambassades (2026), avec un soutien constant à l'État palestinien". Header: "Les cercles de partenariat du Royaume".
+COMPOSITION: Row 1 (label on the left: "Partenaires historiques"), three cards left to right: "Union européenne — premier partenaire, statut avancé (2008), position commune sur l'autonomie (2026)"; "États-Unis — accord de libre-échange (2006), allié majeur non-OTAN"; "France — partenariat d'exception renforcé (2024)". Row 2 (label: "Partenariats régionaux"), three cards: "Espagne et Portugal — Coupe du Monde 2030"; "Pays du Golfe — investissement et solidarité"; "Afrique — coopération Sud-Sud, Union Africaine". Row 3 (label: "Nouveaux horizons"), three cards: "Chine — partenariat stratégique (2016), Nouvelles Routes de la Soie"; "Amérique latine et Asie — nouveaux horizons"; "Israël — ambassades (2026), soutien constant à l'État palestinien". Header: "Les cercles de partenariat du Royaume".
 
-CAMERA: Frontal, symmetrical.
+CAMERA: Frontal, flat layout, three clean horizontal rows.
 
 LIGHTING: Soft light.
 
-COLOR LANGUAGE: Navy (#0F3C6E), green (#1B7A3D), gold (#C9A227), teal (#00838F).
+COLOR LANGUAGE: Row 1 navy (#0F3C6E), Row 2 teal (#00838F), Row 3 gold (#C9A227).
 
-VISUAL STYLE: Executive editorial infographic, thin rings, monoline icons.
+VISUAL STYLE: Executive editorial infographic, rounded rectangular cards, thin monoline icons, ALL text perfectly horizontal (no curved or diagonal typography anywhere in the image).
 
-BRANDING: Small stylized green star; absolutely no national flags.
+BRANDING: Small stylized green star in a header corner; absolutely no national flags.
 
-REALISM / QUALITY: Vector crispness, legible French.
+REALISM / QUALITY: Vector crispness, legible French, every word spelled correctly.
 
-NEGATIVE CONSTRAINTS: No English text, no flags, no portraits, no clutter, no duplicated medallion, no misspelled or invented words: copy every label letter by letter (for example "Royaume du Maroc", "Afrique — coopération Sud-Sud, Union Africaine").
+NEGATIVE CONSTRAINTS: No English text, no flags, no portraits, no clutter, no circular or radial layout, no curved or diagonal text, no overlapping labels, no misspelled words (write "Israël" with its diaeresis, "soutien", "Palestine" exactly as given — never "Ierael", "position" or "Pelestine"). Write each label ONCE, proofread it letter by letter before drawing it, never repeat a word twice in a row, never insert a stray short garbled word between two lines of the same label.
 ```
 
 **Priorité :**
 🟠 PRIORITÉ 2 — IMPORTANTE
 
 **Justification :**
-Synthèse visuelle utile pour l'oral.
-
----
+Synthèse visuelle utile pour l'oral. (Mise en page repensée en cartes horizontales après deux échecs du rendu circulaire : texte incurvé illisible et dédoublé.)
 
 ## IMG-REPORT-010
 
