@@ -167,12 +167,12 @@
         \begin{spacing}{1.05}
         \thispagestyle{empty}
         
-        % Logo Ministère de l'Économie et des Finances
+        % Logo Ministère des Affaires Étrangères, de la Coopération Africaine et des MRE
         \begin{center}
-            \IfFileExists{logos/Minist-Economie-Finances-logo.jpg}{%
-                \includegraphics[width=9.5cm,keepaspectratio]{logos/Minist-Economie-Finances-logo.jpg}%
+            \IfFileExists{logos/Minist-Affaires-Etrangeres-logo.jpg}{%
+                \includegraphics[width=6cm,keepaspectratio]{logos/Minist-Affaires-Etrangeres-logo.jpg}%
             }{%
-                \textbf{\LARGE ROYAUME DU MAROC\\[0.15cm]MINISTÈRE DE L'ÉCONOMIE ET DES FINANCES}%
+                \textbf{\LARGE ROYAUME DU MAROC\\[0.15cm]MINISTÈRE DES AFFAIRES ÉTRANGÈRES, DE LA COOPÉRATION AFRICAINE ET DES MAROCAINS RÉSIDANT À L'ÉTRANGER}%
             }
         \end{center}
 
@@ -218,8 +218,8 @@
             \begin{tcolorbox}[colback=gray!5!white,colframe=eclblue,arc=2mm,width=0.95\textwidth,boxrule=1pt]
                 \centering
                 \vspace{0.1cm}
-                {\large \textbf{\textsf{Épreuve Écrite d'Admissibilité --- Concours du 20 Septembre 2026}}}\\[0.2cm]
-                {\small \textsf{Annales Officielles Réelles $\bullet$ Méthodologie $\bullet$ QCM \& Fiches Révisions}}\\[0.1cm]
+                {\large \textbf{\textsf{Épreuves Écrites --- Concours du 27 Septembre 2026 (FSJES Salé)}}}\\[0.2cm]
+                {\small \textsf{Spécialité Informatique \& Réseaux $\bullet$ Rédaction sur les Attributions du Ministère $\bullet$ Oral}}\\[0.1cm]
             \end{tcolorbox}
         \end{center}
 
@@ -238,7 +238,7 @@
         \end{minipage}%
         \begin{minipage}[b]{0.3\textwidth}
             \begin{flushright}
-                \textbf{MEF}
+                \textbf{MAECAME}
             \end{flushright}
         \end{minipage}
 
