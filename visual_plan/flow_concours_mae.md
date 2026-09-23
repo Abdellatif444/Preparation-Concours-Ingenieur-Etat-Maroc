@@ -1353,7 +1353,7 @@ BRANDING: Small stylized green star.
 
 REALISM / QUALITY: Vector crispness, legible French.
 
-NEGATIVE CONSTRAINTS: No English text, no clutter, no dark theme.
+NEGATIVE CONSTRAINTS: No English text, no clutter, no dark theme. Spell "Expression" with all nine letters E-X-P-R-E-S-S-I-O-N (never "Expession"), write "du besoin" exactly (singular, not "des besoins"). Write each of the seven station labels ONCE, proofread every word letter by letter before drawing it, never drop a letter, never repeat or alter a word.
 ```
 
 **Priorité :**
