@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.5
+// @version      5.6
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.5 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.6 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.5';
+        brand.textContent = '🦊 Flow Copilot v5.6';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1023,8 +1023,9 @@
             };
             outline(input, '#00B4D8');
             outline(btn, '#E4572E');
-            const report = `Flèche : ${describe(btn)} | Champ : ${describe(input)}`;
-            console.log('[Flow Copilot] 🔎 Diagnostic —', report, { btn, input });
+            const around = describeBottomRightElements();
+            const report = `Flèche : ${describe(btn)} | Champ : ${describe(input)} | Éléments en bas à droite : ${around.join(' ; ') || 'aucun'}`;
+            console.log('[Flow Copilot] 🔎 Diagnostic —', report, { btn, input, around });
             updateStatus(`🔎 ${report}`, btn ? '#F2B705' : '#E4572E', false);
             reportFlowError('diagnostic', report);
         });
@@ -1402,21 +1403,57 @@
         //    on ne prend jamais un bouton situé à gauche du milieu du champ de prompt.
         const inputRect = inputEl ? inputEl.getBoundingClientRect() : null;
         const minX = inputRect ? inputRect.left + inputRect.width / 2 : window.innerWidth / 2;
-        const candidates = buttons.filter(b => {
-            const r = b.getBoundingClientRect();
+        // Icônes Material affichées sous forme de texte-ligature (ex. « arrow_forward ») : ce texte n'est pas visible
+        // mais apparaît dans innerText. On accepte les icônes de type flèche/envoi, on refuse ajout/pièce jointe/micro.
+        const ARROW_ICONS = /^(arrow_forward|arrow_upward|arrow_right_alt|send|north_east|east|play_arrow|→|➜|>)$/i;
+        const FORBIDDEN_ICONS = /(^|\b)(add|attach_file|attachment|mic|more_vert|more_horiz|close|tune|settings)(\b|$)/i;
+        const isSmallBottomRight = (el) => {
+            const r = el.getBoundingClientRect();
             if (r.width === 0 || r.height === 0) return false;
-            if (r.top < window.innerHeight - 200 || r.width > 60 || r.height > 60) return false;
-            if (r.left < minX) return false;
-            const t = (b.innerText || b.textContent || '').trim();
-            if (t.includes('Banana') || t.includes('Agent') || t === '+' || t.length > 3) return false;
-            if (b.disabled || b.getAttribute('aria-disabled') === 'true') return false;
-            return b.querySelector('svg') || t.includes('→') || t.includes('>');
-        });
+            if (r.top < window.innerHeight - 200 || r.width > 70 || r.height > 70) return false;
+            return r.left >= minX;
+        };
+        const looksLikeArrow = (el) => {
+            const t = (el.innerText || el.textContent || '').trim();
+            if (t.includes('Banana') || t.includes('Agent') || t === '+' || FORBIDDEN_ICONS.test(t)) return false;
+            if (ARROW_ICONS.test(t)) return true;
+            if (t.length > 3) return false; // texte visible réel : ce n'est pas une icône seule
+            const icon = el.querySelector('svg, img, i, span');
+            const iconName = icon ? ((icon.getAttribute('aria-label') || icon.getAttribute('data-icon') || icon.getAttribute('alt') || icon.textContent || '').trim()) : '';
+            if (FORBIDDEN_ICONS.test(iconName)) return false;
+            return !!el.querySelector('svg, img') || ARROW_ICONS.test(iconName) || t.includes('→') || t.includes('>');
+        };
+        const enabled = (el) => !(el.disabled || el.getAttribute('aria-disabled') === 'true');
+
+        let candidates = buttons.filter(b => isSmallBottomRight(b) && enabled(b) && looksLikeArrow(b));
+        if (!candidates.length) {
+            // La flèche n'est peut-être pas un <button> : n'importe quel petit élément cliquable en bas à droite
+            candidates = Array.from(document.querySelectorAll('div, span, a'))
+                .filter(el => !(widget && widget.contains(el)) && !(inputEl && inputEl.contains(el)))
+                .filter(el => isSmallBottomRight(el) && looksLikeArrow(el))
+                .filter(el => { const cs = getComputedStyle(el); return cs.cursor === 'pointer' || el.onclick || el.getAttribute('tabindex') !== null; });
+        }
         if (candidates.length) {
             candidates.sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
             return candidates[0];
         }
         return null;
+    }
+
+    // Pour le diagnostic : les petits éléments de la zone en bas à droite (là où doit se trouver la flèche)
+    function describeBottomRightElements() {
+        const widget = document.getElementById('webnovel-flow-hub-widget');
+        const out = [];
+        for (const el of document.querySelectorAll('button, [role="button"], div, span, a, i')) {
+            if (widget && widget.contains(el)) continue;
+            const r = el.getBoundingClientRect();
+            if (r.width === 0 || r.height === 0 || r.width > 70 || r.height > 70) continue;
+            if (r.top < window.innerHeight - 200 || r.left < window.innerWidth * 0.55) continue;
+            if (el.children.length > 3) continue;
+            out.push(`${el.tagName.toLowerCase()} "${(el.innerText || el.textContent || '').trim().slice(0, 20)}" aria="${el.getAttribute('aria-label') || ''}" ${Math.round(r.width)}×${Math.round(r.height)}@(${Math.round(r.left)},${Math.round(r.top)}) svg=${!!el.querySelector('svg')} cursor=${getComputedStyle(el).cursor}`);
+            if (out.length >= 12) break;
+        }
+        return out;
     }
 
     // Le champ contient-il encore (presque) tout le prompt ? Flow vide le champ dès qu'il accepte la demande.
