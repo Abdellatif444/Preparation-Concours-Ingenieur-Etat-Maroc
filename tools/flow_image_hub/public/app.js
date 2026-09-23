@@ -1489,7 +1489,7 @@ function waitForPromptCompletion(item) {
           claimedSeen = true;
         } else if (Date.now() - lastSendTime >= UNCLAIMED_RESEND_MS) {
           if (resendCount >= MAX_RESENDS) {
-            triggerFlowError(`Le prompt #${item.id} n'a été pris en charge par aucun onglet Google Flow. Vérifiez que le panneau « Flow Copilot v5.2 » est affiché et connecté, puis reprenez la file.`);
+            triggerFlowError(`Le prompt #${item.id} n'a été pris en charge par aucun onglet Google Flow. Vérifiez que le panneau « Flow Copilot v6.8 » est affiché et connecté, puis reprenez la file.`);
             return;
           }
           resendCount++;
@@ -1562,7 +1562,7 @@ function updateFlowPresence(data) {
   let hint = "Aucun onglet Google Flow avec le copilote v5.2 n'est connecté.";
   if (flowLegacyScript) {
     label = '⚠️ ancien script';
-    hint = "Un onglet Flow utilise un ancien copilote sans protection anti-doublon : mettez à jour le script Tampermonkey (v5.2).";
+    hint = "Un onglet Flow utilise un ancien copilote obsolète : mettez à jour le script Tampermonkey (v6.8).";
   } else if (flowTabsConnected === 1) {
     label = '1 onglet connecté';
     cls = 'success';

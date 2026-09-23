@@ -61,8 +61,8 @@ if command -v latexmk >/dev/null 2>&1; then
         echo "=== Compilation réussie (latexmk) ! ==="
         echo "Le fichier PDF généré: main.pdf"
         if [ -f "main.pdf" ]; then
-            cp main.pdf "Preparation_Concours_MEF_Ingenieur_Etat.pdf"
-            echo "Le rapport a été copié sous le nom : Preparation_Concours_MEF_Ingenieur_Etat.pdf"
+            cp main.pdf "Preparation_Concours_MAECAME_Ingenieur_Etat.pdf"
+            echo "Le rapport a été copié sous le nom : Preparation_Concours_MAECAME_Ingenieur_Etat.pdf"
             echo "Taille du fichier: $(du -h main.pdf | cut -f1)"
             echo "Date de création: $(date)"
         fi
@@ -117,8 +117,8 @@ echo "=== Compilation réussie ! ==="
 echo "Le fichier PDF généré: main.pdf"
 
 if [ -f "main.pdf" ]; then
-    cp main.pdf "Preparation_Concours_MEF_Ingenieur_Etat.pdf"
-    echo "Le rapport a été copié sous le nom : Preparation_Concours_MEF_Ingenieur_Etat.pdf"
+    cp main.pdf "Preparation_Concours_MAECAME_Ingenieur_Etat.pdf"
+    echo "Le rapport a été copié sous le nom : Preparation_Concours_MAECAME_Ingenieur_Etat.pdf"
     echo "Taille du fichier: $(du -h main.pdf | cut -f1)"
     echo "Date de création: $(date)"
 else
