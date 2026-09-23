@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.7
+// @version      5.8
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.7 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.8 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.7';
+        brand.textContent = '🦊 Flow Copilot v5.8';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1391,12 +1391,16 @@
             .filter(b => !(widget && widget.contains(b)));
 
         // 1. Libellé accessible explicite (le plus fiable)
+        // Flow (sept. 2026) : <flow-generate-icon-button><button aria-label="Start generation"><mat-icon>arrow_forward</mat-icon>
+        // Le bouton n'existe que lorsque le champ contient du texte.
         const byAria = buttons.find(b => {
             const aria = ((b.getAttribute('aria-label') || '') + ' ' + (b.getAttribute('title') || '')).toLowerCase();
-            return aria.includes('generate') || aria.includes('send') || aria.includes('submit')
-                || aria.includes('create') || aria.includes('générer') || aria.includes('envoyer');
+            return aria.includes('start generation') || aria.includes('generat') || aria.includes('send') || aria.includes('submit')
+                || aria.includes('create') || aria.includes('générer') || aria.includes('génération') || aria.includes('envoyer');
         });
-        if (byAria) return byAria;
+        if (byAria && !(byAria.disabled || byAria.getAttribute('aria-disabled') === 'true')) return byAria;
+        const byTag = document.querySelector('flow-generate-icon-button button, flow-generate-icon-button [role="button"]');
+        if (byTag && !(byTag.disabled || byTag.getAttribute('aria-disabled') === 'true')) return byTag;
 
         // 2. Sinon : la flèche « → » est le petit bouton le PLUS À DROITE du composeur, en bas de page.
         //    Le bouton « + » (ajout de média) est lui aussi petit et sans texte, mais tout à gauche :
