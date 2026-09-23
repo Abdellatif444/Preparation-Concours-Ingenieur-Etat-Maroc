@@ -72,18 +72,36 @@ def os_click(x, y, restore=True):
     class POINT(ctypes.Structure):
         _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
 
+    debug_path = None
     with _OS_CLICK_LOCK:
+        # Capture de débogage AVANT le clic : une croix rouge marque le point visé (tools/flow_image_hub/click_debug.png)
+        try:
+            from PIL import ImageGrab, ImageDraw
+            shot = ImageGrab.grab(all_screens=True)
+            draw = ImageDraw.Draw(shot)
+            draw.line((x - 40, y, x + 40, y), fill=(255, 0, 0), width=3)
+            draw.line((x, y - 40, x, y + 40), fill=(255, 0, 0), width=3)
+            draw.ellipse((x - 18, y - 18, x + 18, y + 18), outline=(255, 0, 0), width=3)
+            box = (max(0, x - 400), max(0, y - 250), min(shot.width, x + 400), min(shot.height, y + 250))
+            debug_path = os.path.join(BASE_DIR, "click_debug.png")
+            shot.crop(box).save(debug_path)
+            shot.save(os.path.join(BASE_DIR, "click_debug_full.png"))
+        except Exception as e:
+            debug_path = f"capture impossible : {e}"
         before = POINT()
         user32.GetCursorPos(ctypes.byref(before))
         user32.SetCursorPos(x, y)
-        time.sleep(0.06)
+        time.sleep(0.08)
+        placed = POINT()
+        user32.GetCursorPos(ctypes.byref(placed))
         user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-        time.sleep(0.05)
+        time.sleep(0.06)
         user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
-        time.sleep(0.05)
+        time.sleep(0.08)
         if restore:
             user32.SetCursorPos(before.x, before.y)
-    return {"success": True, "x": x, "y": y}
+    return {"success": True, "x": x, "y": y, "cursor_placed": [placed.x, placed.y],
+            "screen": [screen_w, screen_h], "debug": debug_path}
 
 # Une image générée par Flow fait 896x1200 ; une miniature capturée dans la galerie fait 382x512
 MIN_UPLOAD_HEIGHT = 1000
@@ -747,9 +765,13 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             try:
                 body = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
                 result = os_click(int(body.get("x")), int(body.get("y")), bool(body.get("restore", True)))
+                result["window"] = body.get("window")
+                ACTIVE_STATE["last_os_click"] = {"time": time.time(), "request": body, "result": result}
                 try:
                     # Pas d'emoji ici : la console Windows (cp1252) ne les encode pas
-                    print(f"[Flow Hub] Clic systeme demande en ({body.get('x')}, {body.get('y')}) -> {result}")
+                    print(f"[Flow Hub] Clic systeme demande en ({body.get('x')}, {body.get('y')}) fenetre={body.get('window')} -> {result}", flush=True)
+                    with open(os.path.join(BASE_DIR, "click_debug.log"), "a", encoding="utf-8") as lf:
+                        lf.write(json.dumps({"t": time.strftime("%H:%M:%S"), "request": body, "result": result}, ensure_ascii=False) + "\n")
                 except Exception:
                     pass
                 self.send_response(200)

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.2
+// @version      6.3
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.2 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.3 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.2';
+        brand.textContent = '🦊 Flow Copilot v6.3';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1590,9 +1590,16 @@
             return { success: false, error: 'onglet masqué' };
         }
         const c = elementScreenCenter(el);
-        console.log(`🖱️ [Flow Copilot] Clic système via le Hub en (${c.x}, ${c.y}) dpr=${c.dpr}`);
+        const win = {
+            screenX: window.screenX, screenY: window.screenY,
+            outerWidth: window.outerWidth, outerHeight: window.outerHeight,
+            innerWidth: window.innerWidth, innerHeight: window.innerHeight,
+            dpr: c.dpr, rect: [Math.round(c.rect.left), Math.round(c.rect.top), Math.round(c.rect.width), Math.round(c.rect.height)],
+            fullscreen: !!document.fullscreenElement, visibility: document.visibilityState, hasFocus: document.hasFocus()
+        };
+        console.log(`🖱️ [Flow Copilot] Clic système via le Hub en (${c.x}, ${c.y})`, win);
         updateStatus(`Étape 3/3 : clic système sur la flèche (${c.x}, ${c.y})...`, '#F2B705', true);
-        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, restore: true }, 4000);
+        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, restore: true, window: win }, 6000);
     }
 
     // Cadre rouge clignotant autour de la flèche « Start generation » tant que l'utilisateur n'a pas cliqué
