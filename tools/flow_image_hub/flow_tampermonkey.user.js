@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.6
+// @version      5.7
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.6 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.7 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.6';
+        brand.textContent = '🦊 Flow Copilot v5.7';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1433,19 +1433,49 @@
                 .filter(el => isSmallBottomRight(el) && looksLikeArrow(el))
                 .filter(el => { const cs = getComputedStyle(el); return cs.cursor === 'pointer' || el.onclick || el.getAttribute('tabindex') !== null; });
         }
+        if (!candidates.length && inputRect) {
+            // Flow (Angular) rend la flèche comme un <span> 32×32 sans svg ni texte, dans une balise personnalisée :
+            // dernier recours = n'importe quel petit élément aligné verticalement avec le champ, à sa droite.
+            const inputMidY = inputRect.top + inputRect.height / 2;
+            candidates = Array.from(document.querySelectorAll('*'))
+                .filter(el => !(widget && widget.contains(el)) && !(inputEl && (inputEl.contains(el) || el.contains(inputEl))))
+                .filter(el => {
+                    const r = el.getBoundingClientRect();
+                    if (r.width < 16 || r.height < 16 || r.width > 70 || r.height > 70) return false;
+                    if (r.left < minX || r.top < window.innerHeight - 200) return false;
+                    if (Math.abs((r.top + r.height / 2) - inputMidY) > 90) return false;
+                    const t = (el.innerText || el.textContent || '').trim();
+                    return !(t.includes('Banana') || t.includes('Agent') || t === '+' || FORBIDDEN_ICONS.test(t) || t.length > 3);
+                });
+        }
         if (candidates.length) {
             candidates.sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
-            return candidates[0];
+            return clickableAncestor(candidates[0]);
         }
         return null;
+    }
+
+    // Remonte (4 niveaux max) vers l'élément qui porte réellement le clic : bouton, rôle bouton, tabindex ou curseur pointeur.
+    function clickableAncestor(el) {
+        let cur = el;
+        for (let i = 0; i < 4 && cur && cur !== document.body; i++) {
+            const tag = cur.tagName.toLowerCase();
+            const r = cur.getBoundingClientRect();
+            if (r.width > 90 || r.height > 90) break;
+            if (tag === 'button' || cur.getAttribute('role') === 'button' || cur.hasAttribute('tabindex')
+                || getComputedStyle(cur).cursor === 'pointer' || tag.includes('button')) return cur;
+            cur = cur.parentElement;
+        }
+        return el;
     }
 
     // Pour le diagnostic : les petits éléments de la zone en bas à droite (là où doit se trouver la flèche)
     function describeBottomRightElements() {
         const widget = document.getElementById('webnovel-flow-hub-widget');
         const out = [];
-        for (const el of document.querySelectorAll('button, [role="button"], div, span, a, i')) {
+        for (const el of document.querySelectorAll('*')) {
             if (widget && widget.contains(el)) continue;
+            if (['HTML', 'BODY', 'SCRIPT', 'STYLE'].includes(el.tagName)) continue;
             const r = el.getBoundingClientRect();
             if (r.width === 0 || r.height === 0 || r.width > 70 || r.height > 70) continue;
             if (r.top < window.innerHeight - 200 || r.left < window.innerWidth * 0.55) continue;
