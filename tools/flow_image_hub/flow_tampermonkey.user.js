@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.1
+// @version      6.2
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.1 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.2 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.1';
+        brand.textContent = '🦊 Flow Copilot v6.2';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1024,7 +1024,8 @@
             outline(input, '#00B4D8');
             outline(btn, '#E4572E');
             const around = describeBottomRightElements();
-            const report = `Flèche : ${describe(btn)} | Champ : ${describe(input)} | Éléments en bas à droite : ${around.join(' ; ') || 'aucun'}`;
+            const screenPos = btn ? elementScreenCenter(btn) : null;
+            const report = `Flèche : ${describe(btn)}${screenPos ? ` | écran (${screenPos.x}, ${screenPos.y}) dpr=${screenPos.dpr}` : ''} | Champ : ${describe(input)} | Éléments en bas à droite : ${around.join(' ; ') || 'aucun'}`;
             console.log('[Flow Copilot] 🔎 Diagnostic —', report, { btn, input, around });
             updateStatus(`🔎 ${report}`, btn ? '#F2B705' : '#E4572E', false);
             reportFlowError('diagnostic', report);
@@ -1551,10 +1552,47 @@
             try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
             fireDeepClick(btn);
             if (await waitForStart('clic simulé', 4)) return true;
+
+            // Envoi 3 : clic SYSTÈME réel par le Hub (API Windows) aux coordonnées écran de la flèche.
+            // Deux essais, car la fenêtre peut avoir bougé ou l'onglet n'être pas au premier plan.
+            for (let attempt = 1; attempt <= 2; attempt++) {
+                const res = await osClickViaHub(btn);
+                if (res && res.success) {
+                    if (await waitForStart(`clic système ${attempt}`, 6)) return true;
+                } else {
+                    console.warn('[Flow Copilot] Clic système refusé :', res && res.error);
+                    break;
+                }
+            }
         } else {
             console.warn('[Flow Copilot] Bouton « Start generation » introuvable (le champ est-il rempli ?)');
         }
         return false;
+    }
+
+    // Coordonnées écran (pixels physiques) du centre d'un élément, telles que les attend l'API Windows.
+    // window.screenX/Y et outer/innerWidth sont en pixels indépendants du périphérique ; les rectangles
+    // DOM sont en pixels CSS ; devicePixelRatio convertit le tout en pixels physiques (sans zoom de page).
+    function elementScreenCenter(el) {
+        const r = el.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        const chromeLeft = Math.max(0, (window.outerWidth - window.innerWidth) / 2);
+        const chromeTop = Math.max(0, window.outerHeight - window.innerHeight);
+        const x = Math.round((window.screenX + chromeLeft + r.left + r.width / 2) * dpr);
+        const y = Math.round((window.screenY + chromeTop + r.top + r.height / 2) * dpr);
+        return { x, y, dpr, rect: r };
+    }
+
+    async function osClickViaHub(el) {
+        if (document.hidden) {
+            console.warn('[Flow Copilot] Onglet Flow masqué : le clic système ne peut pas viser la flèche.');
+            updateStatus('⚠️ Mettez l\'onglet Flow au premier plan pour le clic automatique.', '#E4572E', true);
+            return { success: false, error: 'onglet masqué' };
+        }
+        const c = elementScreenCenter(el);
+        console.log(`🖱️ [Flow Copilot] Clic système via le Hub en (${c.x}, ${c.y}) dpr=${c.dpr}`);
+        updateStatus(`Étape 3/3 : clic système sur la flèche (${c.x}, ${c.y})...`, '#F2B705', true);
+        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, restore: true }, 4000);
     }
 
     // Cadre rouge clignotant autour de la flèche « Start generation » tant que l'utilisateur n'a pas cliqué

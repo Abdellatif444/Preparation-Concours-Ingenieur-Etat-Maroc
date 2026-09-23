@@ -33,6 +33,58 @@ os.makedirs(EXPORTS_DIR, exist_ok=True)
 
 PORT = 8085
 
+
+# ---------------------------------------------------------------------------
+# Clic système réel (Windows) : SetCursorPos + mouse_event via ctypes, sans dépendance.
+# Le processus est déclaré « DPI aware » pour que les coordonnées soient en pixels physiques,
+# c'est-à-dire celles que le copilote calcule avec window.devicePixelRatio.
+# ---------------------------------------------------------------------------
+_OS_CLICK_LOCK = threading.Lock()
+
+
+def _ensure_dpi_aware():
+    if sys.platform != "win32":
+        return
+    try:
+        import ctypes
+        try:
+            ctypes.windll.shcore.SetProcessDpiAwareness(2)   # PROCESS_PER_MONITOR_DPI_AWARE
+        except Exception:
+            ctypes.windll.user32.SetProcessDPIAware()
+    except Exception:
+        pass
+
+
+_ensure_dpi_aware()
+
+
+def os_click(x, y, restore=True):
+    if sys.platform != "win32":
+        return {"success": False, "error": "clic système disponible uniquement sous Windows"}
+    import ctypes
+    user32 = ctypes.windll.user32
+    MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP = 0x0002, 0x0004
+    screen_w, screen_h = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)  # écran virtuel (multi-moniteurs)
+    left, top = user32.GetSystemMetrics(76), user32.GetSystemMetrics(77)
+    if not (left <= x < left + screen_w and top <= y < top + screen_h):
+        return {"success": False, "error": f"coordonnées hors écran ({x}, {y})"}
+
+    class POINT(ctypes.Structure):
+        _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
+
+    with _OS_CLICK_LOCK:
+        before = POINT()
+        user32.GetCursorPos(ctypes.byref(before))
+        user32.SetCursorPos(x, y)
+        time.sleep(0.06)
+        user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+        time.sleep(0.05)
+        user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        time.sleep(0.05)
+        if restore:
+            user32.SetCursorPos(before.x, before.y)
+    return {"success": True, "x": x, "y": y}
+
 # Une image générée par Flow fait 896x1200 ; une miniature capturée dans la galerie fait 382x512
 MIN_UPLOAD_HEIGHT = 1000
 
@@ -685,6 +737,26 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(b'{"success": true}')
+            return
+
+        # Clic système RÉEL (API Windows) aux coordonnées écran envoyées par le copilote.
+        # Google Flow ignore les clics simulés par un script (événements non « trusted ») ; un clic
+        # produit par le système d'exploitation est, lui, indiscernable d'un clic humain.
+        if path == "/api/os-click":
+            content_length = int(self.headers.get("Content-Length", 0))
+            try:
+                body = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
+                result = os_click(int(body.get("x")), int(body.get("y")), bool(body.get("restore", True)))
+                print(f"[Flow Hub] 🖱️ Clic système demandé en ({body.get('x')}, {body.get('y')}) -> {result}")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps(result).encode("utf-8"))
+            except Exception as e:
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
             return
 
         # Signaler une erreur ou quota sur Flow
