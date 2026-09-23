@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.4
+// @version      5.5
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.4 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.5 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.4';
+        brand.textContent = '🦊 Flow Copilot v5.5';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1000,8 +1000,38 @@
             if (data) handlePromptData(data);
         });
 
+        // Diagnostic visuel : entoure en rouge le bouton que le script prend pour la flèche « Générer »
+        // et le champ de prompt, et décrit les deux dans le statut (à photographier en cas de problème).
+        const btnDiag = document.createElement('button');
+        btnDiag.id = 'copilot-btn-diag';
+        btnDiag.textContent = '🔎 Tester la flèche';
+        btnDiag.title = 'Montre en rouge le bouton Générer et le champ de prompt détectés (sans rien envoyer)';
+        btnDiag.style.cssText = 'background:#2B2D42; color:#F2B705; border:1px solid #F2B705; border-radius:6px; padding:8px 10px; font-weight:700; font-size:12px; cursor:pointer;';
+        btnDiag.addEventListener('click', () => {
+            const input = findPromptInput();
+            const btn = findSubmitButton(input);
+            const describe = (el) => {
+                if (!el) return 'introuvable';
+                const r = el.getBoundingClientRect();
+                return `${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''} aria="${el.getAttribute('aria-label') || ''}" texte="${(el.innerText || '').trim().slice(0, 20)}" ${Math.round(r.width)}×${Math.round(r.height)} @(${Math.round(r.left)},${Math.round(r.top)}) disabled=${!!el.disabled || el.getAttribute('aria-disabled') === 'true'}`;
+            };
+            const outline = (el, color) => {
+                if (!el) return;
+                const old = el.style.outline;
+                el.style.outline = `3px solid ${color}`;
+                setTimeout(() => { el.style.outline = old; }, 6000);
+            };
+            outline(input, '#00B4D8');
+            outline(btn, '#E4572E');
+            const report = `Flèche : ${describe(btn)} | Champ : ${describe(input)}`;
+            console.log('[Flow Copilot] 🔎 Diagnostic —', report, { btn, input });
+            updateStatus(`🔎 ${report}`, btn ? '#F2B705' : '#E4572E', false);
+            reportFlowError('diagnostic', report);
+        });
+
         subActions.appendChild(btnRun);
         subActions.appendChild(btnTestRatio);
+        subActions.appendChild(btnDiag);
         subActions.appendChild(btnCheck);
 
         actions.appendChild(captureRow);
@@ -1429,7 +1459,9 @@
         if (btn) {
             console.log('🚀 [Flow Copilot] Clic sur le bouton Générer :', btn, btn.getAttribute('aria-label'));
             try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
-            btn.click();
+            // Séquence pointer/mouse complète (comme pour le ratio) : certains boutons réagissent au
+            // pointerdown/pointerup et ignorent un simple .click() programmatique.
+            fireDeepClick(btn);
         } else {
             console.warn('[Flow Copilot] Bouton Générer introuvable : envoi de la touche Entrée');
             dispatchEnter(inputEl);
