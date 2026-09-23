@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.8
+// @version      5.9
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.8 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.9 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.8';
+        brand.textContent = '🦊 Flow Copilot v5.9';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1524,31 +1524,32 @@
 
     // Soumission : UN clic sur la flèche ; si aucun signe de démarrage après 6 s, UNE seule relance par la touche Entrée.
     // On ne relance jamais plus (risque de générer la même image plusieurs fois) : la boucle d'attente tranche ensuite.
+    // Ordre des méthodes : la touche Entrée dans le champ est la seule méthode dont l'efficacité est PROUVÉE
+    // sur Flow (images générées ainsi) ; le clic sur le bouton « Start generation » sert de secours.
     async function submitPromptVerified(inputEl, text) {
         const beforeImgCount = document.querySelectorAll('img').length;
+        const waitForStart = async (label, ticks) => {
+            for (let i = 1; i <= ticks; i++) {
+                await sleep(500);
+                const sign = generationSeemsStarted(inputEl, text, beforeImgCount);
+                if (sign) { console.log(`[Flow Copilot] Génération démarrée après ${label} (indice : ${sign})`); return true; }
+                updateStatus(`Étape 3/3 : ${label}... vérification du démarrage ${Math.ceil(i / 2)} s`, '#F2B705', true);
+            }
+            return false;
+        };
+
+        console.log('🚀 [Flow Copilot] Envoi 1 : touche Entrée dans le champ de prompt');
+        dispatchEnter(inputEl);
+        if (await waitForStart('touche Entrée', 12)) return true;
+
         const btn = findSubmitButton(inputEl);
         if (btn) {
-            console.log('🚀 [Flow Copilot] Clic sur le bouton Générer :', btn, btn.getAttribute('aria-label'));
+            console.warn('[Flow Copilot] Envoi 2 : clic sur le bouton', btn.getAttribute('aria-label') || btn.tagName);
             try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
-            // Séquence pointer/mouse complète (comme pour le ratio) : certains boutons réagissent au
-            // pointerdown/pointerup et ignorent un simple .click() programmatique.
             fireDeepClick(btn);
+            if (await waitForStart('clic sur la flèche', 10)) return true;
         } else {
-            console.warn('[Flow Copilot] Bouton Générer introuvable : envoi de la touche Entrée');
-            dispatchEnter(inputEl);
-        }
-        for (let i = 0; i < 12; i++) {
-            await sleep(500);
-            const sign = generationSeemsStarted(inputEl, text, beforeImgCount);
-            if (sign) { console.log('[Flow Copilot] Génération démarrée (indice :', sign, ')'); return true; }
-        }
-        console.warn('[Flow Copilot] Aucun signe de démarrage après 6 s : relance unique par la touche Entrée');
-        updateStatus('Aucun signe de démarrage, relance unique (touche Entrée)...', '#F2B705', true);
-        dispatchEnter(inputEl);
-        for (let i = 0; i < 8; i++) {
-            await sleep(500);
-            const sign = generationSeemsStarted(inputEl, text, beforeImgCount);
-            if (sign) { console.log('[Flow Copilot] Génération démarrée après relance (indice :', sign, ')'); return true; }
+            console.warn('[Flow Copilot] Bouton « Start generation » introuvable (le champ est-il rempli ?)');
         }
         return false;
     }

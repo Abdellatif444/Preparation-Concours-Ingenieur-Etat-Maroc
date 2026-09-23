@@ -7,8 +7,8 @@
 | ID | Chapitre | Sujet | Contenu | Fichier | Ratio | Style | Statut | Priorité |
 |---|---|---|---|---|---|---|---|---|
 | **IMG-REPORT-001** | Introduction | Écosystème numérique du MAECAME | Administration centrale reliée aux ambassades et consulats (VPN, eConsulat, e-Visa, DSI) | `images/img_001_intro_ecosysteme_si_maecame.png` | 16:9 | Isometric Enterprise Architecture | À générer | 🔴 |
-| **IMG-REPORT-002** | Chapitre 1 | Chrono 3h (réutilisée du MEF) | Découpage tactique d'une épreuve de 3 heures | `images/img_002_methodo_chrono_3h.png` | 16:9 | Editorial Timeline Infographic | Fait | 🟠 |
-| **IMG-REPORT-003** | Chapitre 1 | Plan binaire (réutilisée du MEF) | Matrice du plan en deux parties | `images/img_003_methodo_plan_binaire_structure.png` | 16:9 | Modular Analytical Card | Fait | 🟠 |
+| **IMG-REPORT-002** | Chapitre 1 | Chrono des deux épreuves écrites | Spécialité 3 h (10/80/75/15 min) et rédaction 2 h (10/20/10/70/10 min) | `images/img_002_methodo_chrono_3h.png` | 16:9 | Dual Timeline Infographic | À générer | 🔴 |
+| **IMG-REPORT-003** | Chapitre 1 | Plan binaire de la rédaction (2 h) | Introduction en 5 étapes, I/II avec exemples diplomatiques, conclusion | `images/img_003_methodo_plan_binaire_structure.png` | 16:9 | Modular Analytical Card | À générer | 🔴 |
 | **IMG-REPORT-004** | Chapitre 4 (Fiche 2) | Constantes de la politique étrangère | Les 7 constantes autour du Roi chef de la diplomatie | `images/img_004_constantes_politique_etrangere.png` | 16:9 | Radial Doctrine Diagram | À générer | 🔴 |
 | **IMG-REPORT-005** | Chapitre 4 (Fiche 3) | Chronologie du Sahara marocain | Frise 2007 → 2797 (2025) → 2026 avec soutiens internationaux | `images/img_005_sahara_chronologie_soutiens.png` | 16:9 | Milestone Timeline Infographic | À générer | 🔴 |
 | **IMG-REPORT-006** | Chapitre 4 (Fiche 4) | Ancrage africain | Carte stylisée : Initiative Atlantique, port Dakhla, gazoduc Nigeria–Maroc, UA | `images/img_006_afrique_initiative_atlantique_gazoduc.png` | 16:9 | Stylized Strategic Map | À générer | 🔴 |
@@ -103,6 +103,126 @@ NEGATIVE CONSTRAINTS: No English text, no gibberish, no realistic faces, no clut
 
 **Justification :**
 Installe dès l'introduction le rôle stratégique de l'ingénieur dans un ministère mondialement déployé.
+
+---
+
+## IMG-REPORT-002
+
+**Section :**
+Chapitre 1 — Gestion optimale du temps : épreuve de spécialité (3 h) et épreuve de rédaction (2 h)
+
+**Texte associé :**
+Spécialité (180 min) : 10 min de lecture et tri des questions ; 80 min de questions sûres ; 75 min d'exercices longs ; 15 min de relecture. Rédaction (120 min) : 10 min d'analyse du sujet ; 20 min de plan ; 10 min d'introduction et conclusion au brouillon ; 70 min de rédaction ; 10 min de relecture.
+
+**Objectif visuel :**
+Donner en une image le chrono des deux épreuves écrites du 27 septembre.
+
+**Type :**
+Dual Timeline Infographic
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_002_methodo_chrono_3h.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: Two horizontal time-management timelines for the two written exams of the Moroccan Ministry of Foreign Affairs State Engineer contest.
+
+CONTEXT: Study guide; exams on 27 September 2026.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: Two stacked horizontal bars divided into proportional colored segments with a clock icon at the start of each.
+
+COMPOSITION: Top bar titled "Épreuve A — Spécialité informatique et réseaux : 3 heures (coefficient 4)" with four segments: "0h00–0h10 : Lecture du sujet, tri des questions (10 min)"; "0h10–1h30 : Questions sûres d'abord (80 min)"; "1h30–2h45 : Exercices longs : adressage, SQL, architecture (75 min)"; "2h45–3h00 : Relecture (15 min)". Bottom bar titled "Épreuve B — Rédaction sur les attributions du ministère : 2 heures (coefficient 2)" with five segments: "0h00–0h10 : Analyse du sujet (10 min)"; "0h10–0h30 : Plan détaillé I/II (20 min)"; "0h30–0h40 : Introduction et conclusion au brouillon (10 min)"; "0h40–1h50 : Rédaction sur la copie, 3 pages (70 min)"; "1h50–2h00 : Relecture (10 min)". Footer: "Dimanche 27 septembre 2026 — FSJES Salé — présence à 7h30". Header: "Gérer son temps : les deux épreuves écrites".
+
+CAMERA: Frontal wide view.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Navy (#0F3C6E), teal (#00838F), gold (#C9A227), green (#1B7A3D), coral accent (#E4572E) for the review segments.
+
+VISUAL STYLE: Editorial timeline infographic, rounded segments, monoline icons (clock, magnifier, pen, book, checkmark).
+
+BRANDING: Small stylized green star; no real emblem.
+
+REALISM / QUALITY: Vector crispness, legible French numbers exactly as given.
+
+NEGATIVE CONSTRAINTS: No English text, no extra durations, no clutter.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Le chrono conditionne les deux épreuves ; l'ancienne image portait le titre « MEF » et une seule épreuve de 3 h.
+
+---
+
+## IMG-REPORT-003
+
+**Section :**
+Chapitre 1 — La méthode de la dissertation administrative en deux heures
+
+**Texte associé :**
+Introduction en 5 étapes (accroche, définition, contexte marocain, problématique, annonce du plan) ; Partie I Acquis et diagnostic (I.A réalisations et cadre, I.B limites et défis) ; Partie II Orientations et leviers (II.A stratégies en cours, II.B recommandations et rôle de l'ingénieur) ; conclusion bilan + ouverture. Exemples : Sahara, Afrique, Marocains du monde, numérique consulaire.
+
+**Objectif visuel :**
+Matrice mémorisable du plan binaire appliqué aux sujets du ministère.
+
+**Type :**
+Modular Analytical Card
+
+**Ratio :**
+16:9
+
+**Orientation :**
+Landscape
+
+**Nom du fichier :**
+`images/img_003_methodo_plan_binaire_structure.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A modular card diagram of the two-part essay structure used for the Moroccan Ministry of Foreign Affairs written exam.
+
+CONTEXT: Study guide; essay of 2 hours about the ministry's duties.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7) with a faint grid.
+
+ACTION: Top row of five chained pills, two large columns in the middle joined by a transition arrow, one conclusion row at the bottom.
+
+COMPOSITION: Top row titled "Introduction en 5 étapes": "Accroche (discours royal, date, chiffre)" → "Définition des termes" → "Contexte : attributions du ministère" → "Problématique" → "Annonce du plan". Left column "Partie I — Acquis et diagnostic": card "I.A — Réalisations et cadre (ex. résolution 2797, retour à l'Union Africaine, e-Visa)" above card "I.B — Limites et défis (ex. dispersion des acteurs MRE, cybermenaces)". Center arrow labeled "Transition". Right column "Partie II — Orientations et leviers": card "II.A — Stratégies en cours (ex. Initiative Atlantique, réforme des institutions des MRE)" above card "II.B — Recommandations et rôle de l'ingénieur d'État (réseaux sûrs, données, indicateurs)". Bottom row titled "Conclusion": "Bilan : réponse à la problématique" → "Ouverture (échéance du 31 octobre 2026, Mondial 2030, intelligence artificielle)". Header: "La dissertation administrative en deux heures : le plan binaire".
+
+CAMERA: Frontal, symmetrical.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Navy (#0F3C6E) for Part I, teal (#00838F) for Part II, gold (#C9A227) for the introduction, green (#1B7A3D) for the conclusion.
+
+VISUAL STYLE: Clean modular infographic, rounded cards, monoline icons (hook, book, map, question mark, list, scale, telescope).
+
+BRANDING: Small stylized green star; no real emblem.
+
+REALISM / QUALITY: Vector crispness, legible French text.
+
+NEGATIVE CONSTRAINTS: No English text, no reference to any other ministry, no clutter.
+```
+
+**Priorité :**
+🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Structure de toute copie de rédaction ; l'ancienne image mentionnait « Méthodologie MEF ».
 
 ---
 
