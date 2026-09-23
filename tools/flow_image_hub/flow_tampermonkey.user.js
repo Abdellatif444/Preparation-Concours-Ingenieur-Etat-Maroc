@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      5.3
+// @version      5.4
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v5.3 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v5.4 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v5.3';
+        brand.textContent = '🦊 Flow Copilot v5.4';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1399,27 +1399,53 @@
         } catch (e) { return false; }
     }
 
-    // Soumission avec vérification : clic sur la flèche, puis Enter si Flow n'a pas vidé le champ.
+    // Indices qu'une génération vient de démarrer. Attention : Flow GARDE le texte du prompt dans le champ
+    // après l'envoi, donc « champ vidé » n'est qu'un indice parmi d'autres, jamais une condition.
+    function generationSeemsStarted(inputEl, text, beforeImgCount) {
+        if (!promptStillInInput(inputEl, text)) return 'champ vidé';
+        if (findProgressPercent()) return 'pourcentage affiché';
+        const btn = findSubmitButton(inputEl);
+        if (!btn) return 'bouton Générer masqué';
+        if (btn.disabled || btn.getAttribute('aria-disabled') === 'true') return 'bouton Générer désactivé';
+        const aria = ((btn.getAttribute('aria-label') || '') + ' ' + (btn.getAttribute('title') || '')).toLowerCase();
+        if (aria.includes('stop') || aria.includes('arrêter') || aria.includes('cancel') || aria.includes('annuler')) return 'bouton Stop visible';
+        const imgCount = document.querySelectorAll('img').length;
+        if (imgCount > beforeImgCount) return 'nouvelle vignette';
+        return null;
+    }
+
+    function dispatchEnter(inputEl) {
+        try { inputEl.focus(); } catch (e) { }
+        for (const type of ['keydown', 'keypress', 'keyup']) {
+            inputEl.dispatchEvent(new KeyboardEvent(type, { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, composed: true }));
+        }
+    }
+
+    // Soumission : UN clic sur la flèche ; si aucun signe de démarrage après 6 s, UNE seule relance par la touche Entrée.
+    // On ne relance jamais plus (risque de générer la même image plusieurs fois) : la boucle d'attente tranche ensuite.
     async function submitPromptVerified(inputEl, text) {
-        for (let attempt = 1; attempt <= 3; attempt++) {
-            const btn = findSubmitButton(inputEl);
-            if (btn) {
-                console.log(`🚀 [Flow Copilot] Tentative ${attempt} : clic sur le bouton Générer`, btn);
-                try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
-                btn.click();
-            } else {
-                console.warn(`[Flow Copilot] Tentative ${attempt} : bouton Générer introuvable, envoi de la touche Entrée`);
-                try { inputEl.focus(); } catch (e) { }
-                for (const type of ['keydown', 'keypress', 'keyup']) {
-                    inputEl.dispatchEvent(new KeyboardEvent(type, { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, composed: true }));
-                }
-            }
-            // Flow vide le champ en moins de 2 s quand la demande est acceptée
-            for (let i = 0; i < 8; i++) {
-                await sleep(500);
-                if (!promptStillInInput(inputEl, text)) return true;
-            }
-            updateStatus(`Le prompt n'a pas été soumis (tentative ${attempt}/3), nouvel essai...`, '#F2B705', true);
+        const beforeImgCount = document.querySelectorAll('img').length;
+        const btn = findSubmitButton(inputEl);
+        if (btn) {
+            console.log('🚀 [Flow Copilot] Clic sur le bouton Générer :', btn, btn.getAttribute('aria-label'));
+            try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
+            btn.click();
+        } else {
+            console.warn('[Flow Copilot] Bouton Générer introuvable : envoi de la touche Entrée');
+            dispatchEnter(inputEl);
+        }
+        for (let i = 0; i < 12; i++) {
+            await sleep(500);
+            const sign = generationSeemsStarted(inputEl, text, beforeImgCount);
+            if (sign) { console.log('[Flow Copilot] Génération démarrée (indice :', sign, ')'); return true; }
+        }
+        console.warn('[Flow Copilot] Aucun signe de démarrage après 6 s : relance unique par la touche Entrée');
+        updateStatus('Aucun signe de démarrage, relance unique (touche Entrée)...', '#F2B705', true);
+        dispatchEnter(inputEl);
+        for (let i = 0; i < 8; i++) {
+            await sleep(500);
+            const sign = generationSeemsStarted(inputEl, text, beforeImgCount);
+            if (sign) { console.log('[Flow Copilot] Génération démarrée après relance (indice :', sign, ')'); return true; }
         }
         return false;
     }
@@ -1507,7 +1533,10 @@
             const submitTime = Date.now();
             const submitted = await submitPromptVerified(input, promptData.prompt);
             if (!submitted) {
-                throw new Error("Flow n'a pas accepté le prompt (le champ n'est pas vidé). Cliquez vous-même sur la flèche ➜ en bas à droite, puis sur « 📸 Sauvegarder l'image de gauche » quand l'image apparaît.");
+                // Pas de preuve de démarrage : on n'abandonne pas (Flow ne donne pas toujours d'indice),
+                // on laisse la boucle d'attente détecter l'image ; l'utilisateur est prévenu.
+                console.warn('[Flow Copilot] Démarrage non confirmé : attente de l\'image quand même.');
+                updateStatus('Démarrage non confirmé. Si rien n\'apparaît dans 30 s, cliquez vous-même sur la flèche ➜.', '#F2B705', true);
             }
 
             // 5. Attente active de la fin réelle de la génération
@@ -1517,7 +1546,7 @@
             let newImg = null;
             let detectedError = null;
 
-            while (Date.now() - start < 180000) {
+            while (Date.now() - start < 240000) {
                 const elapsedSinceClick = Date.now() - submitTime;
 
                 // A.0 Détection infaillible de Quota / Limite d'utilisation sur Google Flow
@@ -1595,7 +1624,7 @@
                 const foundPct = findProgressPercent();
                 updateStatus(foundPct
                     ? `Calcul en cours (${foundPct})...`
-                    : `Calcul du nouveau rendu... (${Math.round(elapsedSinceClick / 1000)}s)`, '#F2B705', true);
+                    : `Flow génère l'image (30 à 90 s en général)... ${Math.round(elapsedSinceClick / 1000)}s`, '#F2B705', true);
                 await sleep(1000);
             }
 
