@@ -58,50 +58,170 @@ def _ensure_dpi_aware():
 _ensure_dpi_aware()
 
 
-def os_click(x, y, restore=True):
+def _find_flow_window():
+    """HWND de la fenêtre Chrome/Edge dont le titre contient « Flow » (ou None)."""
+    import ctypes, ctypes.wintypes as wt
+    user32 = ctypes.windll.user32
+    found = []
+
+    @ctypes.WINFUNCTYPE(ctypes.c_bool, wt.HWND, wt.LPARAM)
+    def _cb(hwnd, _):
+        if not user32.IsWindowVisible(hwnd):
+            return True
+        n = user32.GetWindowTextLengthW(hwnd)
+        if not n:
+            return True
+        buf = ctypes.create_unicode_buffer(n + 1)
+        user32.GetWindowTextW(hwnd, buf, n + 1)
+        cls = ctypes.create_unicode_buffer(256)
+        user32.GetClassNameW(hwnd, cls, 256)
+        title = buf.value.replace("\xa0", " ")
+        if "flow" in title.lower() and "chrome_widgetwin" in cls.value.lower():
+            score = 2 if "google flow" in title.lower() else 1
+            found.append((score, hwnd, title))
+        return True
+
+    user32.EnumWindows(_cb, 0)
+    if not found:
+        return None, None
+    found.sort(key=lambda t: -t[0])
+    return found[0][1], found[0][2]
+
+
+def _find_render_widget(hwnd):
+    """Zone de rendu de la page (Chrome/Edge) : descendant « Chrome_RenderWidgetHostHWND » le plus grand et visible."""
+    import ctypes, ctypes.wintypes as wt
+    user32 = ctypes.windll.user32
+    found = []
+
+    @ctypes.WINFUNCTYPE(ctypes.c_bool, wt.HWND, wt.LPARAM)
+    def _cb(child, _):
+        cls = ctypes.create_unicode_buffer(256)
+        user32.GetClassNameW(child, cls, 256)
+        if cls.value == "Chrome_RenderWidgetHostHWND" and user32.IsWindowVisible(child):
+            r = wt.RECT()
+            user32.GetWindowRect(child, ctypes.byref(r))
+            found.append(((r.right - r.left) * (r.bottom - r.top), child, (r.left, r.top, r.right, r.bottom)))
+        return True
+
+    user32.EnumChildWindows(hwnd, _cb, 0)
+    if not found:
+        return None, None
+    found.sort(key=lambda t: -t[0])
+    return found[0][1], found[0][2]
+
+
+def os_prepare_flow_window():
+    """Restaure la fenêtre Flow si elle est réduite, SANS la mettre au premier plan."""
+    if sys.platform != "win32":
+        return {"success": False, "error": "Windows uniquement"}
+    import ctypes, ctypes.wintypes as wt
+    user32 = ctypes.windll.user32
+    hwnd, title = _find_flow_window()
+    if not hwnd:
+        return {"success": False, "error": "fenêtre Flow introuvable (le titre de l'onglet doit contenir « Flow »)"}
+    was_iconic = bool(user32.IsIconic(hwnd))
+    if was_iconic:
+        user32.ShowWindow(hwnd, 4)  # SW_SHOWNOACTIVATE : restaure sans activer
+        time.sleep(0.4)
+    rect = wt.RECT()
+    user32.GetWindowRect(hwnd, ctypes.byref(rect))
+    return {"success": True, "title": title, "was_minimized": was_iconic,
+            "rect": [rect.left, rect.top, rect.right, rect.bottom]}
+
+
+def os_click(x, y, restore=True, method="post", client=None):
+    """Clic réel sur la fenêtre Flow.
+
+    method = "post"       : messages souris adressés à la fenêtre Chrome (ne vole pas le focus, fonctionne
+                            même si la fenêtre est derrière une autre).
+    method = "foreground" : passe Flow au premier plan, clique avec la souris, puis rend le premier plan
+                            et le curseur à leur état précédent.
+    x, y : coordonnées écran en pixels physiques (calculées par le copilote).
+    """
     if sys.platform != "win32":
         return {"success": False, "error": "clic système disponible uniquement sous Windows"}
-    import ctypes
+    import ctypes, ctypes.wintypes as wt
     user32 = ctypes.windll.user32
     MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP = 0x0002, 0x0004
-    screen_w, screen_h = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)  # écran virtuel (multi-moniteurs)
+    WM_MOUSEMOVE, WM_LBUTTONDOWN, WM_LBUTTONUP, MK_LBUTTON = 0x0200, 0x0201, 0x0202, 0x0001
     left, top = user32.GetSystemMetrics(76), user32.GetSystemMetrics(77)
-    if not (left <= x < left + screen_w and top <= y < top + screen_h):
+    screen_w, screen_h = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)
+    if method != "post" and not (left <= x < left + screen_w and top <= y < top + screen_h):
         return {"success": False, "error": f"coordonnées hors écran ({x}, {y})"}
 
     class POINT(ctypes.Structure):
         _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
 
-    debug_path = None
+    hwnd, title = _find_flow_window()
+    info = {"success": True, "x": x, "y": y, "method": method, "window": title,
+            "screen": [screen_w, screen_h]}
+
+    # Capture de débogage : croix rouge sur le point visé (tools/flow_image_hub/click_debug.png)
+    try:
+        from PIL import ImageGrab, ImageDraw
+        shot = ImageGrab.grab(all_screens=True)
+        draw = ImageDraw.Draw(shot)
+        draw.line((x - 40, y, x + 40, y), fill=(255, 0, 0), width=3)
+        draw.line((x, y - 40, x, y + 40), fill=(255, 0, 0), width=3)
+        draw.ellipse((x - 18, y - 18, x + 18, y + 18), outline=(255, 0, 0), width=3)
+        box = (max(0, x - 400), max(0, y - 250), min(shot.width, x + 400), min(shot.height, y + 250))
+        shot.crop(box).save(os.path.join(BASE_DIR, "click_debug.png"))
+    except Exception as e:
+        info["debug"] = f"capture impossible : {e}"
+
     with _OS_CLICK_LOCK:
-        # Capture de débogage AVANT le clic : une croix rouge marque le point visé (tools/flow_image_hub/click_debug.png)
-        try:
-            from PIL import ImageGrab, ImageDraw
-            shot = ImageGrab.grab(all_screens=True)
-            draw = ImageDraw.Draw(shot)
-            draw.line((x - 40, y, x + 40, y), fill=(255, 0, 0), width=3)
-            draw.line((x, y - 40, x, y + 40), fill=(255, 0, 0), width=3)
-            draw.ellipse((x - 18, y - 18, x + 18, y + 18), outline=(255, 0, 0), width=3)
-            box = (max(0, x - 400), max(0, y - 250), min(shot.width, x + 400), min(shot.height, y + 250))
-            debug_path = os.path.join(BASE_DIR, "click_debug.png")
-            shot.crop(box).save(debug_path)
-            shot.save(os.path.join(BASE_DIR, "click_debug_full.png"))
-        except Exception as e:
-            debug_path = f"capture impossible : {e}"
+        if method == "post":
+            if not hwnd:
+                return {"success": False, "error": "fenêtre Flow introuvable pour le clic adressé"}
+            # Cible : la zone de rendu de la page (descendant Chrome_RenderWidgetHostHWND).
+            # Ses coordonnées client = celles du viewport de la page × devicePixelRatio : aucune
+            # conversion écran n'est nécessaire, donc aucun décalage dû aux bordures ou aux onglets.
+            target, target_rect = _find_render_widget(hwnd)
+            info["render_widget"] = target_rect
+            if target and client:
+                cx, cy = int(client[0]), int(client[1])
+            else:
+                target = target or hwnd
+                pt = POINT(x, y)
+                user32.ScreenToClient(target, ctypes.byref(pt))
+                cx, cy = pt.x, pt.y
+            lparam = ((cy & 0xFFFF) << 16) | (cx & 0xFFFF)
+            info["client"] = [cx, cy]
+            info["target_is_render_widget"] = bool(target_rect)
+            user32.PostMessageW(target, WM_MOUSEMOVE, 0, lparam)
+            time.sleep(0.05)
+            user32.PostMessageW(target, WM_LBUTTONDOWN, MK_LBUTTON, lparam)
+            time.sleep(0.06)
+            user32.PostMessageW(target, WM_LBUTTONUP, 0, lparam)
+            return info
+
+        # method == "foreground"
+        prev_fg = user32.GetForegroundWindow()
         before = POINT()
         user32.GetCursorPos(ctypes.byref(before))
+        if hwnd:
+            if user32.IsIconic(hwnd):
+                user32.ShowWindow(hwnd, 9)  # SW_RESTORE
+            # Astuce Windows : une frappe ALT autorise SetForegroundWindow depuis un autre processus
+            user32.keybd_event(0x12, 0, 0, 0)
+            user32.keybd_event(0x12, 0, 0x0002, 0)
+            user32.SetForegroundWindow(hwnd)
+            time.sleep(0.35)
         user32.SetCursorPos(x, y)
         time.sleep(0.08)
-        placed = POINT()
-        user32.GetCursorPos(ctypes.byref(placed))
         user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         time.sleep(0.06)
         user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
-        time.sleep(0.08)
+        time.sleep(0.25)
         if restore:
             user32.SetCursorPos(before.x, before.y)
-    return {"success": True, "x": x, "y": y, "cursor_placed": [placed.x, placed.y],
-            "screen": [screen_w, screen_h], "debug": debug_path}
+            if prev_fg and prev_fg != hwnd:
+                user32.keybd_event(0x12, 0, 0, 0)
+                user32.keybd_event(0x12, 0, 0x0002, 0)
+                user32.SetForegroundWindow(prev_fg)
+        info["restored_foreground"] = bool(prev_fg)
+        return info
 
 # Une image générée par Flow fait 896x1200 ; une miniature capturée dans la galerie fait 382x512
 MIN_UPLOAD_HEIGHT = 1000
@@ -764,7 +884,11 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             content_length = int(self.headers.get("Content-Length", 0))
             try:
                 body = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
-                result = os_click(int(body.get("x")), int(body.get("y")), bool(body.get("restore", True)))
+                if body.get("method") == "prepare":
+                    result = os_prepare_flow_window()
+                else:
+                    result = os_click(int(body.get("x")), int(body.get("y")), bool(body.get("restore", True)),
+                                      str(body.get("method", "post")), body.get("client"))
                 result["window"] = body.get("window")
                 ACTIVE_STATE["last_os_click"] = {"time": time.time(), "request": body, "result": result}
                 try:

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.3
+// @version      6.5
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.3 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.5 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.3';
+        brand.textContent = '🦊 Flow Copilot v6.5';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1553,16 +1553,26 @@
             fireDeepClick(btn);
             if (await waitForStart('clic simulé', 4)) return true;
 
-            // Envoi 3 : clic SYSTÈME réel par le Hub (API Windows) aux coordonnées écran de la flèche.
-            // Deux essais, car la fenêtre peut avoir bougé ou l'onglet n'être pas au premier plan.
-            for (let attempt = 1; attempt <= 2; attempt++) {
-                const res = await osClickViaHub(btn);
-                if (res && res.success) {
-                    if (await waitForStart(`clic système ${attempt}`, 6)) return true;
-                } else {
-                    console.warn('[Flow Copilot] Clic système refusé :', res && res.error);
-                    break;
+            // Envoi 3 : clic SYSTÈME réel par le Hub (API Windows).
+            // a) le Hub restaure la fenêtre Flow si elle est réduite (sans voler le focus) ;
+            // b) clic adressé à la fenêtre Chrome (fonctionne même derrière une autre fenêtre) ;
+            // c) sinon, passage au premier plan + clic souris + retour à la fenêtre précédente.
+            const prep = await hubRequest('POST', '/api/os-click', { method: 'prepare' }, 6000);
+            console.log('[Flow Copilot] Préparation de la fenêtre Flow :', prep);
+            if (prep && prep.success) {
+                if (prep.was_minimized) await sleep(700);
+                for (const method of ['post', 'foreground']) {
+                    const liveBtn = findSubmitButton(inputEl) || btn;
+                    const res = await osClickViaHub(liveBtn, method);
+                    if (res && res.success) {
+                        if (await waitForStart(`clic système (${method})`, 8)) return true;
+                    } else {
+                        console.warn('[Flow Copilot] Clic système refusé :', res && res.error);
+                    }
                 }
+            } else {
+                console.warn('[Flow Copilot] Fenêtre Flow introuvable pour le Hub :', prep && prep.error);
+                updateStatus(`⚠️ ${(prep && prep.error) || 'Hub injoignable'} — clic manuel demandé.`, '#E4572E', true);
             }
         } else {
             console.warn('[Flow Copilot] Bouton « Start generation » introuvable (le champ est-il rempli ?)');
@@ -1583,11 +1593,10 @@
         return { x, y, dpr, rect: r };
     }
 
-    async function osClickViaHub(el) {
-        if (document.hidden) {
-            console.warn('[Flow Copilot] Onglet Flow masqué : le clic système ne peut pas viser la flèche.');
-            updateStatus('⚠️ Mettez l\'onglet Flow au premier plan pour le clic automatique.', '#E4572E', true);
-            return { success: false, error: 'onglet masqué' };
+    async function osClickViaHub(el, method = 'post') {
+        if (window.screenX < -10000 || window.screenY < -10000) {
+            console.warn('[Flow Copilot] Fenêtre Flow toujours réduite : coordonnées écran invalides.');
+            return { success: false, error: 'fenêtre réduite' };
         }
         const c = elementScreenCenter(el);
         const win = {
@@ -1597,9 +1606,11 @@
             dpr: c.dpr, rect: [Math.round(c.rect.left), Math.round(c.rect.top), Math.round(c.rect.width), Math.round(c.rect.height)],
             fullscreen: !!document.fullscreenElement, visibility: document.visibilityState, hasFocus: document.hasFocus()
         };
-        console.log(`🖱️ [Flow Copilot] Clic système via le Hub en (${c.x}, ${c.y})`, win);
-        updateStatus(`Étape 3/3 : clic système sur la flèche (${c.x}, ${c.y})...`, '#F2B705', true);
-        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, restore: true, window: win }, 6000);
+        console.log(`🖱️ [Flow Copilot] Clic système (${method}) via le Hub en (${c.x}, ${c.y})`, win);
+        updateStatus(`Étape 3/3 : clic système (${method}) sur la flèche (${c.x}, ${c.y})...`, '#F2B705', true);
+        // Coordonnées dans la zone de rendu (viewport) en pixels physiques : utilisées par la méthode « post »
+        const client = [Math.round((c.rect.left + c.rect.width / 2) * c.dpr), Math.round((c.rect.top + c.rect.height / 2) * c.dpr)];
+        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, client, restore: true, method, window: win }, 8000);
     }
 
     // Cadre rouge clignotant autour de la flèche « Start generation » tant que l'utilisateur n'a pas cliqué
