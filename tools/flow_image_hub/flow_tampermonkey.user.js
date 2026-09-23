@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.0
+// @version      6.1
 // @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.0 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.1 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.0';
+        brand.textContent = '🦊 Flow Copilot v6.1';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1539,20 +1539,45 @@
             return false;
         };
 
+        // Flow ignore les événements synthétiques (clic et Entrée simulés) : on tente quand même, vite,
+        // puis on passe la main à l'utilisateur pour UN clic sur la flèche mise en évidence.
         console.log('🚀 [Flow Copilot] Envoi 1 : touche Entrée dans le champ de prompt');
         dispatchEnter(inputEl);
-        if (await waitForStart('touche Entrée', 12)) return true;
+        if (await waitForStart('touche Entrée', 4)) return true;
 
         const btn = findSubmitButton(inputEl);
         if (btn) {
-            console.warn('[Flow Copilot] Envoi 2 : clic sur le bouton', btn.getAttribute('aria-label') || btn.tagName);
+            console.warn('[Flow Copilot] Envoi 2 : clic simulé sur', btn.getAttribute('aria-label') || btn.tagName);
             try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
             fireDeepClick(btn);
-            if (await waitForStart('clic sur la flèche', 10)) return true;
+            if (await waitForStart('clic simulé', 4)) return true;
         } else {
             console.warn('[Flow Copilot] Bouton « Start generation » introuvable (le champ est-il rempli ?)');
         }
         return false;
+    }
+
+    // Cadre rouge clignotant autour de la flèche « Start generation » tant que l'utilisateur n'a pas cliqué
+    let arrowHighlightTimer = null;
+    function highlightArrow(on) {
+        if (!document.getElementById('copilot-arrow-pulse-style')) {
+            const st = document.createElement('style');
+            st.id = 'copilot-arrow-pulse-style';
+            st.textContent = '@keyframes copilotArrowPulse{0%{box-shadow:0 0 0 0 rgba(228,87,46,.9)}70%{box-shadow:0 0 0 14px rgba(228,87,46,0)}100%{box-shadow:0 0 0 0 rgba(228,87,46,0)}} .copilot-arrow-target{outline:3px solid #E4572E !important; outline-offset:3px; border-radius:50%; animation:copilotArrowPulse 1.2s infinite;}';
+            document.head.appendChild(st);
+        }
+        const clear = () => document.querySelectorAll('.copilot-arrow-target').forEach(el => el.classList.remove('copilot-arrow-target'));
+        if (arrowHighlightTimer) { clearInterval(arrowHighlightTimer); arrowHighlightTimer = null; }
+        clear();
+        if (!on) return;
+        const apply = () => {
+            clear();
+            const input = findPromptInput();
+            const btn = findSubmitButton(input);
+            if (btn) btn.classList.add('copilot-arrow-target');
+        };
+        apply();
+        arrowHighlightTimer = setInterval(apply, 1500); // Flow recrée le bouton : on ré-applique régulièrement
     }
 
     // Pourcentage de progression affiché par Flow (ex. « 42% »), hors panneau du copilote.
@@ -1638,10 +1663,11 @@
             const submitTime = Date.now();
             const submitted = await submitPromptVerified(input, promptData.prompt);
             if (!submitted) {
-                // Pas de preuve de démarrage : on n'abandonne pas (Flow ne donne pas toujours d'indice),
-                // on laisse la boucle d'attente détecter l'image ; l'utilisateur est prévenu.
-                console.warn('[Flow Copilot] Démarrage non confirmé : attente de l\'image quand même.');
-                updateStatus('Démarrage non confirmé. Si rien n\'apparaît dans 30 s, cliquez vous-même sur la flèche ➜.', '#F2B705', true);
+                // Flow n'accepte pas les clics simulés : UN clic humain sur la flèche mise en évidence,
+                // puis le copilote reprend la main (détection, téléchargement, fiche suivante).
+                console.warn('[Flow Copilot] Envoi automatique refusé par Flow : clic manuel demandé.');
+                highlightArrow(true);
+                updateStatus('👉 Cliquez sur la flèche ➜ entourée de rouge pour lancer la génération (le copilote fera le reste).', '#E4572E', true);
             }
 
             // 5. Attente active de la fin réelle de la génération
@@ -1655,15 +1681,7 @@
 
             while (Date.now() - start < 240000) {
                 const elapsedSinceClick = Date.now() - submitTime;
-                if (!sawProgress && findProgressPercent()) sawProgress = true;
-
-                // Aucun signe de génération après 20 s : un second essai par clic sur « Start generation »
-                if (!sawProgress && !secondTryDone && elapsedSinceClick > 20000) {
-                    secondTryDone = true;
-                    const retryBtn = findSubmitButton(input);
-                    console.warn('[Flow Copilot] Aucune génération visible après 20 s : second essai par clic', retryBtn);
-                    if (retryBtn) fireDeepClick(retryBtn); else dispatchEnter(input);
-                }
+                if (!sawProgress && findProgressPercent()) { sawProgress = true; highlightArrow(false); }
 
                 // A.0 Détection infaillible de Quota / Limite d'utilisation sur Google Flow
                 try {
@@ -1741,9 +1759,8 @@
                 const secs = Math.round(elapsedSinceClick / 1000);
                 if (foundPct) {
                     updateStatus(`Calcul en cours (${foundPct})...`, '#F2B705', true);
-                } else if (!sawProgress && elapsedSinceClick > 30000) {
-                    // Toujours aucun signe de génération : demander le clic manuel, sans arrêter l'attente de l'image
-                    updateStatus(`⚠️ Aucune génération visible dans Flow (${secs}s) : cliquez vous-même sur la flèche ➜, le copilote attend l'image.`, '#E4572E', true);
+                } else if (!sawProgress && !submitted) {
+                    updateStatus(`👉 Cliquez sur la flèche ➜ entourée de rouge (${secs}s) : le copilote détectera l'image et fera le reste.`, '#E4572E', true);
                 } else {
                     updateStatus(`Flow génère l'image (30 à 90 s en général)... ${secs}s`, '#F2B705', true);
                 }
@@ -1764,6 +1781,7 @@
             updateStatus(`❌ Erreur : ${err.message}`, '#E4572E', false);
             reportFlowError('pipeline_error', err.message);
         } finally {
+            highlightArrow(false);
             isExecuting = false;
             runPendingPrompt();
         }
