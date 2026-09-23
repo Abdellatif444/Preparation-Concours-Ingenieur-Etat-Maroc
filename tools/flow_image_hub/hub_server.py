@@ -58,7 +58,7 @@ def _ensure_dpi_aware():
 _ensure_dpi_aware()
 
 
-def _find_flow_window():
+def _find_flow_window(tab_title=None):
     """HWND de la fenêtre Chrome/Edge dont le titre contient « Flow » (ou None)."""
     import ctypes, ctypes.wintypes as wt
     user32 = ctypes.windll.user32
@@ -76,9 +76,16 @@ def _find_flow_window():
         cls = ctypes.create_unicode_buffer(256)
         user32.GetClassNameW(hwnd, cls, 256)
         title = buf.value.replace("\xa0", " ")
-        if "flow" in title.lower() and "chrome_widgetwin" in cls.value.lower():
-            score = 2 if "google flow" in title.lower() else 1
-            found.append((score, hwnd, title))
+        if "chrome_widgetwin" in cls.value.lower():
+            score = 0
+            if tab_title and tab_title.lower() in title.lower():
+                score = 10
+            elif "google flow" in title.lower():
+                score = 5
+            elif "flow" in title.lower():
+                score = 2
+            if score > 0:
+                found.append((score, hwnd, title))
         return True
 
     user32.EnumWindows(_cb, 0)
@@ -123,14 +130,16 @@ def os_prepare_flow_window():
     was_iconic = bool(user32.IsIconic(hwnd))
     if was_iconic:
         user32.ShowWindow(hwnd, 4)  # SW_SHOWNOACTIVATE : restaure sans activer
-        time.sleep(0.4)
+        # Attendre que Chrome/Edge ait fini de redimensionner le viewport (paint complet).
+        # 0.4 s était insuffisant : le script JS lisait des coordonnées à (0,0) juste après la restauration.
+        time.sleep(0.8)
     rect = wt.RECT()
     user32.GetWindowRect(hwnd, ctypes.byref(rect))
     return {"success": True, "title": title, "was_minimized": was_iconic,
             "rect": [rect.left, rect.top, rect.right, rect.bottom]}
 
 
-def os_click(x, y, restore=True, method="post", client=None):
+def os_click(x, y, restore=True, method="post", client=None, tab_title=None):
     """Clic réel sur la fenêtre Flow.
 
     method = "post"       : messages souris adressés à la fenêtre Chrome (ne vole pas le focus, fonctionne
@@ -145,6 +154,17 @@ def os_click(x, y, restore=True, method="post", client=None):
     user32 = ctypes.windll.user32
     MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP = 0x0002, 0x0004
     WM_MOUSEMOVE, WM_LBUTTONDOWN, WM_LBUTTONUP, MK_LBUTTON = 0x0200, 0x0201, 0x0202, 0x0001
+    hwnd, title = _find_flow_window(tab_title)
+    target, target_rect = _find_render_widget(hwnd) if hwnd else (None, None)
+
+    # Coordonnées physiques exactes : si le client web a fourni sa position relative au viewport (client = [cx, cy]),
+    # et qu'on connaît le rectangle physique du Chrome_RenderWidgetHostHWND (target_rect = [left, top, right, bottom]),
+    # alors x_écran = target_rect[0] + client[0] et y_écran = target_rect[1] + client[1].
+    # Cela élimine 100% des erreurs d'arrondi DPI, d'en-tête de fenêtre, de barre d'onglets ou de favoris !
+    if target_rect and client:
+        x = int(target_rect[0] + client[0])
+        y = int(target_rect[1] + client[1])
+
     left, top = user32.GetSystemMetrics(76), user32.GetSystemMetrics(77)
     screen_w, screen_h = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)
     if method != "post" and not (left <= x < left + screen_w and top <= y < top + screen_h):
@@ -153,9 +173,8 @@ def os_click(x, y, restore=True, method="post", client=None):
     class POINT(ctypes.Structure):
         _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
 
-    hwnd, title = _find_flow_window()
     info = {"success": True, "x": x, "y": y, "method": method, "window": title,
-            "screen": [screen_w, screen_h]}
+            "screen": [screen_w, screen_h], "render_widget": target_rect}
 
     # Capture de débogage : croix rouge sur le point visé (tools/flow_image_hub/click_debug.png)
     try:
@@ -174,11 +193,6 @@ def os_click(x, y, restore=True, method="post", client=None):
         if method == "post":
             if not hwnd:
                 return {"success": False, "error": "fenêtre Flow introuvable pour le clic adressé"}
-            # Cible : la zone de rendu de la page (descendant Chrome_RenderWidgetHostHWND).
-            # Ses coordonnées client = celles du viewport de la page × devicePixelRatio : aucune
-            # conversion écran n'est nécessaire, donc aucun décalage dû aux bordures ou aux onglets.
-            target, target_rect = _find_render_widget(hwnd)
-            info["render_widget"] = target_rect
             if target and client:
                 cx, cy = int(client[0]), int(client[1])
             else:
@@ -888,7 +902,7 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
                     result = os_prepare_flow_window()
                 else:
                     result = os_click(int(body.get("x")), int(body.get("y")), bool(body.get("restore", True)),
-                                      str(body.get("method", "post")), body.get("client"))
+                                      str(body.get("method", "post")), body.get("client"), tab_title=body.get("title"))
                 result["window"] = body.get("window")
                 ACTIVE_STATE["last_os_click"] = {"time": time.time(), "request": body, "result": result}
                 try:

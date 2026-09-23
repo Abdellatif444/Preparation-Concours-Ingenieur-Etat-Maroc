@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.5
-// @description  Copilot Google Flow synchronisé au Hub : une seule génération par activation (verrou Hub), une seule copie active par page, prompt collé une seule fois, réception immédiate même en arrière-plan.
+// @version      6.8
+// @description  Copilot Google Flow synchronisé au Hub : ciblage modal infaillible du bouton Générer + calcul physique direct render_widget.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
 // @author       Hakay
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.5 - anti-doublon] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.8 - clic système direct] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.5';
+        brand.textContent = '🦊 Flow Copilot v6.8';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1371,10 +1371,20 @@
             } else {
                 inputEl.textContent = text;
             }
-            // Événement sans texte : l'éditeur relit le champ sans rien réinsérer
+        }
+
+        // BUG FIX : Angular Material v15+ ignore Event('input') ordinaire.
+        // Il faut un InputEvent avec inputType='insertText' pour que ngModel mette à jour
+        // son état interne et active le bouton « → ».
+        try {
+            inputEl.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true, inputType: 'insertText', data: text }));
+        } catch (e) {
             inputEl.dispatchEvent(new Event('input', { bubbles: true }));
         }
         inputEl.dispatchEvent(new Event('change', { bubbles: true }));
+
+        // Pause courte : Angular a besoin d'un tick de détection de changement avant que le bouton soit actif
+        return new Promise(resolve => setTimeout(resolve, 80));
     }
 
     // Vrai si le champ contient le prompt plus d'une fois ou beaucoup plus de texte que le prompt
@@ -1387,76 +1397,126 @@
     }
 
     function findSubmitButton(inputEl) {
+        if (!inputEl) inputEl = findPromptInput();
         const widget = document.getElementById('webnovel-flow-hub-widget');
-        const buttons = Array.from(document.querySelectorAll('button, [role="button"]'))
-            .filter(b => !(widget && widget.contains(b)));
-
-        // 1. Libellé accessible explicite (le plus fiable)
-        // Flow (sept. 2026) : <flow-generate-icon-button><button aria-label="Start generation"><mat-icon>arrow_forward</mat-icon>
-        // Le bouton n'existe que lorsque le champ contient du texte.
-        const byAria = buttons.find(b => {
-            const aria = ((b.getAttribute('aria-label') || '') + ' ' + (b.getAttribute('title') || '')).toLowerCase();
-            return aria.includes('start generation') || aria.includes('generat') || aria.includes('send') || aria.includes('submit')
-                || aria.includes('create') || aria.includes('générer') || aria.includes('génération') || aria.includes('envoyer');
-        });
-        if (byAria && !(byAria.disabled || byAria.getAttribute('aria-disabled') === 'true')) return byAria;
-        const byTag = document.querySelector('flow-generate-icon-button button, flow-generate-icon-button [role="button"]');
-        if (byTag && !(byTag.disabled || byTag.getAttribute('aria-disabled') === 'true')) return byTag;
-
-        // 2. Sinon : la flèche « → » est le petit bouton le PLUS À DROITE du composeur, en bas de page.
-        //    Le bouton « + » (ajout de média) est lui aussi petit et sans texte, mais tout à gauche :
-        //    on ne prend jamais un bouton situé à gauche du milieu du champ de prompt.
         const inputRect = inputEl ? inputEl.getBoundingClientRect() : null;
-        const minX = inputRect ? inputRect.left + inputRect.width / 2 : window.innerWidth / 2;
-        // Icônes Material affichées sous forme de texte-ligature (ex. « arrow_forward ») : ce texte n'est pas visible
-        // mais apparaît dans innerText. On accepte les icônes de type flèche/envoi, on refuse ajout/pièce jointe/micro.
-        const ARROW_ICONS = /^(arrow_forward|arrow_upward|arrow_right_alt|send|north_east|east|play_arrow|→|➜|>)$/i;
-        const FORBIDDEN_ICONS = /(^|\b)(add|attach_file|attachment|mic|more_vert|more_horiz|close|tune|settings)(\b|$)/i;
-        const isSmallBottomRight = (el) => {
-            const r = el.getBoundingClientRect();
-            if (r.width === 0 || r.height === 0) return false;
-            if (r.top < window.innerHeight - 200 || r.width > 70 || r.height > 70) return false;
-            return r.left >= minX;
-        };
-        const looksLikeArrow = (el) => {
-            const t = (el.innerText || el.textContent || '').trim();
-            if (t.includes('Banana') || t.includes('Agent') || t === '+' || FORBIDDEN_ICONS.test(t)) return false;
-            if (ARROW_ICONS.test(t)) return true;
-            if (t.length > 3) return false; // texte visible réel : ce n'est pas une icône seule
-            const icon = el.querySelector('svg, img, i, span');
-            const iconName = icon ? ((icon.getAttribute('aria-label') || icon.getAttribute('data-icon') || icon.getAttribute('alt') || icon.textContent || '').trim()) : '';
-            if (FORBIDDEN_ICONS.test(iconName)) return false;
-            return !!el.querySelector('svg, img') || ARROW_ICONS.test(iconName) || t.includes('→') || t.includes('>');
-        };
-        const enabled = (el) => !(el.disabled || el.getAttribute('aria-disabled') === 'true');
 
-        let candidates = buttons.filter(b => isSmallBottomRight(b) && enabled(b) && looksLikeArrow(b));
-        if (!candidates.length) {
-            // La flèche n'est peut-être pas un <button> : n'importe quel petit élément cliquable en bas à droite
-            candidates = Array.from(document.querySelectorAll('div, span, a'))
-                .filter(el => !(widget && widget.contains(el)) && !(inputEl && inputEl.contains(el)))
-                .filter(el => isSmallBottomRight(el) && looksLikeArrow(el))
-                .filter(el => { const cs = getComputedStyle(el); return cs.cursor === 'pointer' || el.onclick || el.getAttribute('tabindex') !== null; });
+        // 1. D'abord : chercher DANS le conteneur du composeur de prompt (dialogue / carte modale)
+        // En montant depuis inputEl, on trouve la boîte englobante qui contient le texte et la barre d'outils du bas.
+        let composer = null;
+        if (inputEl) {
+            let cur = inputEl.parentElement;
+            for (let i = 0; i < 8 && cur && cur !== document.body; i++) {
+                const btns = Array.from(cur.querySelectorAll('button, [role="button"], flow-icon-button, [tabindex="0"]'))
+                    .filter(b => !(widget && widget.contains(b)) && b !== inputEl);
+                if (btns.length >= 1) {
+                    composer = cur;
+                    if (btns.length >= 2 || cur.tagName.toLowerCase().includes('dialog') || cur.getAttribute('role') === 'dialog' || cur.classList.contains('modal')) {
+                        break;
+                    }
+                }
+                cur = cur.parentElement;
+            }
         }
-        if (!candidates.length && inputRect) {
-            // Flow (Angular) rend la flèche comme un <span> 32×32 sans svg ni texte, dans une balise personnalisée :
-            // dernier recours = n'importe quel petit élément aligné verticalement avec le champ, à sa droite.
-            const inputMidY = inputRect.top + inputRect.height / 2;
-            candidates = Array.from(document.querySelectorAll('*'))
-                .filter(el => !(widget && widget.contains(el)) && !(inputEl && (inputEl.contains(el) || el.contains(inputEl))))
+
+        const ARROW_NAMES = /arrow_forward|send|arrow_right|east|play_arrow|arrow_upward|north_east|start|submit|generat|générer|envoyer/i;
+        const FORBIDDEN = /close|fermer|add|attach|jointe|micro|mic|audio|settings|param|more|tune|cancel|annuler|supprimer|delete/i;
+
+        const isGoodButton = (el) => {
+            if (!el || (widget && widget.contains(el))) return false;
+            if (el.disabled || el.getAttribute('aria-disabled') === 'true') return false;
+            const r = el.getBoundingClientRect();
+            if (r.width === 0 || r.height === 0 || r.width > 90 || r.height > 90) return false;
+            const aria = ((el.getAttribute('aria-label') || '') + ' ' + (el.getAttribute('title') || '')).toLowerCase();
+            if (FORBIDDEN.test(aria)) return false;
+            const text = (el.innerText || el.textContent || '').trim().toLowerCase();
+            if (FORBIDDEN.test(text)) return false;
+            if (inputRect && r.top < inputRect.top + 20 && (aria.includes('close') || text.includes('×') || text.includes('close'))) return false;
+            return true;
+        };
+
+        const scoreButton = (el) => {
+            const r = el.getBoundingClientRect();
+            const aria = ((el.getAttribute('aria-label') || '') + ' ' + (el.getAttribute('title') || '')).toLowerCase();
+            const text = (el.innerText || el.textContent || '').trim().toLowerCase();
+            const icon = el.querySelector('svg, img, mat-icon, span');
+            const iconText = (icon ? (icon.getAttribute('aria-label') || icon.textContent || '') : '').trim().toLowerCase();
+
+            let score = 0;
+            // A. Présence d'une icône ou texte de type flèche
+            if (ARROW_NAMES.test(aria)) score += 50;
+            if (ARROW_NAMES.test(text)) score += 50;
+            if (ARROW_NAMES.test(iconText)) score += 50;
+            if (el.querySelector('svg')) score += 30;
+            if (text.includes('→') || text.includes('➜') || text.includes('>')) score += 40;
+
+            // B. Position géométrique par rapport à inputEl :
+            if (inputRect) {
+                if (r.top >= inputRect.top) score += 20;
+                if (r.top >= inputRect.bottom - 60 && r.top <= inputRect.bottom + 90) score += 40;
+                if (r.left >= inputRect.left + inputRect.width * 0.4) score += 30;
+                if (r.right >= inputRect.right - 80 && r.right <= inputRect.right + 60) score += 30;
+            }
+
+            // C. Forme circulaire typique de Flow (aspect ratio ~1:1, largeur 24-60px)
+            const ratio = r.width / (r.height || 1);
+            if (ratio >= 0.8 && ratio <= 1.25 && r.width >= 24 && r.width <= 60) score += 25;
+
+            // Pénalité stricte pour les boutons hors du composeur (sur le canvas ou l'en-tête)
+            if (composer && composer.contains(el)) score += 100;
+            if (el.closest('.canvas, flow-canvas, [class*="canvas"], [class*="board"], [class*="gallery"]')) score -= 150;
+            if (el.closest('header, [role="banner"], [class*="top-bar"]')) score -= 150;
+            if (el.closest('aside, nav, [class*="sidebar"]')) score -= 150;
+
+            return score;
+        };
+
+        // 1. Chercher d'abord dans le composeur (le plus fiable)
+        if (composer) {
+            const composerBtns = Array.from(composer.querySelectorAll('button, [role="button"], flow-icon-button, [tabindex="0"]'))
+                .filter(isGoodButton);
+            if (composerBtns.length) {
+                composerBtns.sort((a, b) => scoreButton(b) - scoreButton(a));
+                if (scoreButton(composerBtns[0]) > 40) {
+                    return clickableAncestor(composerBtns[0]);
+                }
+            }
+        }
+
+        // 2. Recherche globale avec scoring strict (refuse les boutons du canvas et de l'en-tête)
+        const allBtns = Array.from(document.querySelectorAll('button, [role="button"], flow-icon-button, [tabindex="0"], flow-generate-icon-button'))
+            .filter(isGoodButton);
+        if (allBtns.length) {
+            allBtns.sort((a, b) => scoreButton(b) - scoreButton(a));
+            if (scoreButton(allBtns[0]) > 50) {
+                return clickableAncestor(allBtns[0]);
+            }
+        }
+
+        // 3. Dernier recours géométrique : élément cliquable circulaire le plus proche du coin bas-droit de inputEl
+        if (inputRect) {
+            const targetX = inputRect.right - 25;
+            const targetY = inputRect.bottom + 25;
+            const nearby = Array.from(document.querySelectorAll('*'))
                 .filter(el => {
+                    if (widget && widget.contains(el)) return false;
+                    if (inputEl.contains(el) || el.contains(inputEl)) return false;
                     const r = el.getBoundingClientRect();
-                    if (r.width < 16 || r.height < 16 || r.width > 70 || r.height > 70) return false;
-                    if (r.left < minX || r.top < window.innerHeight - 200) return false;
-                    if (Math.abs((r.top + r.height / 2) - inputMidY) > 90) return false;
-                    const t = (el.innerText || el.textContent || '').trim();
-                    return !(t.includes('Banana') || t.includes('Agent') || t === '+' || FORBIDDEN_ICONS.test(t) || t.length > 3);
+                    if (r.width < 20 || r.width > 70 || r.height < 20 || r.height > 70) return false;
+                    const dist = Math.hypot((r.left + r.width / 2) - targetX, (r.top + r.height / 2) - targetY);
+                    return dist < 120;
                 });
+            if (nearby.length) {
+                nearby.sort((a, b) => {
+                    const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+                    const da = Math.hypot((ra.left + ra.width / 2) - targetX, (ra.top + ra.height / 2) - targetY);
+                    const db = Math.hypot((rb.left + rb.width / 2) - targetX, (rb.top + rb.height / 2) - targetY);
+                    return da - db;
+                });
+                return clickableAncestor(nearby[0]);
+            }
         }
-        if (candidates.length) {
-            candidates.sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
-            return clickableAncestor(candidates[0]);
-        }
+
         return null;
     }
 
@@ -1501,13 +1561,23 @@
         } catch (e) { return false; }
     }
 
-    // Indices qu'une génération vient de démarrer. Attention : Flow GARDE le texte du prompt dans le champ
-    // après l'envoi, donc « champ vidé » n'est qu'un indice parmi d'autres, jamais une condition.
+    // Indices qu'une génération vient de démarrer.
     function generationSeemsStarted(inputEl, text, beforeImgCount) {
-        // Indices FIABLES seulement : le nombre d'images de la galerie et l'absence du bouton donnaient
-        // des faux positifs (vignettes chargées au défilement, bouton masqué pendant la saisie).
+        // 1. Dialogue de prompt fermé (signe le plus direct et fiable sous Flow que le prompt a été validé)
+        if (inputEl && (!inputEl.isConnected || !isVisible(inputEl))) {
+            return 'dialogue de prompt fermé (validé)';
+        }
+        // 2. Plus d'images dans la galerie qu'avant (une vignette/placeholder de génération est apparue)
+        const currentImgCount = document.querySelectorAll('img').length;
+        if (currentImgCount > beforeImgCount) return `nouvelles images (+${currentImgCount - beforeImgCount})`;
+        // 3. Indicateur de progression actif de Flow visible
+        const progressEl = document.querySelector('mat-progress-spinner, mat-progress-bar, [role="progressbar"], .generating, [class*="progress"], [class*="spinner"]');
+        if (progressEl && isVisible(progressEl) && !progressEl.closest('#webnovel-flow-hub-widget')) {
+            return 'indicateur de progression visible';
+        }
+        // 4. Le champ a été vidé (Flow efface le prompt après soumission)
         if (!promptStillInInput(inputEl, text)) return 'champ vidé';
-        if (findProgressPercent()) return 'pourcentage affiché';
+        // 5. Bouton Stop / Annuler visible ou bouton Générer désactivé
         const btn = findSubmitButton(inputEl);
         if (btn) {
             if (btn.disabled || btn.getAttribute('aria-disabled') === 'true') return 'bouton Générer désactivé';
@@ -1524,60 +1594,40 @@
         }
     }
 
-    // Soumission : UN clic sur la flèche ; si aucun signe de démarrage après 6 s, UNE seule relance par la touche Entrée.
-    // On ne relance jamais plus (risque de générer la même image plusieurs fois) : la boucle d'attente tranche ensuite.
-    // Ordre des méthodes : la touche Entrée dans le champ est la seule méthode dont l'efficacité est PROUVÉE
-    // sur Flow (images générées ainsi) ; le clic sur le bouton « Start generation » sert de secours.
+    // Soumission : séquence automatique complète sans jamais demander de clic manuel.
+    // Envoi RAPIDE (v6.8) : le clic système « premier plan » via le Hub est la seule méthode que Flow accepte
+    // (tests du 23/09/2026). On l'utilise directement, UNE seule fois : pas de clic simulé, pas de méthode « post »,
+    // pas de relance aveugle (qui recollait le prompt et risquait de générer deux fois la même image).
+    // Retourne true dès que le clic a été exécuté par Windows ; la boucle d'attente se charge du reste
+    // et ne reclique qu'une fois, seulement si Flow n'a montré AUCUN signe de génération au bout de 25 s.
     async function submitPromptVerified(inputEl, text) {
-        const beforeImgCount = document.querySelectorAll('img').length;
-        const waitForStart = async (label, ticks) => {
-            for (let i = 1; i <= ticks; i++) {
-                await sleep(500);
-                const sign = generationSeemsStarted(inputEl, text, beforeImgCount);
-                if (sign) { console.log(`[Flow Copilot] Génération démarrée après ${label} (indice : ${sign})`); return true; }
-                updateStatus(`Étape 3/3 : ${label}... vérification du démarrage ${Math.ceil(i / 2)} s`, '#F2B705', true);
-            }
-            return false;
-        };
-
-        // Flow ignore les événements synthétiques (clic et Entrée simulés) : on tente quand même, vite,
-        // puis on passe la main à l'utilisateur pour UN clic sur la flèche mise en évidence.
-        console.log('🚀 [Flow Copilot] Envoi 1 : touche Entrée dans le champ de prompt');
-        dispatchEnter(inputEl);
-        if (await waitForStart('touche Entrée', 4)) return true;
-
-        const btn = findSubmitButton(inputEl);
-        if (btn) {
-            console.warn('[Flow Copilot] Envoi 2 : clic simulé sur', btn.getAttribute('aria-label') || btn.tagName);
-            try { btn.scrollIntoView({ block: 'nearest' }); } catch (e) { }
-            fireDeepClick(btn);
-            if (await waitForStart('clic simulé', 4)) return true;
-
-            // Envoi 3 : clic SYSTÈME réel par le Hub (API Windows).
-            // a) le Hub restaure la fenêtre Flow si elle est réduite (sans voler le focus) ;
-            // b) clic adressé à la fenêtre Chrome (fonctionne même derrière une autre fenêtre) ;
-            // c) sinon, passage au premier plan + clic souris + retour à la fenêtre précédente.
-            const prep = await hubRequest('POST', '/api/os-click', { method: 'prepare' }, 6000);
-            console.log('[Flow Copilot] Préparation de la fenêtre Flow :', prep);
-            if (prep && prep.success) {
-                if (prep.was_minimized) await sleep(700);
-                for (const method of ['post', 'foreground']) {
-                    const liveBtn = findSubmitButton(inputEl) || btn;
-                    const res = await osClickViaHub(liveBtn, method);
-                    if (res && res.success) {
-                        if (await waitForStart(`clic système (${method})`, 8)) return true;
-                    } else {
-                        console.warn('[Flow Copilot] Clic système refusé :', res && res.error);
-                    }
-                }
-            } else {
-                console.warn('[Flow Copilot] Fenêtre Flow introuvable pour le Hub :', prep && prep.error);
-                updateStatus(`⚠️ ${(prep && prep.error) || 'Hub injoignable'} — clic manuel demandé.`, '#E4572E', true);
-            }
-        } else {
-            console.warn('[Flow Copilot] Bouton « Start generation » introuvable (le champ est-il rempli ?)');
+        let btn = findSubmitButton(inputEl);
+        for (let i = 0; i < 10 && !btn; i++) {   // le bouton apparaît dès que le champ contient du texte
+            await sleep(100);
+            btn = findSubmitButton(inputEl);
         }
+        if (!btn) {
+            console.warn('[Flow Copilot] Bouton « Start generation » introuvable.');
+            return false;
+        }
+        const prep = await hubRequest('POST', '/api/os-click', { method: 'prepare' }, 6000);
+        if (prep && prep.success && prep.was_minimized) await sleep(800);
+        const liveBtn = findSubmitButton(inputEl) || btn;
+        const res = await osClickViaHub(liveBtn, 'foreground');
+        if (res && res.success) {
+            console.log('[Flow Copilot] ✅ Clic système exécuté sur la flèche', res);
+            return true;
+        }
+        console.warn('[Flow Copilot] Clic système refusé :', res && res.error);
         return false;
+    }
+
+    // Relance unique et sûre : utilisée par la boucle d'attente si aucun signe de génération n'est apparu.
+    async function resubmitOnce(inputEl) {
+        const btn = findSubmitButton(inputEl);
+        if (!btn || btn.disabled || btn.getAttribute('aria-disabled') === 'true') return false;
+        const res = await osClickViaHub(btn, 'foreground');
+        return !!(res && res.success);
     }
 
     // Coordonnées écran (pixels physiques) du centre d'un élément, telles que les attend l'API Windows.
@@ -1610,7 +1660,7 @@
         updateStatus(`Étape 3/3 : clic système (${method}) sur la flèche (${c.x}, ${c.y})...`, '#F2B705', true);
         // Coordonnées dans la zone de rendu (viewport) en pixels physiques : utilisées par la méthode « post »
         const client = [Math.round((c.rect.left + c.rect.width / 2) * c.dpr), Math.round((c.rect.top + c.rect.height / 2) * c.dpr)];
-        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, client, restore: true, method, window: win }, 8000);
+        return await hubRequest('POST', '/api/os-click', { x: c.x, y: c.y, client, restore: true, method, window: win, title: document.title }, 8000);
     }
 
     // Cadre rouge clignotant autour de la flèche « Start generation » tant que l'utilisateur n'a pas cliqué
@@ -1636,15 +1686,22 @@
         arrowHighlightTimer = setInterval(apply, 1500); // Flow recrée le bouton : on ré-applique régulièrement
     }
 
-    // Pourcentage de progression affiché par Flow (ex. « 42% »), hors panneau du copilote.
-    // Lecture des textes uniquement : aucun calcul de style sur chaque élément de la page.
+    // Pourcentage de progression affiché par Flow (ex. « 42% » ou « 42 % » ou « 42 % »).
+    // Flow peut insérer une espace insécable (\u00a0) entre le chiffre et le signe %. La regex doit les deux.
     function findProgressPercent() {
         if (!document.body) return null;
+        // Regex élargie : 1–2 chiffres + espace optionnelle (y compris \u00a0) + %
+        const PCT_RE = /\b(\d{1,2})\s*%/;
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         let node;
         while ((node = walker.nextNode())) {
-            const match = (node.nodeValue || '').match(/\b\d{1,2}%/);
-            if (match && node.parentElement && !node.parentElement.closest('#webnovel-flow-hub-widget')) return match[0];
+            const raw = (node.nodeValue || '').replace(/\u00a0/g, ' ');
+            const match = raw.match(PCT_RE);
+            if (match && node.parentElement && !node.parentElement.closest('#webnovel-flow-hub-widget')) {
+                const pct = parseInt(match[1], 10);
+                // Filtre : entre 1 et 99 pour éviter les "100%" ou "0%" parasites hors génération
+                if (pct >= 1 && pct <= 99) return match[0].trim();
+            }
         }
         return null;
     }
@@ -1677,8 +1734,8 @@
             }
             if (!input) throw new Error("Champ de prompt introuvable. Cliquez dans 'What do you want to create?'.");
 
-            fillPromptText(input, promptData.prompt);
-            await sleep(250);
+            await fillPromptText(input, promptData.prompt);
+            await sleep(150); // Angular change detection tick : active le bouton « → »
 
             // 2. Réglage du ratio, seulement s'il diffère du dernier ratio appliqué sur cette page
             if (lastAppliedRatio !== promptData.ratio) {
@@ -1691,13 +1748,13 @@
                 input.focus();
                 input.click();
             } catch (e) { }
-            await sleep(300);
+            await sleep(150);
 
             // Contrôle avant génération : jamais de prompt en double dans le champ
             if (promptLooksDuplicated(input, promptData.prompt)) {
                 console.warn('[Flow Copilot] Prompt en double détecté dans le champ : nouvelle saisie unique.');
-                fillPromptText(input, promptData.prompt);
-                await sleep(400);
+                await fillPromptText(input, promptData.prompt);
+                await sleep(300);
                 if (promptLooksDuplicated(input, promptData.prompt)) {
                     throw new Error('Le champ contient le prompt en double : génération annulée. Videz le champ puis relancez depuis le Hub.');
                 }
@@ -1732,12 +1789,24 @@
             const start = Date.now();
             let newImg = null;
             let detectedError = null;
-            let sawProgress = !!submitted;   // vrai dès qu'un signe de génération a été observé
+            let sawProgress = false;         // vrai dès qu'un pourcentage de génération a été observé
             let secondTryDone = false;
 
             while (Date.now() - start < 240000) {
                 const elapsedSinceClick = Date.now() - submitTime;
                 if (!sawProgress && findProgressPercent()) { sawProgress = true; highlightArrow(false); }
+
+                // Aucun signe de génération (pas de pourcentage) après 25 s : UNE seule relance du clic système
+                if (!sawProgress && !secondTryDone && elapsedSinceClick > 25000) {
+                    secondTryDone = true;
+                    const newest = getNewestGalleryImage();
+                    const alreadyNew = newest && newest.src !== beforeTopLeftSrc && !beforeAllSrcs.has(newest.src);
+                    if (!alreadyNew) {
+                        console.warn('[Flow Copilot] Aucun signe de génération à 25 s : relance unique du clic système.');
+                        updateStatus('Aucun signe de génération : relance unique du clic...', '#F2B705', true);
+                        if (await resubmitOnce(input)) sawProgress = false;
+                    }
+                }
 
                 // A.0 Détection infaillible de Quota / Limite d'utilisation sur Google Flow
                 try {
@@ -1779,7 +1848,7 @@
                 // Si moins de 10 secondes se sont écoulées, l'image présente à l'écran est FORCÉMENT l'ancienne !
                 if (elapsedSinceClick < 10000) {
                     updateStatus(`Génération en cours (${Math.round(elapsedSinceClick / 1000)}s)...`, '#F2B705', true);
-                    await sleep(1000);
+                    await sleep(500);
                     continue;
                 }
 
@@ -1820,7 +1889,7 @@
                 } else {
                     updateStatus(`Flow génère l'image (30 à 90 s en général)... ${secs}s`, '#F2B705', true);
                 }
-                await sleep(1000);
+                await sleep(500);
             }
 
             if (newImg) {
