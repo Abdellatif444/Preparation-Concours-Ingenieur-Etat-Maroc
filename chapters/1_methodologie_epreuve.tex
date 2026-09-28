@@ -137,7 +137,62 @@ Une recherche approfondie sur trois sources indépendantes (fiche officielle rel
 \end{itemize}
 \textbf{À votre tour :} Une facture de 250 DH augmente de 8 \%. Nouveau montant ? \textit{Réponse : $250 \times 1{,}08 = \textbf{270 DH}$.}
 
+\subsection*{8. Dominos logiques}
+\textit{Mesure :} déduire la règle qui relie les deux moitiés d'un domino (somme, différence ou produit constant) et l'appliquer au domino manquant.
+
+\textbf{Exemple résolu :} Une suite de dominos affiche 2$\vert$5, 3$\vert$6, 4$\vert$7, puis un domino incomplet 5$\vert$?
+\begin{itemize}
+    \item Sur chaque domino, la deuxième valeur $=$ la première $+3$ ($2+3=5$ ; $3+3=6$ ; $4+3=7$).
+    \item Réponse : $5+3=\textbf{8}$.
+\end{itemize}
+
+\IfFileExists{images/img_019_test_dominos_logiques_exemple.png}{%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/img_019_test_dominos_logiques_exemple.png}
+    \caption{Exemple résolu de dominos logiques : trouver la règle avant de compléter}
+\end{figure}}{}
+
+\subsection*{9. Classement et tri logique}
+\textit{Mesure :} organiser des éléments selon un critère donné à partir d'indices partiels, sans jamais supposer une information qui ne figure pas dans l'énoncé.
+
+\textbf{Exemple résolu :} Trois techniciens A, B, C interviennent dans cet ordre : A intervient avant B ; C intervient après B. Quel est l'ordre complet ?
+\begin{itemize}
+    \item \og A avant B \fg{} : A $\rightarrow$ B.
+    \item \og C après B \fg{} : B $\rightarrow$ C.
+    \item Réponse : \textbf{A, puis B, puis C}.
+\end{itemize}
+
+\subsection*{10. Logique conditionnelle (syllogismes)}
+\textit{Mesure :} appliquer rigoureusement deux prémisses sans se laisser influencer par une conclusion qui semble \og logique \fg{} dans la vraie vie mais ne découle pas strictement des prémisses données.
+
+\textbf{Exemple résolu :} \og Tous les capteurs de la station sont connectés au réseau. Certains capteurs connectés sont défaillants. \fg{} Peut-on conclure que certains capteurs de la station sont défaillants ?
+\begin{itemize}
+    \item Tous les capteurs de la station $\subseteq$ capteurs connectés.
+    \item Certains capteurs connectés sont défaillants --- mais rien n'indique que ces capteurs défaillants font partie de ceux de la station (il pourrait exister d'autres capteurs connectés, hors station).
+    \item Réponse : \textbf{On ne peut pas conclure} --- piège classique de logique conditionnelle.
+\end{itemize}
+
+\subsection*{11. Raisonnement combinatoire simple}
+\textit{Mesure :} dénombrer des possibilités sans erreur de méthode.
+
+\textbf{Exemple résolu :} Combien de mots de passe à 2 caractères peut-on former avec les lettres A, B, C, D (répétition autorisée) ?
+\begin{itemize}
+    \item Pour chaque position, 4 choix possibles $\rightarrow 4 \times 4 = \textbf{16}$ combinaisons.
+\end{itemize}
+
 Si de telles questions apparaissent à l'examen, elles resteront probablement peu nombreuses au sein du même QCM chronométré : ne pas leur consacrer plus de temps qu'aux autres questions, et passer si le déclic ne vient pas immédiatement.
+
+\section{Précaution : d'Éventuels Tests de Personnalité}
+Contrairement aux tests logiques ci-dessus, un test de personnalité ou comportemental (parfois appelé \og questionnaire de personnalité \fg{}) \textbf{n'a pas de bonne ou de mauvaise réponse} : il mesure la cohérence et le style de travail du candidat à partir d'affirmations du type \og Je préfère planifier mon travail à l'avance plutôt que de m'adapter au fil de l'eau \fg{}, notées sur une échelle (\og Pas du tout d'accord \fg{} à \og Tout à fait d'accord \fg{}).
+
+\textbf{Aucune source consultée ne confirme l'existence d'un tel test pour ce concours précis} ; les repères suivants sont donnés par précaution uniquement :
+\begin{itemize}
+    \item \textbf{Répondre avec sincérité et constance :} ces questionnaires intègrent souvent des items redondants formulés différemment ; des réponses incohérentes entre elles peuvent être détectées et nuire à la crédibilité du profil.
+    \item \textbf{Éviter les réponses extrêmes systématiques :} répondre presque toujours \og tout à fait d'accord \fg{} ou \og pas du tout d'accord \fg{} peut être interprété comme un manque de nuance plutôt qu'un trait de personnalité fort.
+    \item \textbf{Se projeter dans le poste visé} : en cas d'hésitation entre deux réponses proches, privilégier celle qui correspond le mieux au profil attendu pour un poste d'ingénieur en environnement de service public (rigueur, fiabilité, travail en équipe), sans pour autant se dénaturer.
+    \item \textbf{Il n'y a rien à \og réviser \fg{}} pour ce type de test au sens classique : la seule préparation utile est d'arriver reposé et de répondre calmement, sans sur-analyser chaque item.
+\end{itemize}
 
 \section{Stratégie de Révision en 6 Jours}
 Avec un délai aussi court, la priorité absolue est la \textbf{densité de rappel} : mémoriser des faits précis et des mécanismes techniques plutôt que d'approfondir de nouveaux sujets. Ce guide est organisé pour cela : le chapitre 2 condense tout ce qu'il faut savoir sur l'entreprise, le chapitre 3 couvre la spécialité Génie Informatique par grands thèmes avec réponses immédiates, le chapitre 4 réunit les repères de culture générale et d'actualité, et l'examen blanc du chapitre 6 permet de valider le tout en conditions réelles avant le jour J.

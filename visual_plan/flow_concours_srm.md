@@ -24,6 +24,7 @@
 | **IMG-REPORT-016** | Chapitre 7 | La méthode STAR pour les questions comportementales | Situation → Tâche → Action → Résultat, avec exemple bref pour chaque étape | `images/img_016_methode_star_entretien.png` | 16:9 | Sequential Process Card | À générer | 🟠 |
 | **IMG-REPORT-017** | Chapitre 1 | Exemple résolu de matrice logique | Grille 3×3 de figures, case manquante, 4 options de réponse, règle et bonne réponse mises en évidence | `images/img_017_test_matrice_logique_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟠 |
 | **IMG-REPORT-018** | Chapitre 1 | Exemple résolu de rotation spatiale | Figure de départ → flèche de rotation 90° → 4 figures candidates, bonne réponse mise en évidence | `images/img_018_test_rotation_spatiale_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟠 |
+| **IMG-REPORT-019** | Chapitre 1 | Exemple résolu de dominos logiques | Trois dominos avec règle (+3), un domino manquant, règle et réponse mises en évidence | `images/img_019_test_dominos_logiques_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟡 |
 
 ---
 
@@ -1029,3 +1030,58 @@ NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no ambiguous sh
 
 **Justification :**
 Le raisonnement spatial est le format le plus difficile à expliquer par le texte seul ; l'image rend la méthode du \og repère unique \fg{} immédiatement applicable.
+
+---
+
+## IMG-REPORT-019
+
+**Section :**
+Chapitre 1 --- Précaution : d'éventuels tests d'aptitude ou de logique (dominos logiques)
+
+**Texte associé :**
+Trois dominos complets (2|5, 3|6, 4|7) suivant la règle "deuxième valeur = première + 3", suivis d'un quatrième domino incomplet (5|?), avec la règle et la réponse mises en évidence.
+
+**Objectif visuel :**
+Montrer un exemple de domino logique déjà résolu et expliqué, pour que le candidat comprenne la méthode (chercher la relation entre les deux moitiés, pas seulement leur somme) avant de s'entraîner seul.
+
+**Type :**
+Worked-Example Puzzle Card
+
+**Ratio :** 4:5 · **Orientation :** Portrait
+
+**Nom du fichier :**
+`images/img_019_test_dominos_logiques_exemple.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A worked-example logic domino puzzle: three complete dominoes showing a numeric pattern, followed by one incomplete domino, with the rule and answer explained in French.
+
+CONTEXT: Study guide precaution section on possible logic aptitude questions.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: Four domino tiles in a horizontal row, each split by a vertical line into two numbered halves. The first three dominoes are complete: "2 | 5", "3 | 6", "4 | 7". The fourth domino shows "5 | ?" with a large question mark, outlined with a thick amber dashed border. Below it, a green highlighted answer tile shows "5 | 8" with a checkmark.
+
+COMPOSITION: Header: "Exemple résolu : dominos logiques". Below the dominoes, a callout box: "Règle : la deuxième valeur du domino est toujours égale à la première plus 3 (2+3=5, 3+3=6, 4+3=7). Pour le domino manquant : 5+3=8.". Footer label under the answer tile: "Réponse : 8".
+
+CAMERA: Frontal flat view.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Deep water blue (#0B5D8C), electric amber (#E8912D), Moroccan green (#1B7A3D), off-white (#FBFAF7).
+
+VISUAL STYLE: High-end editorial puzzle-card infographic, crisp vector domino tiles with rounded corners and dot-free numeric labels (write the numbers as digits, not as dice pips).
+
+BRANDING: Small stylized green star in a corner; no real flag or emblem.
+
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly four domino tiles, numbers written once each, proofread before drawing, no duplicated digits.
+
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no dice-style dot patterns (numeric digits only, to stay unambiguous).
+```
+
+**Priorité :** 🟡 PRIORITÉ 3 — UTILE
+
+**Justification :**
+Complète la série d'exemples résolus de tests d'aptitude avec un format supplémentaire (dominos), courant dans les batteries de tests psychotechniques génériques.
