@@ -25,6 +25,7 @@
 | **IMG-REPORT-017** | Chapitre 1 | Exemple résolu de matrice logique | Grille 3×3 de figures, case manquante, 4 options de réponse, règle et bonne réponse mises en évidence | `images/img_017_test_matrice_logique_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟠 |
 | **IMG-REPORT-018** | Chapitre 1 | Exemple résolu de rotation spatiale | Figure de départ → flèche de rotation 90° → 4 figures candidates, bonne réponse mise en évidence | `images/img_018_test_rotation_spatiale_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟠 |
 | **IMG-REPORT-019** | Chapitre 1 | Exemple résolu de dominos logiques | Trois dominos avec règle (+3), un domino manquant, règle et réponse mises en évidence | `images/img_019_test_dominos_logiques_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟡 |
+| **IMG-REPORT-020** | Chapitre 1 | Exemple de test d'attention (barrage) | Grille de symboles très similaires avec un symbole cible à repérer, méthode de balayage ligne par ligne illustrée | `images/img_020_test_attention_barrage_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟡 |
 
 ---
 
@@ -1085,3 +1086,58 @@ NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no dice-style d
 
 **Justification :**
 Complète la série d'exemples résolus de tests d'aptitude avec un format supplémentaire (dominos), courant dans les batteries de tests psychotechniques génériques.
+
+---
+
+## IMG-REPORT-020
+
+**Section :**
+Chapitre 1 --- Précaution : d'éventuels tests d'aptitude ou de logique (attention et concentration)
+
+**Texte associé :**
+Une grille dense de petits symboles très similaires (ex. des triangles orientés différemment), avec un symbole cible à repérer et compter, plus une flèche/méthode illustrant un balayage systématique ligne par ligne plutôt qu'une recherche visuelle aléatoire.
+
+**Objectif visuel :**
+Montrer concrètement ce à quoi ressemble un test de barrage (attention) et la méthode de balayage systématique qui le rend rapide et fiable.
+
+**Type :**
+Worked-Example Puzzle Card
+
+**Ratio :** 4:5 · **Orientation :** Portrait
+
+**Nom du fichier :**
+`images/img_020_test_attention_barrage_exemple.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A worked-example attention (cancellation/barrage) test: a dense grid of small similar triangle icons in different rotations, with one specific rotation as the target to find, and a systematic left-to-right scanning path overlaid.
+
+CONTEXT: Study guide precaution section on possible attention/concentration aptitude questions.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: A 6x6 grid of small triangle icons, most pointing up, down, or left, in deep water blue, with exactly six triangles pointing right highlighted with a green circle around each (the target orientation, found and marked). A thin amber dashed arrow snakes left-to-right, top-to-bottom across the grid rows, showing the scanning path. A legend box on the side shows the target symbol clearly.
+
+COMPOSITION: Header: "Exemple : test d'attention (barrage)". Legend box: "Cible à repérer : triangle pointant vers la droite". Below the grid, a result line: "6 cibles trouvées sur cette grille". Callout box beneath: "Méthode : balayer ligne par ligne, de gauche à droite, jamais au hasard dans toute la grille.".
+
+CAMERA: Frontal flat view.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Deep water blue (#0B5D8C), electric amber (#E8912D), Moroccan green (#1B7A3D), off-white (#FBFAF7).
+
+VISUAL STYLE: High-end editorial puzzle-card infographic, crisp small vector icons arranged in a precise grid.
+
+BRANDING: Small stylized green star in a corner; no real flag or emblem.
+
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly a 6x6 grid (36 icons total), exactly six targets circled, consistent icon style throughout.
+
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no ambiguous icon orientation, no target left uncircled.
+```
+
+**Priorité :** 🟡 PRIORITÉ 3 — UTILE
+
+**Justification :**
+Rend concret un format de test difficile à décrire par le seul texte (le test de barrage se comprend d'un coup d'œil sur une image, pas dans une explication écrite).
