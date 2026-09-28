@@ -27,6 +27,18 @@ let flowTabsConnected = 0;
 let flowLegacyScript = false;
 let replaceTargetItem = null;
 
+// Journal d'automatisation unifié (voir hub_server.py) : appel « best effort », jamais bloquant,
+// pour que la file d'attente automatique continue même si le journal est indisponible.
+function logAutomationEvent(source, event, fields = {}) {
+  try {
+    fetch('/api/client-log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source, event, ...fields }),
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 // Sélection de pages & régénération par lot
 let selectionMode = false;
 const selectedIds = new Set();
@@ -1383,10 +1395,12 @@ async function processNextInQueue() {
 }
 
 function waitForPromptCompletion(item) {
-  let startTime = Date.now();
+  const absoluteStart = Date.now();
+  let startTime = absoluteStart;
   const checkInterval = 1200;
   let timeoutRetried = false;   // une relance automatique avant d'arrêter la file
   let lastFlowStatus = null;    // dernière étape signalée par le copilote Flow
+  let lastStatusServerTime = 0; // horodatage serveur (secondes epoch) du dernier statut reçu pour CET item
   // Une page déjà générée est « done » avant même l'envoi : seul un nouvel enregistrement confirme la régénération
   const requireFreshSave = item.status === 'done';
   // Renvoi automatique si aucun onglet Flow ne prend le prompt en charge (au lieu d'attendre 180 s)
@@ -1395,24 +1409,44 @@ function waitForPromptCompletion(item) {
   let claimedSeen = false;
   let resendCount = 0;
   let lastSendTime = startTime;
+  // Plafond absolu : même si Flow signale une activité fraîche en continu, on n'attend jamais
+  // indéfiniment (évite un blocage permanent de la file en cas de boucle de statut sans fin).
+  const ABSOLUTE_MAX_WAIT_MS = 600000; // 10 minutes
+
+  // Une génération complexe (infographie dense) peut légitimement dépasser 90 s, parfois 3-4 minutes.
+  // Si le copilote Flow a signalé une étape pour CET item il y a moins de 20 s, la page travaille
+  // toujours réellement : traiter ça comme un blocage serait une FAUSSE alerte (c'est précisément
+  // ce qui provoquait le message « aucun onglet ne prend en charge » alors que Flow générait encore).
+  const statusIsFresh = () => lastStatusServerTime > 0 && (Date.now() / 1000 - lastStatusServerTime) < 20;
+
+  logAutomationEvent('dashboard', 'wait_start', { id: item.id, filename: item.filename });
 
   const check = async () => {
     if (!isAutoQueueRunning || currentQueuePromptId !== item.id) return;
 
-    // 1. Aucune image en 3 minutes : une relance automatique, puis alerte « génération bloquée »
+    // 1. Aucune image en 3 minutes : si Flow signale encore une activité fraîche pour cet item,
+    // ce n'est pas un blocage — on repousse simplement l'échéance au lieu de relancer/alerter à tort.
     if (Date.now() - startTime > 180000) {
+      if (statusIsFresh() && Date.now() - absoluteStart < ABSOLUTE_MAX_WAIT_MS) {
+        logAutomationEvent('dashboard', 'timeout_deferred_still_active', { id: item.id, lastFlowStatus, elapsedMs: Date.now() - absoluteStart });
+        startTime = Date.now(); // repousse le prochain contrôle de 3 minutes ; le plafond absolu reste inchangé
+        queueWaitTimeout = backgroundTimer.setTimeout(check, checkInterval);
+        return;
+      }
       const flowInfo = lastFlowStatus ? ` Dernière étape signalée par Flow : « ${lastFlowStatus} ».` : ' Le copilote Flow n\'a signalé aucune étape.';
-      if (!timeoutRetried) {
+      if (!timeoutRetried && Date.now() - absoluteStart < ABSOLUTE_MAX_WAIT_MS) {
         timeoutRetried = true;
         startTime = Date.now();
         claimedSeen = false;
         resendCount = 0;
         lastSendTime = startTime;
+        logAutomationEvent('dashboard', 'timeout_resend', { id: item.id, lastFlowStatus });
         showToast(`⏳ Aucune image pour #${item.id} en 3 minutes : nouvel envoi automatique.${flowInfo}`, 'error');
         await activatePromptForFlow(item, true);
         queueWaitTimeout = backgroundTimer.setTimeout(check, checkInterval);
         return;
       }
+      logAutomationEvent('dashboard', 'timeout_fatal', { id: item.id, lastFlowStatus, elapsedMs: Date.now() - absoluteStart });
       triggerFlowError(`La page #${item.id} n'a produit aucune image en 3 minutes, même après une relance.${flowInfo} Gardez l'onglet Google Flow visible (par exemple dans une fenêtre à part), vérifiez son panneau « Flow Copilot », puis cliquez sur « Reprendre ».`, 'timeout');
       return;
     }
@@ -1482,18 +1516,30 @@ function waitForPromptCompletion(item) {
         return;
       }
 
-      // 5. Prompt pris en charge par un onglet Flow ? Sinon, renvoi (2 fois au plus), puis alerte
+      // 5. Prompt pris en charge par un onglet Flow ? Sinon, renvoi (2 fois au plus), puis alerte.
+      // « claimed_by_alive » (calculé côté serveur à partir du heartbeat de l'onglet) évite de renvoyer
+      // ou d'alerter à tort pendant qu'un onglet bien connecté finit simplement une génération lente :
+      // une simple absence de réservation n'est PAS la preuve qu'aucun onglet n'est présent.
       if (!claimedSeen) {
         const active = await fetchActivePrompt();
         if (active && active.id === item.id && active.claimed_by) {
           claimedSeen = true;
+        } else if (active && active.claimed_by_alive) {
+          // Un onglet est réservataire et son heartbeat est frais : encore occupé, pas absent.
+          logAutomationEvent('dashboard', 'unclaimed_but_tab_alive', { id: item.id });
+        } else if (statusIsFresh()) {
+          // Statut Flow encore frais pour cet item : très probablement l'onglet qui finit la
+          // tentative précédente avant de prendre en charge ce renvoi. On patiente sans relancer.
+          logAutomationEvent('dashboard', 'unclaimed_but_status_fresh', { id: item.id, lastFlowStatus });
         } else if (Date.now() - lastSendTime >= UNCLAIMED_RESEND_MS) {
           if (resendCount >= MAX_RESENDS) {
-            triggerFlowError(`Le prompt #${item.id} n'a été pris en charge par aucun onglet Google Flow. Vérifiez que le panneau « Flow Copilot v6.8 » est affiché et connecté, puis reprenez la file.`);
+            logAutomationEvent('dashboard', 'unclaimed_fatal', { id: item.id, resendCount });
+            triggerFlowError(`Le prompt #${item.id} n'a été pris en charge par aucun onglet Google Flow. Vérifiez que le panneau « Flow Copilot v6.10 » est affiché et connecté, puis reprenez la file.`);
             return;
           }
           resendCount++;
           lastSendTime = Date.now();
+          logAutomationEvent('dashboard', 'unclaimed_resend', { id: item.id, resendCount });
           showToast(`🔁 Prompt #${item.id} non pris en charge par Flow : nouvel envoi (${resendCount}/${MAX_RESENDS}).`, 'error');
           await activatePromptForFlow(item, true);
           queueSubtext.textContent = `Nouvel envoi du prompt #${item.id} à Google Flow (${resendCount}/${MAX_RESENDS})...`;
@@ -1502,9 +1548,14 @@ function waitForPromptCompletion(item) {
         }
       }
 
-      // Étape en cours côté Flow (envoyée par le copilote) : on voit tout de suite où ça bloque
+      // Étape en cours côté Flow (envoyée par le copilote) : on voit tout de suite où ça bloque.
+      // On ne retient le statut que s'il concerne CET item (évite qu'un statut traînant de l'image
+      // précédente soit pris pour une activité fraîche sur celle-ci).
       const status = data.flow_status;
-      if (status && status.message && Date.now() / 1000 - status.time < 30) lastFlowStatus = status.message;
+      if (status && status.message && (status.id === undefined || status.id === null || status.id === item.id)) {
+        lastStatusServerTime = status.time;
+        if (Date.now() / 1000 - status.time < 30) lastFlowStatus = status.message;
+      }
       queueSubtext.textContent = lastFlowStatus
         ? `Image #${item.id} (${elapsedSec}s) — Flow : ${lastFlowStatus}`
         : `Génération Google Flow en cours (${elapsedSec}s)... Image #${item.id} — Ne fermez pas l'onglet Flow`;
@@ -1562,7 +1613,7 @@ function updateFlowPresence(data) {
   let hint = "Aucun onglet Google Flow avec le copilote v5.2 n'est connecté.";
   if (flowLegacyScript) {
     label = '⚠️ ancien script';
-    hint = "Un onglet Flow utilise un ancien copilote obsolète : mettez à jour le script Tampermonkey (v6.8).";
+    hint = "Un onglet Flow utilise un ancien copilote obsolète : mettez à jour le script Tampermonkey (v6.10).";
   } else if (flowTabsConnected === 1) {
     label = '1 onglet connecté';
     cls = 'success';

@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.9
-// @description  Copilot Google Flow synchronisé au Hub : ciblage modal infaillible du bouton Générer + calcul physique direct render_widget + activation forcée de l'onglet Flow avant le clic système.
+// @version      6.10
+// @description  Copilot Google Flow synchronisé au Hub : ciblage modal infaillible du bouton Générer + calcul physique direct render_widget + activation forcée de l'onglet Flow avant le clic système + journal d'automatisation unifié.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
 // @author       Hakay
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.9 - clic système direct + activation onglet] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.10 - clic systeme direct + activation onglet + journal] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.9';
+        brand.textContent = '🦊 Flow Copilot v6.10';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1216,6 +1216,13 @@
         });
     }
 
+    // Journal d'automatisation unifié (voir hub_server.py) : les événements clés de ce côté (onglet
+    // Flow) atterrissent dans le même fichier que ceux du tableau de bord, pour diagnostiquer un
+    // blocage sans dépendre uniquement de la console DevTools ou de captures d'écran.
+    function logEvent(event, fields = {}) {
+        hubRequest('POST', '/api/client-log', { source: 'flow-tab', event, client: CLIENT_ID, ...fields }, 2000);
+    }
+
     // Requête longue vers le Hub : il répond dès que le prompt actif change (ou après 20 s).
     // Contrairement à setInterval, la réponse réseau n'est pas ralentie quand l'onglet Flow est en arrière-plan,
     // et le Hub sait que cet onglet est ouvert tant qu'une requête attend (il n'en ouvre donc pas un autre).
@@ -1251,6 +1258,7 @@
         if (data.timestamp === lastProcessedTimestamp) return;
         if (isExecuting || isClaiming) {
             // Le hub n'envoie chaque prompt qu'une fois : on le garde pour la fin de l'enregistrement en cours
+            logEvent('prompt_queued_while_busy', { id: data.id, isExecuting, isClaiming });
             pendingPromptData = data;
             return;
         }
@@ -1274,6 +1282,7 @@
         updateStatus(`🔒 Réservation du prompt #${data.id} auprès du Hub...`, '#F2B705', true);
         try {
             const res = await hubRequest('POST', '/api/claim-prompt', { timestamp: data.timestamp, client: CLIENT_ID });
+            logEvent('claim_result', { id: data.id, granted: !!(res && res.granted), reason: res && res.reason, busy: isExecuting });
             if (res && res.granted) {
                 runPipeline(data);
             } else {
@@ -1611,6 +1620,7 @@
             if (document.visibilityState === 'visible' && document.hasFocus()) return true;
         }
         console.warn('[Flow Copilot] Impossible de ramener l\'onglet Flow au premier plan avant le clic système (autre onglet actif).');
+        logEvent('tab_focus_failed', { visibility: document.visibilityState, hasFocus: document.hasFocus() });
         return false;
     }
 
@@ -1631,11 +1641,12 @@
             return false;
         }
         updateStatus('Étape 3/3 : passage de l\'onglet Flow au premier plan...', '#F2B705', true);
-        await ensureFlowTabVisible();
+        const visible = await ensureFlowTabVisible();
         const prep = await hubRequest('POST', '/api/os-click', { method: 'prepare' }, 6000);
         if (prep && prep.success && prep.was_minimized) await sleep(800);
         const liveBtn = findSubmitButton(inputEl) || btn;
         const res = await osClickViaHub(liveBtn, 'foreground');
+        logEvent('submit_click', { tabWasVisible: visible, prepSuccess: !!(prep && prep.success), success: !!(res && res.success), error: res && res.error });
         if (res && res.success) {
             console.log('[Flow Copilot] ✅ Clic système exécuté sur la flèche', res);
             return true;
@@ -1650,6 +1661,7 @@
         if (!btn || btn.disabled || btn.getAttribute('aria-disabled') === 'true') return false;
         await ensureFlowTabVisible();
         const res = await osClickViaHub(btn, 'foreground');
+        logEvent('resubmit_click', { success: !!(res && res.success), error: res && res.error });
         return !!(res && res.success);
     }
 

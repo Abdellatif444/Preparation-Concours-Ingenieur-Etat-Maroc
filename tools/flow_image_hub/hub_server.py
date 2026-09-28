@@ -261,6 +261,38 @@ FLOW_CLIENT_TTL = 25       # secondes sans contact avant de considérer un ongle
 LEGACY_CLIENT_TTL = 6      # ancien userscript sans identifiant (interrogation toutes les 1,5 s)
 CLAIM_STALE_AFTER = 15     # un prompt réservé par un onglet disparu peut être repris par un autre
 CLAIM_LOCK = threading.Lock()
+
+# ---------------------------------------------------------------------------
+# Journal d'automatisation unifié : chaque étape (claim, clic système, envoi,
+# erreur, relance) de CHAQUE côté (serveur Python ET script Tampermonkey) est
+# écrite ici avec un horodatage précis. Sans ça, un problème d'automatisation
+# ne peut être diagnostiqué qu'à partir de captures d'écran incomplètes.
+# Borné en taille (dernières AUTOMATION_LOG_MAX_LINES lignes) pour ne jamais
+# grossir indéfiniment sur le disque.
+# ---------------------------------------------------------------------------
+AUTOMATION_LOG_FILE = os.path.join(BASE_DIR, "automation_debug.log")
+AUTOMATION_LOG_MAX_LINES = 2000
+AUTOMATION_LOG_LOCK = threading.Lock()
+
+
+def log_automation_event(source, event, **fields):
+    """Ajoute une ligne JSON horodatée au journal d'automatisation (rogné à AUTOMATION_LOG_MAX_LINES lignes)."""
+    entry = {"t": time.strftime("%Y-%m-%d %H:%M:%S"), "source": source, "event": event}
+    entry.update(fields)
+    line = json.dumps(entry, ensure_ascii=False, default=str)
+    with AUTOMATION_LOG_LOCK:
+        try:
+            with open(AUTOMATION_LOG_FILE, "a", encoding="utf-8") as f:
+                f.write(line + "\n")
+            # Rognage occasionnel (pas à chaque écriture, pour rester rapide)
+            if int(time.time()) % 37 == 0:
+                with open(AUTOMATION_LOG_FILE, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+                if len(lines) > AUTOMATION_LOG_MAX_LINES:
+                    with open(AUTOMATION_LOG_FILE, "w", encoding="utf-8") as f:
+                        f.writelines(lines[-AUTOMATION_LOG_MAX_LINES:])
+        except Exception as e:
+            print(f"[Flow Hub] Écriture du journal d'automatisation impossible : {e}")
 ACTIVE_COND = threading.Condition()  # réveille les onglets Flow en attente dès que le prompt actif change
 CHANGE_COND = threading.Condition()  # réveille les pages du hub dès qu'une donnée affichée change
 CHANGE_STATE = {"n": 0}
@@ -547,6 +579,11 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
 
             active_data = dict(ACTIVE_STATE["active_prompt"] or {"active": False})
             active_data["rev"] = ACTIVE_STATE["prompt_rev"]
+            # Un onglet réservataire encore « vivant » (heartbeat récent) est probablement juste occupé
+            # à générer lentement, pas déconnecté : le tableau de bord s'en sert pour ne pas relancer
+            # ni afficher une fausse alerte « aucun onglet ne prend en charge » pendant qu'il travaille.
+            claimant = active_data.get("claimed_by")
+            active_data["claimed_by_alive"] = bool(claimant and client_alive(claimant, FLOW_CLIENT_TTL))
             try:
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -803,6 +840,8 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
                 set_active_prompt(req_json)
                 mode = "sélection d'image" if req_json.get("pick") else "génération"
                 print(f"[Flow Hub] Active prompt set ({mode}): #{req_json.get('id')} - {req_json.get('filename')}")
+                log_automation_event("server", "active_prompt_set", mode=mode, id=req_json.get("id"),
+                                      filename=req_json.get("filename"), timestamp=req_json.get("timestamp"))
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
@@ -839,6 +878,9 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             if client_id:
                 FLOW_CLIENTS[client_id] = time.time()
             print(f"[Flow Hub] Réservation du prompt #{active.get('id') if active else '-'} par {client_id} : {result}")
+            log_automation_event("server", "claim_prompt", client=client_id,
+                                  id=active.get("id") if active else None, timestamp=timestamp,
+                                  granted=result.get("granted"), reason=result.get("reason"))
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
@@ -859,8 +901,12 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             # Un « terminé » en retard ne doit pas effacer le prompt suivant déjà envoyé par la file
             if done_timestamp is not None and active and active.get("timestamp") != done_timestamp:
                 print(f"[Flow Hub] Fin ignorée pour #{body.get('id')} : le prompt actif est déjà #{active.get('id')}.")
+                log_automation_event("server", "prompt_done_ignored_stale", requested_id=body.get("id"),
+                                      requested_timestamp=done_timestamp, current_id=active.get("id"))
             else:
                 print(f"[Flow Hub] Active prompt completed: {active.get('filename') if active else 'none'}")
+                log_automation_event("server", "prompt_done", id=active.get("id") if active else None,
+                                      filename=active.get("filename") if active else None)
                 set_active_prompt(None)
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -928,6 +974,9 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
                         lf.write(json.dumps({"t": time.strftime("%H:%M:%S"), "request": body, "result": result}, ensure_ascii=False) + "\n")
                 except Exception:
                     pass
+                log_automation_event("server", "os_click", method=body.get("method", "post"),
+                                      x=body.get("x"), y=body.get("y"), success=result.get("success"),
+                                      error=result.get("error"))
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
@@ -948,12 +997,34 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
                 ACTIVE_STATE["flow_error"] = req_json
                 notify_change()
                 print(f"[Flow Hub] ⚠️ Erreur ou Quota Flow signalé : {req_json}")
+                log_automation_event("dashboard", "flow_error_triggered", **{
+                    k: v for k, v in req_json.items() if k in ("type", "message", "id")
+                })
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
                 self.wfile.write(json.dumps({"success": True, "error": req_json}).encode("utf-8"))
             except Exception as e:
                 self.send_error(400, str(e))
+            return
+
+        # Journal unifié : le script Tampermonkey (onglet Flow) et le tableau de bord (app.js) y
+        # poussent leurs événements clés (réservation, clic système, relance, erreur...) pour que
+        # tout l'historique d'une session d'automatisation soit lisible en un seul fichier, avec
+        # horodatages précis, plutôt que dispersé entre la console du navigateur et des captures d'écran.
+        if path == "/api/client-log":
+            content_length = int(self.headers.get("Content-Length", 0))
+            try:
+                body = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
+            except Exception:
+                body = {}
+            source = str(body.pop("source", "client"))[:30]
+            event = str(body.pop("event", "log"))[:60]
+            log_automation_event(source, event, **{k: v for k, v in body.items() if k != "t"})
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"success": true}')
             return
 
         # Effacer l'erreur Flow (ex: reprise après changement de compte)
