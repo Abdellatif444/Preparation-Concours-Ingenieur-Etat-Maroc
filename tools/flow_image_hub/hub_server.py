@@ -645,6 +645,38 @@ class HubRequestHandler(SimpleHTTPRequestHandler):
             }).encode("utf-8"))
             return
 
+        # 0.4 API : dernières lignes du journal d'automatisation unifié, pour un suivi en direct
+        # depuis le tableau de bord (au lieu d'ouvrir automation_debug.log dans un éditeur).
+        if path == "/api/automation-log":
+            query = urllib.parse.parse_qs(parsed_url.query)
+            try:
+                tail = min(max(int(query.get("tail", ["150"])[0]), 1), AUTOMATION_LOG_MAX_LINES)
+            except ValueError:
+                tail = 150
+            lines = []
+            try:
+                with AUTOMATION_LOG_LOCK:
+                    if os.path.isfile(AUTOMATION_LOG_FILE):
+                        with open(AUTOMATION_LOG_FILE, "r", encoding="utf-8") as f:
+                            lines = f.readlines()[-tail:]
+            except Exception as e:
+                lines = [json.dumps({"t": time.strftime("%Y-%m-%d %H:%M:%S"), "source": "server",
+                                      "event": "log_read_error", "error": str(e)})]
+            entries = []
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entries.append(json.loads(line))
+                except Exception:
+                    entries.append({"raw": line})
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"entries": entries}, ensure_ascii=False).encode("utf-8"))
+            return
+
         # 0.5 API : mesures objectives d'une page (résolution, difficulté) pour le contrôle qualité
         if path == "/api/metrics":
             filename = os.path.basename(urllib.parse.parse_qs(parsed_url.query).get("filename", [""])[0])

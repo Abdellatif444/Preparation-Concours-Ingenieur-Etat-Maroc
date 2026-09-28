@@ -1406,3 +1406,73 @@ body.selection-mode .card-select {
   padding-top: 5px;
 }
 
+
+/* Journal d'automatisation en direct */
+#live-log-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 480px;
+  max-width: calc(100vw - 32px);
+  height: 360px;
+  max-height: calc(100vh - 100px);
+  background: #14161f;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#live-log-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #1c1f2b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f2f2f2;
+  font-size: 13px;
+}
+
+#live-log-header strong {
+  flex: 1;
+}
+
+#btn-live-log-close {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+#btn-live-log-close:hover {
+  color: #fff;
+}
+
+#live-log-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.live-log-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 2px 0;
+}
+
+.live-log-line .llt { color: #6b7280; }
+.live-log-line .lls { color: #60a5fa; font-weight: 600; }
+.live-log-line .lle { color: #e5e7eb; }
+.live-log-line.warn { color: #fbbf24; }
+.live-log-line.error { color: #f87171; }

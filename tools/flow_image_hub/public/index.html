@@ -68,8 +68,21 @@
       <button class="btn btn-outline" id="btn-flow-url" title="Voir ou modifier l'URL du projet Google Flow">
         🔗 URL Flow
       </button>
+      <button class="btn btn-outline" id="btn-live-log" title="Suivre en direct chaque étape de l'automatisation (réservation, clic, erreur...)">
+        📡 Journal en direct
+      </button>
     </div>
   </header>
+
+  <!-- Journal d'automatisation en direct (masqué par défaut) -->
+  <div id="live-log-panel" style="display:none;">
+    <div id="live-log-header">
+      <strong>📡 Journal d'automatisation en direct</strong>
+      <span id="live-log-status" style="opacity:.7; font-size:12px;"></span>
+      <button id="btn-live-log-close" title="Fermer">✕</button>
+    </div>
+    <div id="live-log-body"></div>
+  </div>
 
   <!-- Auto Queue Active Banner -->
   <div class="auto-queue-banner" id="auto-queue-banner" style="display:none;">

@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.10
-// @description  Copilot Google Flow synchronisé au Hub : ciblage modal infaillible du bouton Générer + calcul physique direct render_widget + activation forcée de l'onglet Flow avant le clic système + journal d'automatisation unifié.
+// @version      6.11
+// @description  Copilot Google Flow synchronisé au Hub : clic silencieux en arrière-plan tenté en premier (aucune interruption), repli sur le clic premier plan seulement si nécessaire, ciblage modal infaillible du bouton Générer, calcul physique direct render_widget, journal d'automatisation unifié.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
 // @author       Hakay
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.10 - clic systeme direct + activation onglet + journal] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.11 - clic silencieux prioritaire + repli premier plan + journal] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.10';
+        brand.textContent = '🦊 Flow Copilot v6.11';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1625,12 +1625,17 @@
     }
 
     // Soumission : séquence automatique complète sans jamais demander de clic manuel.
-    // Envoi RAPIDE (v6.8) : le clic système « premier plan » via le Hub est la seule méthode que Flow accepte
-    // (tests du 23/09/2026). On l'utilise directement, UNE seule fois : pas de clic simulé, pas de méthode « post »,
-    // pas de relance aveugle (qui recollait le prompt et risquait de générer deux fois la même image).
-    // Retourne true dès que le clic a été exécuté par Windows ; la boucle d'attente se charge du reste
-    // et ne reclique qu'une fois, seulement si Flow n'a montré AUCUN signe de génération au bout de 25 s.
-    async function submitPromptVerified(inputEl, text) {
+    // v6.11 — Tentative « silencieuse » d'abord : un clic « post » (messages souris adressés à la
+    // fenêtre, PostMessageW) ne vole jamais le focus et ne dérange donc pas l'utilisateur pendant
+    // qu'il travaille ailleurs. Les tests précédents (23/09/2026) avaient conclu que Flow ignorait
+    // ce type de clic pour CE bouton précis ; mais comme le ciblage de fenêtre/onglet vient d'être
+    // corrigé (v6.9-6.10), on revérifie honnêtement à chaque fois plutôt que de supposer que ça ne
+    // marche toujours pas : si un signe réel de génération apparaît après le clic silencieux, on
+    // s'arrête là, sans jamais toucher au premier plan. Seulement si ce clic silencieux ne produit
+    // AUCUN signe de démarrage, on bascule sur le clic « premier plan » (SetForegroundWindow), qui,
+    // lui, ramène brièvement l'onglet Flow au-dessus des autres fenêtres — c'est la seule méthode
+    // garantie à 100 %, mais c'est aussi la seule qui interrompt visuellement l'utilisateur.
+    async function submitPromptVerified(inputEl, text, beforeImgCount) {
         let btn = findSubmitButton(inputEl);
         for (let i = 0; i < 10 && !btn; i++) {   // le bouton apparaît dès que le champ contient du texte
             await sleep(100);
@@ -1640,13 +1645,30 @@
             console.warn('[Flow Copilot] Bouton « Start generation » introuvable.');
             return false;
         }
+
+        // Tentative 1 : clic silencieux en arrière-plan (aucune interruption visuelle).
+        updateStatus('Étape 3/3 : essai silencieux (sans changer de fenêtre)...', '#F2B705', true);
+        const postRes = await osClickViaHub(btn, 'post');
+        logEvent('submit_click_post_attempt', { success: !!(postRes && postRes.success), error: postRes && postRes.error });
+        if (postRes && postRes.success) {
+            await sleep(2500); // laisser à Flow le temps de réagir si le clic a réellement été reçu
+            const reason = generationSeemsStarted(inputEl, text, beforeImgCount);
+            if (reason) {
+                console.log('[Flow Copilot] ✅ Clic silencieux confirmé (aucune interruption) :', reason);
+                logEvent('submit_click_post_confirmed', { reason });
+                return true;
+            }
+            logEvent('submit_click_post_unconfirmed', {});
+        }
+
+        // Tentative 2 (repli, garanti mais interrompt brièvement l'utilisateur) : clic « premier plan ».
         updateStatus('Étape 3/3 : passage de l\'onglet Flow au premier plan...', '#F2B705', true);
         const visible = await ensureFlowTabVisible();
         const prep = await hubRequest('POST', '/api/os-click', { method: 'prepare' }, 6000);
         if (prep && prep.success && prep.was_minimized) await sleep(800);
         const liveBtn = findSubmitButton(inputEl) || btn;
         const res = await osClickViaHub(liveBtn, 'foreground');
-        logEvent('submit_click', { tabWasVisible: visible, prepSuccess: !!(prep && prep.success), success: !!(res && res.success), error: res && res.error });
+        logEvent('submit_click', { tabWasVisible: visible, prepSuccess: !!(prep && prep.success), success: !!(res && res.success), error: res && res.error, afterSilentAttempt: true });
         if (res && res.success) {
             console.log('[Flow Copilot] ✅ Clic système exécuté sur la flèche', res);
             return true;
@@ -1805,11 +1827,12 @@
                     .filter(s => s && !s.includes('avatar') && !s.includes('googleusercontent.com/a/'))
             );
             console.log('[Flow Copilot] 📸 Image de tête AVANT soumission :', beforeTopLeftSrc.slice(0, 60));
+            const beforeImgCount = document.querySelectorAll('img').length;
 
-            // 4. UN SEUL clic propre sur la flèche de génération
+            // 4. UN SEUL clic propre sur la flèche de génération (silencieux d'abord, voir submitPromptVerified)
             updateStatus('Étape 3/3 : Lancement de la génération...', '#F2B705', true);
             const submitTime = Date.now();
-            const submitted = await submitPromptVerified(input, promptData.prompt);
+            const submitted = await submitPromptVerified(input, promptData.prompt, beforeImgCount);
             if (!submitted) {
                 // Flow n'accepte pas les clics simulés : UN clic humain sur la flèche mise en évidence,
                 // puis le copilote reprend la main (détection, téléchargement, fiche suivante).

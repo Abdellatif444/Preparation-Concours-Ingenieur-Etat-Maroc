@@ -1534,7 +1534,7 @@ function waitForPromptCompletion(item) {
         } else if (Date.now() - lastSendTime >= UNCLAIMED_RESEND_MS) {
           if (resendCount >= MAX_RESENDS) {
             logAutomationEvent('dashboard', 'unclaimed_fatal', { id: item.id, resendCount });
-            triggerFlowError(`Le prompt #${item.id} n'a été pris en charge par aucun onglet Google Flow. Vérifiez que le panneau « Flow Copilot v6.10 » est affiché et connecté, puis reprenez la file.`);
+            triggerFlowError(`Le prompt #${item.id} n'a été pris en charge par aucun onglet Google Flow. Vérifiez que le panneau « Flow Copilot v6.11 » est affiché et connecté, puis reprenez la file.`);
             return;
           }
           resendCount++;
@@ -1613,7 +1613,7 @@ function updateFlowPresence(data) {
   let hint = "Aucun onglet Google Flow avec le copilote v5.2 n'est connecté.";
   if (flowLegacyScript) {
     label = '⚠️ ancien script';
-    hint = "Un onglet Flow utilise un ancien copilote obsolète : mettez à jour le script Tampermonkey (v6.10).";
+    hint = "Un onglet Flow utilise un ancien copilote obsolète : mettez à jour le script Tampermonkey (v6.11).";
   } else if (flowTabsConnected === 1) {
     label = '1 onglet connecté';
     cls = 'success';
@@ -1915,3 +1915,68 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+// ---------------------------------------------------------------------------
+// Journal d'automatisation en direct : ouvre un panneau qui interroge
+// /api/automation-log toutes les 1,5 s tant qu'il est ouvert, et affiche
+// chaque événement (réservation, clic système, relance, erreur...) avec son
+// horodatage exact. Remplace le besoin d'ouvrir automation_debug.log à la main.
+// ---------------------------------------------------------------------------
+let liveLogTimer = null;
+let liveLogOpen = false;
+
+function formatLiveLogEntry(e) {
+  if (e.raw) return `<div class="live-log-line">${escapeHtml(e.raw)}</div>`;
+  const t = escapeHtml(e.t || '');
+  const source = escapeHtml(e.source || '');
+  const event = escapeHtml(e.event || '');
+  const extra = Object.keys(e)
+    .filter((k) => !['t', 'source', 'event'].includes(k) && e[k] !== null && e[k] !== undefined)
+    .map((k) => `${k}=${typeof e[k] === 'object' ? JSON.stringify(e[k]) : e[k]}`)
+    .join(' ');
+  const isError = /error|fatal|failed|refus|echec|échec/i.test(event) || /error|fatal/i.test(extra);
+  const isWarn = !isError && /timeout|resend|relance|deferred|queued|unclaimed|not_visible|focus_failed/i.test(event);
+  const cls = isError ? 'error' : (isWarn ? 'warn' : '');
+  return `<div class="live-log-line ${cls}"><span class="llt">${t}</span> <span class="lls">[${source}]</span> <span class="lle">${event}</span> ${escapeHtml(extra)}</div>`;
+}
+
+async function refreshLiveLog() {
+  const body = document.getElementById('live-log-body');
+  const status = document.getElementById('live-log-status');
+  if (!body) return;
+  try {
+    const res = await fetch('/api/automation-log?tail=150');
+    if (!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    const wasAtBottom = body.scrollTop + body.clientHeight >= body.scrollHeight - 20;
+    body.innerHTML = (data.entries || []).map(formatLiveLogEntry).join('');
+    if (wasAtBottom) body.scrollTop = body.scrollHeight;
+    if (status) status.textContent = `${(data.entries || []).length} événements récents`;
+  } catch (e) {
+    if (status) status.textContent = 'Journal indisponible (serveur injoignable ?)';
+  }
+}
+
+function openLiveLog() {
+  const panel = document.getElementById('live-log-panel');
+  if (!panel) return;
+  panel.style.display = 'flex';
+  liveLogOpen = true;
+  refreshLiveLog();
+  if (liveLogTimer) clearInterval(liveLogTimer);
+  liveLogTimer = setInterval(refreshLiveLog, 1500);
+}
+
+function closeLiveLog() {
+  const panel = document.getElementById('live-log-panel');
+  if (panel) panel.style.display = 'none';
+  liveLogOpen = false;
+  if (liveLogTimer) { clearInterval(liveLogTimer); liveLogTimer = null; }
+}
+
+(function initLiveLogPanel() {
+  const btnOpen = document.getElementById('btn-live-log');
+  const btnClose = document.getElementById('btn-live-log-close');
+  if (btnOpen) btnOpen.addEventListener('click', () => (liveLogOpen ? closeLiveLog() : openLiveLog()));
+  if (btnClose) btnClose.addEventListener('click', closeLiveLog);
+})();
