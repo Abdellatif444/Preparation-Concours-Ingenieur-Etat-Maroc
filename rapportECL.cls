@@ -167,12 +167,12 @@
         \begin{spacing}{1.05}
         \thispagestyle{empty}
         
-        % Logo Ministère des Affaires Étrangères, de la Coopération Africaine et des MRE
+        % Logo Société Régionale Multiservices Souss-Massa
         \begin{center}
-            \IfFileExists{logos/Minist-Affaires-Etrangeres-logo.jpg}{%
-                \includegraphics[width=6cm,keepaspectratio]{logos/Minist-Affaires-Etrangeres-logo.jpg}%
+            \IfFileExists{logos/SRM-Regionale-Souss_Massa-logo.jpg}{%
+                \includegraphics[width=6cm,keepaspectratio]{logos/SRM-Regionale-Souss_Massa-logo.jpg}%
             }{%
-                \textbf{\LARGE ROYAUME DU MAROC\\[0.15cm]MINISTÈRE DES AFFAIRES ÉTRANGÈRES, DE LA COOPÉRATION AFRICAINE ET DES MAROCAINS RÉSIDANT À L'ÉTRANGER}%
+                \textbf{\LARGE ROYAUME DU MAROC\\[0.15cm]SOCIÉTÉ RÉGIONALE MULTISERVICES SOUSS-MASSA}%
             }
         \end{center}
 
@@ -218,8 +218,8 @@
             \begin{tcolorbox}[colback=gray!5!white,colframe=eclblue,arc=2mm,width=0.95\textwidth,boxrule=1pt]
                 \centering
                 \vspace{0.1cm}
-                {\large \textbf{\textsf{Épreuves Écrites --- Concours du 27 Septembre 2026 (FSJES Salé)}}}\\[0.2cm]
-                {\small \textsf{Spécialité Informatique \& Réseaux $\bullet$ Rédaction sur les Attributions du Ministère $\bullet$ Oral}}\\[0.1cm]
+                {\large \textbf{\textsf{Épreuve Écrite --- Concours du 4 Octobre 2026 (Faculté des Sciences d'Agadir)}}}\\[0.2cm]
+                {\small \textsf{QCM Spécialité Génie Informatique \& Culture Générale Entreprise $\bullet$ 1h30}}\\[0.1cm]
             \end{tcolorbox}
         \end{center}
 
@@ -238,7 +238,7 @@
         \end{minipage}%
         \begin{minipage}[b]{0.3\textwidth}
             \begin{flushright}
-                \textbf{MAECAME}
+                \textbf{SRM-SM}
             \end{flushright}
         \end{minipage}
 

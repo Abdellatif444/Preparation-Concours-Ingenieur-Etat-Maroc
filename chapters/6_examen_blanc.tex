@@ -2,19 +2,16 @@
 
 \begin{tcolorbox}[colback=red!4!white,colframe=red!60!black,title=\textbf{Consignes de l'examen blanc}]
 \begin{itemize}
-    \item Reproduire la journée du 27 septembre : \textbf{Épreuve A --- Spécialité (3 heures)}, pause, puis \textbf{Épreuve B --- Rédaction (2 heures)}.
-    \item Répondre sur feuille, \textbf{sans consulter les corrigés}, placés sur des pages séparées.
-    \item Épreuve A : partie 1 = 30 QCM (une seule bonne réponse, 0,5 point chacun, 15 points) ; partie 2 = 3 exercices rédigés (25 points). Total sur 40, ramené sur 20.
-    \item Épreuve B : sujet unique, noté sur 20 avec la grille du chapitre 1.
-    \item Objectif de sécurité : au moins 12/20 à chaque épreuve.
+    \item Reproduire les conditions du 4 octobre : un \textbf{QCM unique de 1 heure 30}, sans consulter le corrigé placé sur des pages séparées.
+    \item \textbf{50 questions} : 30 de spécialité Génie Informatique, 20 de culture générale et entreprise (SRM Souss-Massa, secteur eau/électricité).
+    \item Une seule bonne réponse par question. Calculatrice sans connectivité autorisée pour les questions de calcul.
+    \item Objectif de sécurité : au moins 35/50 correctes en conditions chronométrées.
 \end{itemize}
 \end{tcolorbox}
 
 % =========================================================================
-\section{Épreuve A --- Spécialité Informatique et Réseaux (3 heures, coefficient 4)}
+\section{Partie 1 --- Spécialité Génie Informatique (30 questions, environ 45 minutes)}
 % =========================================================================
-
-\subsection*{Partie 1 : 30 QCM (45 minutes)}
 
 \begin{enumerate}[leftmargin=*, label=\textbf{Q\arabic*.}]
     \item Un réseau /27 offre combien d'adresses hôtes utilisables ?
@@ -35,10 +32,6 @@
     \newline (A) 21 \quad (B) 22 \quad (C) 23 \quad (D) 25
     \item Quelle adresse est une adresse IPv4 privée ?
     \newline (A) 8.8.8.8 \quad (B) 172.20.5.1 \quad (C) 41.140.0.1 \quad (D) 200.1.1.1
-    \item Pour la voix sur IP, quel protocole établit et termine les appels ?
-    \newline (A) RTP \quad (B) SIP \quad (C) SMTP \quad (D) FTP
-    \item Quelle fibre optique convient aux liaisons de plusieurs dizaines de kilomètres ?
-    \newline (A) Multimode \quad (B) Monomode \quad (C) Cuivre catégorie 6 \quad (D) Coaxial
     \item Un SLA de 99,9 \% tolère une indisponibilité annuelle d'environ :
     \newline (A) 5 minutes \quad (B) 53 minutes \quad (C) 8 h 45 \quad (D) 3 jours 15 h
     \item Quel protocole sert à superviser les équipements réseau ?
@@ -77,43 +70,65 @@
     \newline (A) Extract, Transform, Load \quad (B) Encrypt, Transfer, Log \quad (C) Edit, Test, Launch \quad (D) Export, Table, List
     \item Un conteneur Docker, par rapport à une machine virtuelle :
     \newline (A) embarque son propre noyau \quad (B) partage le noyau de l'hôte \quad (C) est toujours plus lent \quad (D) nécessite un hyperviseur de type 1
+    \item Que désigne un SIG dans le contexte d'une société de distribution d'eau et d'électricité ?
+    \newline (A) Système d'Information Géographique \quad (B) Service Interne de Gestion \quad (C) Système Intégré de Garantie \quad (D) Suivi Individuel des Ganistes
+    \item Quel est l'intérêt principal de la télérelève des compteurs d'eau ou d'électricité ?
+    \newline (A) Remplacer le facturier papier uniquement \quad (B) Collecter automatiquement les index de consommation à distance \quad (C) Chiffrer les communications réseau \quad (D) Gérer les ressources humaines
 \end{enumerate}
 
-\subsection*{Partie 2 : Exercices Rédigés (2 h 15)}
+% =========================================================================
+\section{Partie 2 --- Culture Générale et Entreprise (20 questions, environ 40 minutes)}
+% =========================================================================
 
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercice 1 --- Adressage et segmentation (9 points)}]
-Le consulat général du Maroc dans une grande ville dispose du bloc \texttt{192.168.40.0/24}. Il doit accueillir : 50 postes de guichet et back-office, 20 téléphones IP, 6 serveurs locaux, 10 caméras et équipements techniques, un Wi-Fi visiteurs de 25 clients et une liaison point à point vers le routeur de secours 4G.
-\begin{enumerate}
-    \item Proposez un découpage VLSM (réseau, masque, plage, diffusion) en justifiant l'ordre d'allocation. (5 pts)
-    \item Indiquez pour chaque sous-réseau le VLAN associé et les règles de filtrage principales. (2 pts)
-    \item Le consulat souhaite passer en double pile IPv6 : donnez un exemple d'adressage IPv6 pour deux VLAN à partir du préfixe \texttt{2001:db8:40::/48} et expliquez l'intérêt. (2 pts)
+\begin{enumerate}[leftmargin=*, label=\textbf{Q\arabic*.}, start=31]
+    \item Quelle loi institue les Sociétés Régionales Multiservices (SRM) ?
+    \newline (A) Loi 83-21 \quad (B) Loi 05-20 \quad (C) Loi 36-15 \quad (D) Loi 12-90
+    \item Quel dahir promulgue la loi 83-21 ?
+    \newline (A) Dahir 1-23-53 \quad (B) Dahir 1-11-91 \quad (C) Dahir 1-24-12 \quad (D) Dahir 1-22-40
+    \item Dans quel Bulletin Officiel la loi 83-21 est-elle publiée ?
+    \newline (A) BO n° 6800 \quad (B) BO n° 7213 \quad (C) BO n° 7000 \quad (D) BO n° 7300
+    \item À quelle date la SRM Souss-Massa est-elle entrée en activité ?
+    \newline (A) 1er janvier 2024 \quad (B) 15 octobre 2024 \quad (C) 5 juillet 2025 \quad (D) 27 août 2026
+    \item Quelle régie autonome préexistante la SRM Souss-Massa a-t-elle remplacée ?
+    \newline (A) RADEEMA \quad (B) RADEEF \quad (C) RAMSA \quad (D) Lydec
+    \item Combien de préfectures et de provinces couvre la SRM Souss-Massa ?
+    \newline (A) 1 préfecture et 2 provinces \quad (B) 2 préfectures et 4 provinces \quad (C) 3 préfectures et 1 province \quad (D) 4 préfectures et 4 provinces
+    \item Quelle est la population approximative desservie par la SRM Souss-Massa ?
+    \newline (A) Environ 1 million d'habitants \quad (B) Environ 3,06 millions d'habitants \quad (C) Environ 6 millions d'habitants \quad (D) Environ 500 000 habitants
+    \item Parmi les missions suivantes, laquelle n'est PAS assurée par la SRM Souss-Massa ?
+    \newline (A) Distribution d'eau potable \quad (B) Distribution d'électricité \quad (C) Assainissement liquide \quad (D) Transport aérien régional
+    \item Qui préside le Conseil d'Administration de la SRM Souss-Massa ?
+    \newline (A) Mohamed Amrzak \quad (B) Nasser Bourita \quad (C) Saaïd Amzazi \quad (D) Aziz Akhannouch
+    \item Qui occupe le poste de Directeur Général de la SRM Souss-Massa ?
+    \newline (A) Saaïd Amzazi \quad (B) Mohamed Amrzak \quad (C) Nizar Baraka \quad (D) Fouzi Lekjaa
+    \item Quel est l'ordre de grandeur du budget d'investissement annoncé pour la SRM Souss-Massa sur 30 ans ?
+    \newline (A) Environ 2 milliards de dirhams \quad (B) Environ 19,68 milliards de dirhams \quad (C) Environ 100 milliards de dirhams \quad (D) Environ 500 millions de dirhams
+    \item Sur quelle période porte le plan quinquennal en cours de la SRM Souss-Massa ?
+    \newline (A) 2020--2024 \quad (B) 2025--2029 \quad (C) 2026--2031 \quad (D) 2024--2028
+    \item Quel enjeu régional structure fortement la stratégie d'investissement de la SRM Souss-Massa ?
+    \newline (A) Le stress hydrique \quad (B) La désertification côtière \quad (C) La saturation du réseau électrique national \quad (D) La sismicité
+    \item Qu'est-ce que le projet de Chtouka-Aït Baha, cité en lien avec la SRM Souss-Massa ?
+    \newline (A) Un aéroport régional \quad (B) Une station de dessalement d'eau de mer \quad (C) Un barrage hydroélectrique \quad (D) Un data center national
+    \item Quel méga-projet de dessalement/transfert d'eau a été annoncé le 27 août 2026 pour la région ?
+    \newline (A) Le projet Casablanca--Rabat \quad (B) Le projet Tiznit--Chtouka \quad (C) Le projet Fès--Meknès \quad (D) Le projet Oriental-Nord
+    \item Quel organisme national reste producteur d'eau et d'électricité en gros, fournissant en partie les SRM ?
+    \newline (A) L'ONEE \quad (B) L'ONCF \quad (C) L'ANRT \quad (D) La CDG
+    \item Combien de postes au total ouvre l'avis de recrutement 2026 de la SRM Souss-Massa (code C43190/26) ?
+    \newline (A) 38 \quad (B) 100 \quad (C) 174 \quad (D) 250
+    \item Combien de postes de cadres techniques Bac+5/ingénieurs d'État sont ouverts dans cet avis ?
+    \newline (A) 9 \quad (B) 38 \quad (C) 64 \quad (D) 63
+    \item À quelle direction le poste de cadre technique Génie Informatique de cet avis est-il rattaché ?
+    \newline (A) Direction Régionale d'Agadir \quad (B) Direction Centrale \quad (C) Direction des Ressources Humaines \quad (D) Direction Commerciale
+    \item Parmi les SRM créées ou en cours de déploiement en 2026, laquelle a ouvert le plus grand nombre de postes (plus de 1000) ?
+    \newline (A) SRM Drâa-Tafilalet \quad (B) SRM Fès-Meknès \quad (C) SRM Casablanca-Settat \quad (D) SRM Rabat-Salé-Kénitra
 \end{enumerate}
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercice 2 --- Base de données du suivi des demandes de visa (8 points)}]
-On souhaite concevoir la base d'un système de traitement des demandes de visa électronique. Un demandeur (passeport unique, nationalité) dépose des demandes ; chaque demande concerne un type de visa (tourisme, affaires, études), est traitée par un agent d'un consulat ou du service central, et passe par des statuts datés (déposée, en instruction, acceptée, refusée, délivrée).
-\begin{enumerate}
-    \item Proposez le MCD (entités, associations, cardinalités). (3 pts)
-    \item Déduisez le MLD. (2 pts)
-    \item Écrivez la requête SQL donnant, pour chaque type de visa, le nombre de demandes acceptées et le délai moyen (en jours) entre le dépôt et l'acceptation pour l'année 2026. (3 pts)
-\end{enumerate}
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercice 3 --- Sécurisation d'une plateforme exposée sur Internet (8 points)}]
-La plateforme de rendez-vous consulaire subit des ralentissements et l'on soupçonne une exploitation automatisée des créneaux par des revendeurs, ainsi que des tentatives d'attaque.
-\begin{enumerate}
-    \item Décrivez l'architecture de sécurité que vous mettez en place devant et autour de l'application (au moins six composants ou mesures, justifiés). (4 pts)
-    \item Proposez des mesures fonctionnelles et techniques contre la réservation automatisée et la revente de créneaux. (2 pts)
-    \item Quelles obligations légales marocaines s'appliquent aux données traitées et à la gestion d'un incident ? (2 pts)
-\end{enumerate}
-\end{tcolorbox}
 
 \newpage
 % =========================================================================
-\section{Corrigé de l'Épreuve A}
+\section{Corrigé Détaillé}
 % =========================================================================
 
-\subsection*{Corrigé des 30 QCM}
+\subsection*{Corrigé --- Partie 1 : Spécialité Génie Informatique}
 {\small
 \begin{longtable}{|c|>{\raggedright\arraybackslash}p{4.6cm}|p{9.2cm}|}
 \hline
@@ -131,173 +146,72 @@ La plateforme de rendez-vous consulaire subit des ralentissements et l'on soupç
 7 & B --- 802.1X avec RADIUS & Contrôle d'accès au port avec authentification individuelle. \\ \hline
 8 & B --- 22 & 21 = FTP, 23 = Telnet (non chiffré), 25 = SMTP. \\ \hline
 9 & B --- 172.20.5.1 & Plage privée 172.16.0.0/12 ; 41.x et 200.x sont publiques. \\ \hline
-10 & B --- SIP & SIP signale les appels ; RTP transporte la voix. \\ \hline
-11 & B --- monomode & Longues distances ; la multimode se limite à quelques centaines de mètres. \\ \hline
-12 & C --- 8 h 45 & 0,1 \% de 8 760 heures $\approx$ 8,76 h. \\ \hline
-13 & A --- SNMP & Protocole de supervision ; NTP synchronise l'heure. \\ \hline
-14 & B --- MPLS & Commutation par étiquettes avec QoS garantie entre sites. \\ \hline
-15 & B --- la durée maximale d'interruption & RTO ; la perte de données maximale est le RPO. \\ \hline
-16 & B --- HAVING & Filtre après GROUP BY ; WHERE filtre avant. \\ \hline
-17 & B --- 2FN & Élimination des dépendances partielles ; la 3FN traite les dépendances transitives. \\ \hline
-18 & B --- une table de jointure & Elle contient les deux clés étrangères. \\ \hline
-19 & C --- Encapsulation & Masquer l'état interne derrière des méthodes. \\ \hline
-20 & B --- 201 & 200 = succès simple, 404 = introuvable, 500 = erreur serveur. \\ \hline
-21 & D --- DELETE & GET lit, POST crée, PUT modifie. \\ \hline
-22 & B --- $O(n \log n)$ & Tri fusion et tri rapide (en moyenne). \\ \hline
-23 & B --- File & \textit{First In, First Out} ; la pile est LIFO. \\ \hline
-24 & A --- rwxr-x--- & 7 = rwx (propriétaire), 5 = r-x (groupe), 0 = aucun droit (autres). \\ \hline
-25 & B --- RSA & Paire clé publique / clé privée ; AES et 3DES sont symétriques, SHA-256 est un hachage. \\ \hline
-26 & C --- Injection SQL & Parade : requêtes paramétrées. \\ \hline
-27 & B --- Loi 05-20 & 09-08 = données personnelles, 43-20 = services de confiance, 55-19 = simplification administrative. \\ \hline
-28 & B --- ISO/IEC 27001 & ITIL et COBIT sont des référentiels de gestion et de gouvernance, pas de sécurité. \\ \hline
-29 & A --- Extract, Transform, Load & Chaîne d'alimentation d'un entrepôt de données. \\ \hline
-30 & B --- partage le noyau de l'hôte & D'où sa légèreté par rapport à une VM. \\ \hline
+10 & C --- 8 h 45 & 0,1 \% de 8 760 heures $\approx$ 8,76 h. \\ \hline
+11 & A --- SNMP & Protocole de supervision ; NTP synchronise l'heure. \\ \hline
+12 & B --- MPLS & Commutation par étiquettes avec QoS garantie entre sites. \\ \hline
+13 & B --- la durée maximale d'interruption & RTO ; la perte de données maximale est le RPO. \\ \hline
+14 & B --- HAVING & Filtre après GROUP BY ; WHERE filtre avant. \\ \hline
+15 & B --- 2FN & Élimination des dépendances partielles ; la 3FN traite les dépendances transitives. \\ \hline
+16 & B --- une table de jointure & Elle contient les deux clés étrangères. \\ \hline
+17 & C --- Encapsulation & Masquer l'état interne derrière des méthodes. \\ \hline
+18 & B --- 201 & 200 = succès simple, 404 = introuvable, 500 = erreur serveur. \\ \hline
+19 & D --- DELETE & GET lit, POST crée, PUT modifie. \\ \hline
+20 & B --- $O(n \log n)$ & Tri fusion et tri rapide (en moyenne). \\ \hline
+21 & B --- File & \textit{First In, First Out} ; la pile est LIFO. \\ \hline
+22 & A --- rwxr-x--- & 7 = rwx (propriétaire), 5 = r-x (groupe), 0 = aucun droit (autres). \\ \hline
+23 & B --- RSA & Paire clé publique / clé privée ; AES et 3DES sont symétriques, SHA-256 est un hachage. \\ \hline
+24 & C --- Injection SQL & Parade : requêtes paramétrées. \\ \hline
+25 & B --- Loi 05-20 & 09-08 = données personnelles, 43-20 = services de confiance, 55-19 = simplification administrative. \\ \hline
+26 & B --- ISO/IEC 27001 & ITIL et COBIT sont des référentiels de gestion et de gouvernance, pas de sécurité. \\ \hline
+27 & A --- Extract, Transform, Load & Chaîne d'alimentation d'un entrepôt de données. \\ \hline
+28 & B --- partage le noyau de l'hôte & D'où sa légèreté par rapport à une VM. \\ \hline
+29 & A --- Système d'Information Géographique & Cartographie et gestion du patrimoine des réseaux d'eau et d'électricité. \\ \hline
+30 & B --- collecter automatiquement les index à distance & Évite le relevé manuel et accélère la détection d'anomalies. \\ \hline
 \end{longtable}
 }
 
-\subsection*{Corrigé de l'Exercice 1 --- Adressage}
-Bloc 192.168.40.0/24 (256 adresses). Allocation du plus grand au plus petit :
-\begin{itemize}
-    \item \textbf{VLAN 10 Postes} (50 $\rightarrow$ 64, /26) : 192.168.40.0/26, masque 255.255.255.192, plage .1 -- .62, diffusion .63.
-    \item \textbf{VLAN 30 Wi-Fi visiteurs} (25 $\rightarrow$ 32, /27) : 192.168.40.64/27, masque 255.255.255.224, plage .65 -- .94, diffusion .95.
-    \item \textbf{VLAN 40 Téléphonie} (20 $\rightarrow$ 32, /27) : 192.168.40.96/27, plage .97 -- .126, diffusion .127.
-    \item \textbf{VLAN 60 Caméras et technique} (10 $\rightarrow$ 16, /28) : 192.168.40.128/28, masque 255.255.255.240, plage .129 -- .142, diffusion .143.
-    \item \textbf{VLAN 50 Serveurs} (6 $\rightarrow$ 8, /29) : 192.168.40.144/29, masque 255.255.255.248, plage .145 -- .150, diffusion .151.
-    \item \textbf{Liaison point à point} (/30) : 192.168.40.152/30, plage .153 -- .154, diffusion .155.
-    \item Réserve : 192.168.40.156 -- .255.
-\end{itemize}
-Règles : visiteurs $\rightarrow$ Internet uniquement ; postes $\rightarrow$ serveurs sur ports applicatifs et tunnel vers Rabat ; caméras isolées, accessibles seulement depuis le serveur d'enregistrement ; téléphonie isolée avec QoS ; administration via bastion. IPv6 : à partir de 2001:db8:40::/48, un /64 par VLAN, par exemple 2001:db8:40:10::/64 pour les postes et 2001:db8:40:40::/64 pour la téléphonie ; intérêt : espace d'adressage illimité, fin du NAT, auto-configuration, préparation à la généralisation d'IPv6 chez les opérateurs et les partenaires.
-
-\subsection*{Corrigé de l'Exercice 2 --- Base de données visa}
-\textbf{MCD :} DEMANDEUR (id, n° passeport UNIQUE, nom, prénom, nationalité, date\_naissance) ; DEMANDE (id, date\_dépôt, motif, durée\_séjour) ; TYPE\_VISA (id, libellé, durée\_max, tarif) ; AGENT (id, matricule, nom) ; UNITE (id, libellé, type : consulat / central) ; STATUT\_DEMANDE (id, statut, date\_statut, commentaire). Associations : DEMANDEUR (1,n) dépose (1,1) DEMANDE ; DEMANDE (1,1) concerne (0,n) TYPE\_VISA ; DEMANDE (0,1) traitée\_par (0,n) AGENT ; AGENT (1,1) affecté\_à (1,n) UNITE ; DEMANDE (1,n) suit (1,1) STATUT\_DEMANDE (historique daté).
-
-\textbf{MLD :} \texttt{demandeur(id\_demandeur PK, passeport UNIQUE, nom, prenom, nationalite, date\_naissance)} ; \texttt{type\_visa(id\_type PK, libelle, duree\_max, tarif)} ; \texttt{unite(id\_unite PK, libelle, type)} ; \texttt{agent(id\_agent PK, matricule, nom, id\_unite FK)} ; \texttt{demande(id\_demande PK, id\_demandeur FK, id\_type FK, id\_agent FK NULL, date\_depot, motif, duree\_sejour)} ; \texttt{statut\_demande(id\_statut PK, id\_demande FK, statut, date\_statut, commentaire)}.
-
-\textbf{Requête :}
-\begin{verbatim}
-SELECT t.libelle,
-       COUNT(*) AS nb_acceptees,
-       AVG(s.date_statut - d.date_depot) AS delai_moyen_jours
-FROM demande d
-JOIN type_visa t ON t.id_type = d.id_type
-JOIN statut_demande s ON s.id_demande = d.id_demande
-WHERE s.statut = 'acceptee'
-  AND s.date_statut BETWEEN '2026-01-01' AND '2026-12-31'
-GROUP BY t.libelle
-ORDER BY nb_acceptees DESC;
-\end{verbatim}
-(Selon le SGBD, la différence de dates s'écrit \texttt{DATEDIFF(s.date\_statut, d.date\_depot)} en MySQL.) Points bonus : index sur \texttt{statut\_demande(statut, date\_statut)}, contrainte d'unicité sur un statut « acceptée » par demande, données personnelles minimisées et durée de conservation définie.
-
-\subsection*{Corrigé de l'Exercice 3 --- Sécurisation de la plateforme}
-\begin{enumerate}
-    \item \textbf{Architecture :} protection anti-DDoS et CDN devant le site ; reverse proxy et \textbf{WAF} filtrant les attaques web (OWASP Top 10) ; pare-feu nouvelle génération et IPS ; \textbf{DMZ} pour les serveurs frontaux, base de données dans une zone interne non exposée ; TLS partout avec certificats valides ; authentification forte des agents (MFA) et bastion d'administration ; journalisation centralisée vers un \textbf{SIEM} surveillé ; sauvegardes 3-2-1 et PRA testé ; tests d'intrusion réguliers ; durcissement des serveurs et correctifs.
-    \item \textbf{Contre la réservation automatisée :} vérification de l'identité de l'usager (code envoyé par SMS ou e-mail, pièce d'identité unique par rendez-vous) ; CAPTCHA et limitation de débit par IP et par compte ; un seul rendez-vous actif par pièce d'identité et par service ; créneaux libérés de façon aléatoire et non annoncés ; détection des comportements automatisés (vitesse, empreinte du navigateur) ; nom du bénéficiaire imprimé sur la convocation et contrôlé au guichet ; canal prioritaire pour les cas urgents afin de réduire la pression.
-    \item \textbf{Obligations légales :} loi 09-08 sur les données personnelles (déclaration à la CNDP, finalité, minimisation, sécurité, droits des personnes) ; loi 05-20 sur la cybersécurité et DNSSI (mesures minimales, déclaration des incidents à la DGSSI/maCERT) ; loi 43-20 si signature ou cachet électroniques ; obligations de secret professionnel des agents ; hébergement des données sur le territoire national conformément aux orientations de souveraineté numérique.
-\end{enumerate}
-
-\newpage
-% =========================================================================
-\section{Épreuve B --- Rédaction sur les Attributions du Ministère (2 heures, coefficient 2)}
-% =========================================================================
-
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Sujet inédit (examen blanc)}]
-\textit{« Le Ministère des Affaires Étrangères, de la Coopération Africaine et des Marocains Résidant à l'Étranger a engagé en 2024 une réorganisation profonde de ses structures et de son réseau. En quoi la modernisation de l'outil diplomatique conditionne-t-elle la capacité du Royaume à défendre ses intérêts et à servir ses citoyens à l'étranger ? »}
-\end{tcolorbox}
-
-\textit{Traitez le sujet avant de lire la suite.}
-
-\newpage
-\section{Corrigé de l'Épreuve B}
-
-\subsection*{1. Analyse du sujet (10 minutes)}
-\begin{itemize}
-    \item \textbf{Mots-clés :} « outil diplomatique » (réseau des postes, ressources humaines, formation, organisation, systèmes d'information), « modernisation » (décret 2.24.957, IMFRED, renouvellement des consuls, numérique, programme budgétaire « modernisation de l'outil diplomatique »), « défendre ses intérêts » (Sahara, diplomatie économique, influence), « servir ses citoyens à l'étranger » (MRE, services consulaires).
-    \item \textbf{Piège :} rester sur l'organigramme sans montrer le lien entre moyens et résultats ; oublier le volet citoyens.
-    \item \textbf{Angle de l'ingénieur :} la DSI, les réseaux et la donnée sont au cœur de l'outil diplomatique moderne.
-\end{itemize}
-
-\subsection*{2. Problématique et plan}
-\textbf{Problématique :} dans quelle mesure la modernisation des structures, des compétences et des systèmes du ministère est-elle la condition d'une diplomatie efficace au service des intérêts du Royaume et de ses citoyens à l'étranger ?
-\begin{itemize}
-    \item \textbf{I. Un outil diplomatique étendu, engagé dans une modernisation structurelle}
-    \begin{itemize}
-        \item \textbf{A.} Un réseau et des missions étendus : 104 ambassades, 53 consulats, attributions multiples, budget en quatre programmes.
-        \item \textbf{B.} La réorganisation de 2024 : pôles, nouvelles directions (DSI, diplomatie économique), IMFRED, renouvellement des consuls, numérique.
-    \end{itemize}
-    \item \textbf{II. Une modernisation qui conditionne l'efficacité de l'action extérieure}
-    \begin{itemize}
-        \item \textbf{A.} Défendre les intérêts : réactivité sur le dossier du Sahara, diplomatie économique outillée, sécurité de l'information.
-        \item \textbf{B.} Servir les citoyens : consulats de nouvelle génération, refonte des institutions des MRE ; conditions : compétences, données, évaluation.
-    \end{itemize}
-\end{itemize}
-
-\begin{copiemodele}{La modernisation de l'outil diplomatique}
-\partiecopie{Introduction}
-Le 21 novembre 2024, le décret n° 2.24.957 fixait les nouvelles attributions et l'organisation du ministère des Affaires étrangères, de la Coopération africaine et des Marocains résidant à l'étranger. Loin d'une simple réforme administrative, ce texte traduit une conviction : la diplomatie d'un pays vaut ce que vaut son outil. L'outil diplomatique désigne l'ensemble des moyens humains, organisationnels, matériels et technologiques par lesquels un État conduit son action extérieure : administration centrale, réseau des ambassades et consulats, formation des agents, systèmes d'information.
-
-Le Maroc dispose de l'un des réseaux les plus étendus d'Afrique, avec environ 104 ambassades et missions permanentes et 53 consulats généraux, au service de missions multiples : défense de l'intégrité territoriale, coopération africaine, diplomatie économique et service de plus de cinq millions de Marocains du monde. La modernisation de cet outil constitue d'ailleurs le premier des quatre programmes du budget du ministère.
-
-Dès lors, \textbf{dans quelle mesure la modernisation des structures, des compétences et des systèmes du ministère conditionne-t-elle la capacité du Royaume à défendre ses intérêts et à servir ses citoyens à l'étranger ?}
-
-Nous présenterons d'abord un outil diplomatique étendu, engagé dans une modernisation structurelle (I), avant de montrer que cette modernisation conditionne directement l'efficacité de l'action extérieure (II).
-
-\partiecopie{I. Un outil diplomatique étendu, engagé dans une modernisation structurelle}
-\textit{Le ministère porte des missions et un réseau considérables (A), qu'une réorganisation profonde vient adapter aux exigences du temps (B).}
-
-\textbf{A. Un réseau et des missions à la mesure des ambitions du Royaume}
-
-Le ministère conduit la politique étrangère sous l'autorité de Sa Majesté le Roi, anime la coopération africaine, porte la diplomatie économique et assure la protection des Marocains du monde. Pour cela, il s'appuie sur un réseau présent sur tous les continents, dont la densité s'est accrue en Afrique et en Amérique latine au cours de la dernière décennie, et sur des institutions spécialisées comme l'Agence Marocaine de Coopération Internationale.
-
-Ce réseau traite des flux considérables : correspondance diplomatique, millions d'actes consulaires, près de 386 000 visas électroniques délivrés entre 2022 et 2024, opération Marhaba qui accueille plus de quatre millions de personnes chaque été. Son budget, présenté au Parlement en quatre programmes, a permis la création de 155 postes en 2026, signe d'un effort soutenu.
-
-\textbf{B. Une réorganisation profonde engagée en 2024}
-
-Le décret 2.24.957 a regroupé les directions générales en pôles homogènes et complémentaires et créé de nouvelles directions, parmi lesquelles une Direction des Systèmes d'Information chargée des plans informatiques, de l'infrastructure et de la cybersécurité, et une Direction de la Diplomatie Économique. L'Académie Marocaine des Études Diplomatiques est devenue l'Institut Marocain de Formation, de Recherche et d'Études Diplomatiques, appelé à professionnaliser davantage la formation.
-
-Cette modernisation touche aussi les personnes : en 2026, 35 \% des postes consulaires ont été renouvelés, avec une forte féminisation. Elle touche enfin les outils : portail consulat.ma, prise de rendez-vous en ligne, plateforme eConsulat, apostille électronique, bureau d'ordre digital et parapheur électronique.
-
-\textit{Ces réformes ne sont pas une fin en soi ; leur justification réside dans les résultats qu'elles permettent d'obtenir sur les deux fronts de l'action extérieure.}
-
-\partiecopie{II. Une modernisation qui conditionne l'efficacité de l'action extérieure}
-\textit{Un outil moderne renforce la défense des intérêts du Royaume (A) et la qualité du service rendu à ses citoyens (B), à condition de réunir compétences, données et évaluation.}
-
-\textbf{A. Défendre les intérêts du Royaume}
-
-Sur le dossier du Sahara, la dynamique qui a conduit à la résolution 2797 du 31 octobre 2025 et aux pourparlers de 2026 exige des postes diplomatiques réactifs, informés en temps réel et capables de porter un message cohérent, comme les six principes énoncés à l'Assemblée générale le 22 septembre 2026. Cela suppose des communications sûres entre Rabat et les 104 ambassades, une veille structurée et une protection rigoureuse de l'information face aux cybermenaces, conformément à la loi 05-20 et à la Stratégie nationale de cybersécurité 2030.
-
-La diplomatie économique, à l'approche du Mondial 2030, requiert des outils de veille, des bases de données d'opportunités et des tableaux de bord permettant d'évaluer l'action de chaque poste. Un ministère organisé en pôles, doté d'une direction dédiée et d'un institut de formation à l'économie, est mieux armé pour transformer les atouts du pays en investissements.
-
-\textbf{B. Servir les citoyens à l'étranger}
-
-Pour les Marocains du monde, la modernisation se mesure au guichet : délais d'attente, simplicité des démarches, continuité de service. Les consulats de nouvelle génération, connectés à l'état civil national et aux administrations partenaires, incarnent la diplomatie de proximité voulue par le Souverain. La refonte des institutions des MRE annoncée le 6 novembre 2024, avec une Fondation Mohammedia opérationnelle et un mécanisme de mobilisation des compétences, ne produira ses effets que si le réseau consulaire est capable de la relayer.
-
-Trois conditions doivent être réunies. Les compétences d'abord : recruter des ingénieurs en réseaux, en développement et en cybersécurité, former les agents et fidéliser les talents. Les données ensuite : fiables, protégées selon la loi 09-08, interopérables, hébergées sur le territoire national. L'évaluation enfin : des indicateurs de performance par programme et par poste, dans la logique de résultats des finances publiques. L'ingénieur d'État est, sur ces trois points, un acteur central de la modernisation.
-
-\partiecopie{Conclusion}
-Le ministère dispose d'un outil diplomatique étendu, qu'il modernise en profondeur depuis 2024 dans ses structures, ses compétences et ses systèmes. Cette modernisation n'est pas un luxe : elle conditionne la réactivité sur les dossiers vitaux, l'efficacité de la diplomatie économique et la qualité du service rendu aux Marocains du monde.
-
-À l'heure où l'intelligence artificielle et la guerre informationnelle transforment les relations internationales, la prochaine étape sera sans doute celle d'une diplomatie augmentée par la donnée : le Maroc saura-t-il en faire un levier de souveraineté ?
-\end{copiemodele}
-
-\subsection*{3. Grille d'auto-correction (sur 20)}
+\subsection*{Corrigé --- Partie 2 : Culture Générale et Entreprise}
 {\small
-\begin{longtable}{|p{6.2cm}|c|p{8cm}|}
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{4.6cm}|p{9.2cm}|}
 \hline
-\rowcolor{gray!20} \textbf{Critère} & \textbf{Points} & \textbf{Ce qui est attendu} \\ \hline
-Introduction complète & 3 & Accroche datée, définition de l'outil diplomatique, contexte, problématique, annonce du plan. \\ \hline
-Plan et logique & 4 & Deux parties équilibrées reliant moyens et résultats, chapeaux et transitions. \\ \hline
-Connaissance du ministère et faits & 5 & Décret 2.24.957, pôles, DSI, IMFRED, réseau, budget en quatre programmes, 155 postes, chiffres MRE et e-Visa, résolution 2797. \\ \hline
-Vision de l'ingénieur d'État & 3 & Réseaux sûrs, données, cybersécurité, indicateurs : le numérique au service des missions. \\ \hline
-Esprit critique et propositions & 3 & Conditions de réussite (compétences, données, évaluation), limites honnêtes. \\ \hline
-Expression et ton diplomatique & 2 & Style sobre, neutralité, terminologie officielle, orthographe. \\ \hline
-\textbf{Total} & \textbf{20} & \\ \hline
+\rowcolor{gray!20} \textbf{Q} & \textbf{Bonne réponse} & \textbf{Explication courte} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{gray!20} \textbf{Q} & \textbf{Bonne réponse} & \textbf{Explication courte} \\ \hline
+\endhead
+31 & A --- Loi 83-21 & Loi fondatrice des SRM, adoptée le 12 juin 2023. \\ \hline
+32 & A --- Dahir 1-23-53 & Dahir du 12 juillet 2023 promulguant la loi 83-21. \\ \hline
+33 & B --- BO n° 7213 & Publication le 17 juillet 2023. \\ \hline
+34 & B --- 15 octobre 2024 & Date d'entrée en activité de la SRM Souss-Massa. \\ \hline
+35 & C --- RAMSA & Régie Autonome Multi-Services d'Agadir, remplacée par la SRM. \\ \hline
+36 & B --- 2 préfectures et 4 provinces & Agadir Ida-Outanane, Inezgane Aït Melloul ; Chtouka-Aït Baha, Taroudant, Tiznit, Tata. \\ \hline
+37 & B --- environ 3,06 millions d'habitants & Population du périmètre de la SRM Souss-Massa. \\ \hline
+38 & D --- Transport aérien régional & Hors du champ des missions (eau, électricité, assainissement, éclairage public). \\ \hline
+39 & C --- Saaïd Amzazi & Wali de la région Souss-Massa, Président du Conseil d'Administration. \\ \hline
+40 & B --- Mohamed Amrzak & Directeur Général de la SRM Souss-Massa. \\ \hline
+41 & B --- environ 19,68 milliards de dirhams & Budget d'investissement annoncé sur 30 ans. \\ \hline
+42 & B --- 2025--2029 & Plan quinquennal en cours. \\ \hline
+43 & A --- Le stress hydrique & Contexte structurant des investissements (dessalement, transfert d'eau). \\ \hline
+44 & B --- Une station de dessalement d'eau de mer & Alimente notamment l'irrigation et l'eau potable de la zone. \\ \hline
+45 & B --- Le projet Tiznit--Chtouka & Méga-projet annoncé le 27 août 2026. \\ \hline
+46 & A --- L'ONEE & Office National de l'Électricité et de l'Eau potable. \\ \hline
+47 & C --- 174 & Total des postes de l'avis C43190/26. \\ \hline
+48 & B --- 38 & Postes de cadres techniques Bac+5/ingénieurs d'État. \\ \hline
+49 & B --- Direction Centrale & Rattachement du poste GI visé par ce guide. \\ \hline
+50 & C --- SRM Casablanca-Settat & Plus grande région économique du pays, plus de 1000 postes ouverts en 2026. \\ \hline
 \end{longtable}
 }
 
-\subsection*{4. Erreurs qui font perdre des points}
-\begin{itemize}
-    \item Réciter un organigramme sans montrer à quoi servent les structures.
-    \item Oublier l'un des deux volets du sujet (intérêts du Royaume / citoyens à l'étranger).
-    \item Employer une terminologie contraire aux positions officielles sur le Sahara ou prendre parti sur l'actualité électorale.
-    \item Inventer des intitulés de directions ou des chiffres ; préférer « selon le décret de 2024 » ou « selon les données officielles ».
-\end{itemize}
+\section{Grille d'Auto-Évaluation}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|p{5cm}|p{8.5cm}|}
+\hline
+\rowcolor{gray!20} \textbf{Score} & \textbf{Interprétation} \\ \hline
+45/50 et plus & Excellent niveau : consolider par des révisions rapides et gérer le stress du jour J. \\ \hline
+35 à 44/50 & Bon niveau : cibler les thèmes faibles identifiés en partie 1 ou 2 pour les derniers jours. \\ \hline
+Moins de 35/50 & Retour prioritaire sur les chapitres 2, 3 et 4 avant de retenter un examen blanc complet. \\ \hline
+\end{tabular}
+\caption{Grille d'interprétation du score de l'examen blanc}
+\end{table}
