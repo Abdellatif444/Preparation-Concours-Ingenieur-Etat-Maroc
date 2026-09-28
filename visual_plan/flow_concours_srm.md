@@ -1118,9 +1118,9 @@ CONTEXT: Study guide precaution section on possible attention/concentration apti
 
 ENVIRONMENT: Off-white canvas (#FBFAF7).
 
-ACTION: A 6x6 grid of small triangle icons, most pointing up, down, or left, in deep water blue, with exactly six triangles pointing right highlighted with a green circle around each (the target orientation, found and marked). A thin amber dashed arrow snakes left-to-right, top-to-bottom across the grid rows, showing the scanning path. A legend box on the side shows the target symbol clearly.
+ACTION: A 5x5 grid of small triangle icons (25 icons total) in deep water blue, arranged in exactly 5 rows of 5. A thin amber dashed arrow snakes left-to-right, top-to-bottom across the grid rows, showing the scanning path. A legend box on the side shows the target symbol clearly. A green circle is drawn around EVERY right-pointing triangle, and around no other icon.
 
-COMPOSITION: Header: "Exemple : test d'attention (barrage)". Legend box: "Cible à repérer : triangle pointant vers la droite". Below the grid, a result line: "6 cibles trouvées sur cette grille". Callout box beneath: "Méthode : balayer ligne par ligne, de gauche à droite, jamais au hasard dans toute la grille.".
+COMPOSITION: Header: "Exemple : test d'attention (barrage)". Legend box: "Cible à repérer : triangle pointant vers la droite". Grid content, row by row, left to right (U=pointing up, D=pointing down, L=pointing left, R=pointing right -- draw a green circle around every R and only around R): Row 1: U, U, L, R(circled), U. Row 2: L, D, D, U, R(circled). Row 3: U, U, L, D, U (no target in this row, no circle anywhere in row 3). Row 4: R(circled), U, L, U, D. Row 5: D, L, U, R(circled), U. Below the grid, a result line: "4 cibles trouvées sur cette grille". Callout box beneath: "Méthode : balayer ligne par ligne, de gauche à droite, jamais au hasard dans toute la grille.". CRITICAL: count the right-pointing triangles you actually drew before finalizing -- there must be exactly 4, one in row 1, one in row 2, one in row 4, one in row 5, none in row 3, and every single one of them circled in green with no exceptions and no extra circles on non-right-pointing triangles.
 
 CAMERA: Frontal flat view.
 
@@ -1132,9 +1132,9 @@ VISUAL STYLE: High-end editorial puzzle-card infographic, crisp small vector ico
 
 BRANDING: Small stylized green star in a corner; no real flag or emblem.
 
-REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly a 6x6 grid (36 icons total), exactly six targets circled, consistent icon style throughout.
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly a 5x5 grid (25 icons total), exactly four targets circled (row 1, row 2, row 4, row 5 -- none in row 3), consistent icon style throughout, double-check the count before finalizing.
 
-NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no ambiguous icon orientation, no target left uncircled.
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no ambiguous icon orientation, no target left uncircled, no circle around a non-target icon, no row-3 target (row 3 must contain zero right-pointing triangles).
 ```
 
 **Priorité :** 🟡 PRIORITÉ 3 — UTILE
