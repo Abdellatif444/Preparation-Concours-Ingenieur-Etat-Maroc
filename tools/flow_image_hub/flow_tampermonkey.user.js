@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Flow Image Hub — Assistant Automatique Webnovel
 // @namespace    https://github.com/webnovel-playbook
-// @version      6.8
-// @description  Copilot Google Flow synchronisé au Hub : ciblage modal infaillible du bouton Générer + calcul physique direct render_widget.
+// @version      6.9
+// @description  Copilot Google Flow synchronisé au Hub : ciblage modal infaillible du bouton Générer + calcul physique direct render_widget + activation forcée de l'onglet Flow avant le clic système.
 // @updateURL    http://localhost:8085/flow_tampermonkey.user.js
 // @downloadURL  http://localhost:8085/flow_tampermonkey.user.js
 // @author       Hakay
@@ -51,7 +51,7 @@
     let isActive = true;
     const timers = [];
 
-    console.log('🚀 [Flow Copilot v6.8 - clic système direct] Initialisation sur', location.href, CLIENT_ID);
+    console.log('🚀 [Flow Copilot v6.9 - clic système direct + activation onglet] Initialisation sur', location.href, CLIENT_ID);
 
     // 127.0.0.1 plutôt que localhost : sous Windows, localhost essaie d'abord IPv6 et peut ajouter ~2 s par requête
     const HUB_URL = 'http://127.0.0.1:8085';
@@ -875,7 +875,7 @@
         dragIcon.style.cssText = 'color:#F2B705; font-size:16px; opacity:0.8; line-height:1; font-weight:bold;';
 
         const brand = document.createElement('span');
-        brand.textContent = '🦊 Flow Copilot v6.8';
+        brand.textContent = '🦊 Flow Copilot v6.9';
         brand.style.cssText = 'font-weight:700; color:#F2B705; font-size:13.5px; letter-spacing:0.2px;';
 
         headerLeft.appendChild(dragIcon);
@@ -1594,6 +1594,26 @@
         }
     }
 
+    // Le clic système « premier plan » (SetForegroundWindow côté Hub) amène TOUTE la fenêtre
+    // Chrome/Edge au premier plan, mais ne sélectionne pas un onglet précis : si l'onglet Flow
+    // n'est pas l'onglet actif au moment du clic (ex. l'utilisateur consulte le Hub, un PDF ou
+    // GitHub dans un autre onglet de la même fenêtre), le clic atterrit sur le mauvais contenu.
+    // window.focus() appelé DEPUIS l'onglet Flow lui-même demande au navigateur de le rendre actif ;
+    // c'est une des rares utilisations de focus() que Chrome/Edge honore toujours (l'onglet demande
+    // sa propre activation, ce n'est pas un vol de focus par un tiers). On attend la confirmation
+    // (visibilityState === 'visible' ET hasFocus()) avant de déclencher le clic système.
+    async function ensureFlowTabVisible(timeoutMs = 3000) {
+        if (document.visibilityState === 'visible' && document.hasFocus()) return true;
+        const start = Date.now();
+        while (Date.now() - start < timeoutMs) {
+            try { window.focus(); } catch (e) { }
+            await sleep(120);
+            if (document.visibilityState === 'visible' && document.hasFocus()) return true;
+        }
+        console.warn('[Flow Copilot] Impossible de ramener l\'onglet Flow au premier plan avant le clic système (autre onglet actif).');
+        return false;
+    }
+
     // Soumission : séquence automatique complète sans jamais demander de clic manuel.
     // Envoi RAPIDE (v6.8) : le clic système « premier plan » via le Hub est la seule méthode que Flow accepte
     // (tests du 23/09/2026). On l'utilise directement, UNE seule fois : pas de clic simulé, pas de méthode « post »,
@@ -1610,6 +1630,8 @@
             console.warn('[Flow Copilot] Bouton « Start generation » introuvable.');
             return false;
         }
+        updateStatus('Étape 3/3 : passage de l\'onglet Flow au premier plan...', '#F2B705', true);
+        await ensureFlowTabVisible();
         const prep = await hubRequest('POST', '/api/os-click', { method: 'prepare' }, 6000);
         if (prep && prep.success && prep.was_minimized) await sleep(800);
         const liveBtn = findSubmitButton(inputEl) || btn;
@@ -1626,6 +1648,7 @@
     async function resubmitOnce(inputEl) {
         const btn = findSubmitButton(inputEl);
         if (!btn || btn.disabled || btn.getAttribute('aria-disabled') === 'true') return false;
+        await ensureFlowTabVisible();
         const res = await osClickViaHub(btn, 'foreground');
         return !!(res && res.success);
     }

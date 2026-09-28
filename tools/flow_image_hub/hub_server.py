@@ -57,6 +57,14 @@ def _ensure_dpi_aware():
 
 _ensure_dpi_aware()
 
+# Cache du dernier HWND Flow trouvé avec succès. Indispensable car Chrome/Edge n'a QU'UN SEUL
+# HWND pour toute une fenêtre à onglets : GetWindowTextW ne renvoie que le titre de l'onglet
+# actuellement au premier plan dans CETTE fenêtre, jamais celui d'un onglet en arrière-plan.
+# Si l'utilisateur consulte un autre onglet (Hub, PDF, GitHub...) au moment précis du clic
+# automatique, la recherche par titre ne trouve plus rien alors que la fenêtre Flow existe
+# toujours : on retombe alors sur ce cache plutôt que de cliquer à l'aveugle sur le mauvais onglet.
+_FLOW_HWND_CACHE = {"hwnd": None, "title": None}
+
 
 def _find_flow_window(tab_title=None):
     """HWND de la fenêtre Chrome/Edge dont le titre contient « Flow » (ou None)."""
@@ -89,10 +97,18 @@ def _find_flow_window(tab_title=None):
         return True
 
     user32.EnumWindows(_cb, 0)
-    if not found:
-        return None, None
-    found.sort(key=lambda t: -t[0])
-    return found[0][1], found[0][2]
+    if found:
+        found.sort(key=lambda t: -t[0])
+        hwnd, title = found[0][1], found[0][2]
+        _FLOW_HWND_CACHE["hwnd"], _FLOW_HWND_CACHE["title"] = hwnd, title
+        return hwnd, title
+
+    # Rien trouvé par titre (probablement un autre onglet au premier plan) : réutiliser le
+    # dernier HWND Flow connu, tant que cette fenêtre existe toujours physiquement.
+    cached_hwnd = _FLOW_HWND_CACHE["hwnd"]
+    if cached_hwnd and user32.IsWindow(cached_hwnd):
+        return cached_hwnd, _FLOW_HWND_CACHE["title"]
+    return None, None
 
 
 def _find_render_widget(hwnd):
