@@ -1,6 +1,8 @@
-# Guide de Lancement Docker — Préparation Concours MEF (Ingénieur d'État 1er Grade)
+# Guide de Lancement Docker — Préparation Concours SRM Souss-Massa (Cadres Techniques GI)
 
 Ce guide contient les commandes directes pour lancer la compilation continue (Watch) et le serveur Web de prévisualisation du PDF dans Docker.
+
+> Note : les noms de projet et de conteneurs Docker (`concours_mef`, `mef-prep-*`) sont hérités de l'infrastructure commune aux trois guides (MEF, MAECAME, SRM Souss-Massa) et restent inchangés d'un concours à l'autre ; seul le contenu du rapport change de branche en branche.
 
 ---
 
