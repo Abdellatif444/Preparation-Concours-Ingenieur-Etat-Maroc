@@ -20,6 +20,10 @@
 | **IMG-REPORT-012** | Chapitre 5 | Planning Commando J-6 | Matrice du 28 septembre au 4 octobre 2026, alternance entreprise/spécialité | `images/img_012_planning_commando_j6_matrice.png` | 16:9 | Tactical Schedule Dashboard | À générer | 🔴 |
 | **IMG-REPORT-013** | Chapitre 2 | Les SRM créées ou déployées en 2026 | Comparatif Souss-Massa / Fès-Meknès / Casablanca-Settat / Rabat-Salé-Kénitra / Drâa-Tafilalet | `images/img_013_comparatif_srm_2026.png` | 16:9 | Comparative Bar Infographic | À générer | 🟡 |
 | **IMG-REPORT-014** | Chapitre 1 | Barème encadré par la prudence | Hypothèse ONEE (60 % écrit / 40 % oral, non confirmée) présentée comme repère, pas comme fait acquis | `images/img_014_bareme_hypothese_prudence.png` | 16:9 | Cautionary Infographic Card | À générer | 🟠 |
+| **IMG-REPORT-015** | Chapitre 7 | Les cinq piliers de l'entretien oral | Pyramide : motivation/entreprise, compétences techniques GI, posture service public, RH classiques, actualité secteur | `images/img_015_oral_pyramide_5_piliers.png` | 4:5 | Pyramid Roadmap Infographic | À générer | 🔴 |
+| **IMG-REPORT-016** | Chapitre 7 | La méthode STAR pour les questions comportementales | Situation → Tâche → Action → Résultat, avec exemple bref pour chaque étape | `images/img_016_methode_star_entretien.png` | 16:9 | Sequential Process Card | À générer | 🟠 |
+| **IMG-REPORT-017** | Chapitre 1 | Exemple résolu de matrice logique | Grille 3×3 de figures, case manquante, 4 options de réponse, règle et bonne réponse mises en évidence | `images/img_017_test_matrice_logique_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟠 |
+| **IMG-REPORT-018** | Chapitre 1 | Exemple résolu de rotation spatiale | Figure de départ → flèche de rotation 90° → 4 figures candidates, bonne réponse mise en évidence | `images/img_018_test_rotation_spatiale_exemple.png` | 4:5 | Worked-Example Puzzle Card | À générer | 🟠 |
 
 ---
 
@@ -784,7 +788,7 @@ ENVIRONMENT: Off-white canvas (#FBFAF7).
 
 ACTION: Two side-by-side panels, left panel with a dashed border and a warning triangle icon, right panel with a solid border and a checkmark icon.
 
-COMPOSITION: Left panel titled "Hypothèse non confirmée" with content "Schéma comparable observé à l'ONEE : environ 60 % écrit, 40 % oral, note éliminatoire 10/20". Right panel titled "Ce qui est confirmé" with content "Épreuve écrite unique de 1 heure 30, sous forme de QCM, spécialité et culture générale". Header: "Barème : distinguer l'hypothèse plausible du fait confirmé".
+COMPOSITION: Left panel titled "Hypothèse non confirmée" with content "Schéma comparable observé à l'ONEE : environ 60 % écrit, 40 % oral, note éliminatoire 10/20". Right panel titled "Ce qui est confirmé" with content "Épreuve écrite unique de 90 minutes, sous forme de QCM, spécialité et culture générale". Header: "Barème : distinguer l'hypothèse plausible du fait confirmé". CRITICAL: write "90 minutes" as a single unbroken phrase on one line, never split the number from its unit across a line break, never duplicate a digit at a line wrap.
 
 CAMERA: Frontal flat view.
 
@@ -805,3 +809,223 @@ NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no alarming or 
 
 **Justification :**
 Renforce visuellement la posture de prudence méthodologique déjà présente dans le texte du chapitre 1, évitant qu'un candidat ne mémorise une donnée non confirmée comme un fait acquis.
+
+---
+
+## IMG-REPORT-015
+
+**Section :**
+Chapitre 7 --- Les cinq piliers de l'entretien oral
+
+**Texte associé :**
+Motivation et connaissance de l'entreprise ; compétences techniques Génie Informatique ; posture de service public ; questions RH classiques ; actualité et enjeux du secteur.
+
+**Objectif visuel :**
+Fixer les cinq dimensions attendues à l'oral sous forme de pyramide hiérarchisée, du plus fondamental (base) au plus spécifique (sommet).
+
+**Type :**
+Pyramid Roadmap Infographic
+
+**Ratio :** 4:5 · **Orientation :** Portrait
+
+**Nom du fichier :**
+`images/img_015_oral_pyramide_5_piliers.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A five-level pyramid infographic, widest at the base, narrowing toward the top, each level a distinct horizontal band.
+
+CONTEXT: Study guide chapter preparing the oral interview after written admission.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: Five stacked trapezoid bands forming a pyramid, each labeled with a short title and one-line subtext, read from base to top.
+
+COMPOSITION: Base (largest) band "1. Motivation et connaissance de l'entreprise" subtext "Pourquoi la SRM Souss-Massa, pourquoi ce secteur". Band 2 "2. Compétences techniques Génie Informatique" subtext "Expliquer simplement un projet réalisé". Band 3 "3. Posture de service public" subtext "Le SI au service de l'eau et de l'électricité pour 3 millions d'habitants". Band 4 "4. Questions RH classiques" subtext "Parcours, forces, faiblesses, gestion du stress". Top (smallest) band "5. Actualité et enjeux du secteur" subtext "Stress hydrique, transformation digitale". Header above the pyramid: "Les cinq piliers de l'entretien oral".
+
+CAMERA: Frontal flat view, pyramid centered vertically.
+
+LIGHTING: Even soft light, subtle gradient from dark blue at the base to lighter amber at the top.
+
+COLOR LANGUAGE: Deep water blue (#0B5D8C), electric amber (#E8912D), Moroccan green (#1B7A3D), off-white (#FBFAF7).
+
+VISUAL STYLE: High-end editorial pyramid infographic, crisp vector shapes, clean typographic hierarchy.
+
+BRANDING: Small stylized green star in a corner; no real flag or emblem.
+
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly five levels, no overlapping labels.
+
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no realistic faces.
+```
+
+**Priorité :** 🔴 PRIORITÉ 1 — ESSENTIELLE
+
+**Justification :**
+Donne une image mémorisable et hiérarchisée des attentes de l'oral, utile pour une révision rapide juste avant l'entretien.
+
+---
+
+## IMG-REPORT-016
+
+**Section :**
+Chapitre 7 --- La méthode STAR pour les questions comportementales
+
+**Texte associé :**
+Situation, Tâche, Action, Résultat --- structure en quatre temps pour répondre à une question comportementale ou décrire un projet technique.
+
+**Objectif visuel :**
+Illustrer la méthode STAR comme une séquence claire en quatre étapes, avec un exemple bref pour chacune.
+
+**Type :**
+Sequential Process Card
+
+**Ratio :** 16:9 · **Orientation :** Landscape
+
+**Nom du fichier :**
+`images/img_016_methode_star_entretien.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A horizontal four-step sequential process card showing a structured method for answering interview questions.
+
+CONTEXT: Study guide chapter on oral interview preparation.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: Four connected cards in a horizontal row, each with a large step letter, a title, and a short example line, linked by arrows.
+
+COMPOSITION: Card 1 "S --- Situation" subtext "Contexte en une ou deux phrases : où, quand, quel projet". Card 2 "T --- Tâche" subtext "Ce qui vous était précisément demandé". Card 3 "A --- Action" subtext "Ce que VOUS avez fait concrètement". Card 4 "R --- Résultat" subtext "Un résultat chiffré ou vérifiable, et ce que vous en avez retenu". Header above the row: "La méthode STAR pour répondre en entretien".
+
+CAMERA: Frontal wide view.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Deep water blue (#0B5D8C), electric amber (#E8912D), Moroccan green (#1B7A3D), off-white (#FBFAF7).
+
+VISUAL STYLE: High-end editorial sequential card infographic, crisp vector arrows and icons.
+
+BRANDING: Small stylized green star in a corner; no real flag or emblem.
+
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly four cards in sequence.
+
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no realistic faces.
+```
+
+**Priorité :** 🟠 PRIORITÉ 2 — IMPORTANTE
+
+**Justification :**
+Donne une méthode actionnable et mémorisable pour structurer les réponses aux questions comportementales, un point faible fréquent des candidats non préparés.
+
+---
+
+## IMG-REPORT-017
+
+**Section :**
+Chapitre 1 --- Précaution : d'éventuels tests d'aptitude ou de logique (matrices logiques)
+
+**Texte associé :**
+Grille 3×3 de figures géométriques où chaque ligne et chaque colonne applique une même règle de transformation (ex. nombre de points qui augmente) ; la case en bas à droite est manquante ; quatre options de réponse sont proposées, une seule respecte la règle sur la ligne ET la colonne.
+
+**Objectif visuel :**
+Montrer un exemple de matrice logique déjà résolu et expliqué, pour que le candidat comprenne visuellement la méthode (ligne par ligne, puis colonne par colonne) avant de s'entraîner seul.
+
+**Type :**
+Worked-Example Puzzle Card
+
+**Ratio :** 4:5 · **Orientation :** Portrait
+
+**Nom du fichier :**
+`images/img_017_test_matrice_logique_exemple.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A worked-example logic matrix puzzle: a 3x3 grid of simple geometric icons with one missing cell, followed by four labeled answer options, with the correct one highlighted and the rule explained in French.
+
+CONTEXT: Study guide precaution section on possible logic aptitude questions.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: A 3x3 grid of square cells at the top, each containing a simple icon (a circle with a growing number of dots: 1, 2, 3 per row, and a color that changes per column among deep water blue, electric amber, Moroccan green). The bottom-right cell is empty, marked with a large question mark. Below the grid, four square answer options labeled "A", "B", "C", "D", each showing a candidate icon; option matching the row-and-column rule (3 dots, green) is highlighted with a thick green border and a checkmark. A callout box beneath explains the rule in French.
+
+COMPOSITION: Header: "Exemple résolu : matrice logique". Grid title: "Quelle case complète la grille ?". Below the four options: "A) 2 points bleus", "B) 3 points ambre", "C) 3 points verts --- bonne réponse", "D) 1 point vert". Callout box: "Règle : le nombre de points augmente de gauche à droite (1, 2, 3) ; la couleur change de haut en bas (bleu, ambre, vert). La case manquante doit avoir 3 points ET être verte.".
+
+CAMERA: Frontal flat view.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Deep water blue (#0B5D8C), electric amber (#E8912D), Moroccan green (#1B7A3D), off-white (#FBFAF7).
+
+VISUAL STYLE: High-end editorial puzzle-card infographic, crisp vector grid, clean icon shapes.
+
+BRANDING: Small stylized green star in a corner; no real flag or emblem.
+
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly nine grid cells (one empty) and four answer options, correct answer clearly highlighted, write each label ONCE, proofread it before drawing it.
+
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no ambiguous or contradictory rule.
+```
+
+**Priorité :** 🟠 PRIORITÉ 2 — IMPORTANTE
+
+**Justification :**
+Rend concrète et mémorisable la méthode de résolution des matrices logiques, le format visuel le plus déstabilisant pour un candidat non préparé.
+
+---
+
+## IMG-REPORT-018
+
+**Section :**
+Chapitre 1 --- Précaution : d'éventuels tests d'aptitude ou de logique (rotation spatiale)
+
+**Texte associé :**
+Une figure asymétrique de départ, une flèche indiquant une rotation de 90° dans le sens horaire, puis quatre figures candidates numérotées, une seule correspondant réellement à la figure tournée.
+
+**Objectif visuel :**
+Illustrer la méthode de suivi d'un repère visuel unique pour résoudre un test de rotation spatiale sans se tromper.
+
+**Type :**
+Worked-Example Puzzle Card
+
+**Ratio :** 4:5 · **Orientation :** Portrait
+
+**Nom du fichier :**
+`images/img_018_test_rotation_spatiale_exemple.png`
+
+**Prompt Flow :**
+```text
+LANGUAGE RULE: Every visible word in the image MUST be in FRENCH, exactly as quoted. No English words anywhere.
+
+SUBJECT: A worked-example spatial rotation puzzle: a starting asymmetric shape, a rotation arrow, and four candidate rotated shapes with the correct one highlighted.
+
+CONTEXT: Study guide precaution section on possible logic aptitude questions.
+
+ENVIRONMENT: Off-white canvas (#FBFAF7).
+
+ACTION: On the left, one asymmetric flag-like shape (an L-shaped arrow with one corner colored amber as a unique landmark) inside a square frame labeled "Figure de départ". A curved arrow points right, labeled "Rotation de 90 degrés, sens horaire". On the right, four square frames labeled "1", "2", "3", "4", each showing a candidate rotated version of the shape; the correct one (frame "3") has a thick green border and a checkmark.
+
+COMPOSITION: Header: "Exemple résolu : rotation spatiale". Below the four candidates, a callout box: "Méthode : suivre uniquement le coin ambre. Après une rotation de 90 degrés vers la droite, ce repère doit passer du coin supérieur gauche au coin supérieur droit --- seule la figure 3 respecte ce déplacement.".
+
+CAMERA: Frontal flat view.
+
+LIGHTING: Even soft light.
+
+COLOR LANGUAGE: Deep water blue (#0B5D8C), electric amber (#E8912D), Moroccan green (#1B7A3D), off-white (#FBFAF7).
+
+VISUAL STYLE: High-end editorial puzzle-card infographic, crisp vector shapes.
+
+BRANDING: Small stylized green star in a corner; no real flag or emblem.
+
+REALISM / QUALITY: Ultra-sharp vector rendering, 100% legible French text, exactly one starting shape and four candidates, correct answer clearly highlighted, geometrically consistent rotation.
+
+NEGATIVE CONSTRAINTS: No English text, no gibberish, no clutter, no ambiguous shape that could match two candidates.
+```
+
+**Priorité :** 🟠 PRIORITÉ 2 — IMPORTANTE
+
+**Justification :**
+Le raisonnement spatial est le format le plus difficile à expliquer par le texte seul ; l'image rend la méthode du \og repère unique \fg{} immédiatement applicable.

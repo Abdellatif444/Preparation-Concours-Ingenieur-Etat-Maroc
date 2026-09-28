@@ -102,6 +102,13 @@ Que signifie SCADA ? & \textit{Supervisory Control And Data Acquisition} : syst�
 \end{longtable}
 }
 
+\IfFileExists{images/img_010_chaine_cybersecurite_infrastructures.png}{%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/img_010_chaine_cybersecurite_infrastructures.png}
+    \caption{La chaîne de protection des systèmes d'une société multiservices}
+\end{figure}}{}
+
 \section{Systèmes d'Information Géographique, Télérelève et Data}
 
 {\footnotesize
@@ -127,6 +134,13 @@ Quel type d'architecture rassemble les données pour l'aide à la décision d'un
 \end{longtable}
 }
 
+\IfFileExists{images/img_009_cycle_sig_telereleve_data.png}{%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/img_009_cycle_sig_telereleve_data.png}
+    \caption{Le cycle de la donnée technique dans une société d'eau et d'électricité}
+\end{figure}}{}
+
 \section{Cas Transversaux --- Calculs à la Calculatrice}
 La calculatrice sans connectivité autorisée à l'épreuve laisse présager des questions de calcul. S'entraîner en particulier sur :
 \begin{itemize}
@@ -135,3 +149,127 @@ La calculatrice sans connectivité autorisée à l'épreuve laisse présager des
     \item des \textbf{agrégats SQL simples} posés sous forme d'énoncé chiffré (moyenne, somme, comptage sur un jeu de données de consommation) ;
     \item des \textbf{probabilités élémentaires} (ex. : probabilité de panne simultanée de deux composants indépendants).
 \end{itemize}
+
+\section{Cloud, DevOps et Gestion de Version}
+Le poste couvre six spécialités (GI/SI/RT/IA \& DATA/GL/CYBER) : ces notions transversales de développement moderne sont donc probables, quelle que soit la spécialité d'origine du candidat.
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{|>{\raggedright\arraybackslash\hspace{0pt}}p{4.2cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{9.8cm}|c|}
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endhead
+
+Quelle est la différence entre les trois niveaux de service cloud IaaS, PaaS et SaaS ? & \textbf{IaaS} (infrastructure : serveurs, stockage loués) --- \textbf{PaaS} (plateforme prête à déployer du code, sans gérer le serveur) --- \textbf{SaaS} (logiciel complet utilisé en ligne, ex. une messagerie web). \textit{À retenir :} plus on monte de IaaS vers SaaS, moins on gère d'infrastructure soi-même. & 🔴 \\ \hline
+
+Qu'est-ce que Git et à quoi sert une \textit{branche} ? & Système de gestion de versions du code ; une branche permet de développer une fonctionnalité isolément avant de la fusionner (\textit{merge}) dans la branche principale, sans perturber le code stable. & 🔴 \\ \hline
+
+Qu'est-ce que l'intégration continue (CI) ? & Chaque modification du code est automatiquement testée et assemblée dès son envoi au dépôt partagé, pour détecter les erreurs immédiatement plutôt qu'en fin de projet. \textit{Exemple :} un push sur Git déclenche automatiquement une suite de tests. & 🟠 \\ \hline
+
+Qu'est-ce que la virtualisation et en quoi un conteneur (Docker) diffère-t-il d'une machine virtuelle ? & La virtualisation exécute plusieurs systèmes isolés sur un même matériel physique. Une VM embarque son propre système d'exploitation complet ; un conteneur partage le noyau de l'hôte, ce qui le rend beaucoup plus léger et rapide à démarrer. & 🔴 \\ \hline
+
+Qu'est-ce qu'un pipeline CI/CD ? & La chaîne automatisée qui va du code source (build, tests) jusqu'au déploiement en production, sans intervention manuelle à chaque étape. & 🟠 \\ \hline
+
+\end{longtable}
+}
+
+\section{Architecture Logicielle et Systèmes d'Information}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{|>{\raggedright\arraybackslash\hspace{0pt}}p{4.2cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{9.8cm}|c|}
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endhead
+
+Quelle est la différence entre une architecture monolithique et une architecture en microservices ? & \textbf{Monolithique} : toute l'application est un seul bloc déployé ensemble. \textbf{Microservices} : l'application est découpée en petits services indépendants, communiquant par API, déployables séparément. \textit{Pourquoi c'est important :} les microservices facilitent la scalabilité mais compliquent la supervision globale. & 🟠 \\ \hline
+
+Que signifient ERP et CRM ? & \textbf{ERP} (\textit{Enterprise Resource Planning}) : progiciel intégrant la gestion des processus internes (finance, stocks, RH). \textbf{CRM} (\textit{Customer Relationship Management}) : logiciel de gestion de la relation client, pertinent ici pour la gestion des abonnés eau/électricité. & 🟡 \\ \hline
+
+Base relationnelle ou NoSQL : comment choisir ? & Relationnelle (SQL) : données structurées, fortes contraintes d'intégrité, transactions (facturation). NoSQL : gros volumes de données peu structurées ou à très forte fréquence d'écriture (ex. mesures de télérelève horodatées). & 🟠 \\ \hline
+
+Qu'est-ce que l'urbanisation d'un système d'information ? & Organiser le SI en blocs cohérents et interopérables (comme un plan d'urbanisme pour une ville), afin d'éviter un empilement de systèmes redondants et difficiles à faire évoluer. & 🟡 \\ \hline
+
+\end{longtable}
+}
+
+\section{Intelligence Artificielle et Data}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{|>{\raggedright\arraybackslash\hspace{0pt}}p{4.2cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{9.8cm}|c|}
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endhead
+
+Quelle est la différence entre Intelligence Artificielle, Machine Learning et Deep Learning ? & L'\textbf{IA} est le domaine général (machines imitant des comportements intelligents). Le \textbf{Machine Learning} est une famille de méthodes où le système apprend à partir de données plutôt que de règles écrites à la main. Le \textbf{Deep Learning} est un sous-ensemble du ML basé sur des réseaux de neurones à plusieurs couches. & 🔴 \\ \hline
+
+Qu'est-ce que le \textit{surapprentissage} (\textit{overfitting}) ? & Un modèle qui a \og appris par cœur \fg{} les données d'entraînement au lieu d'en généraliser la logique : il est excellent sur les données connues mais mauvais sur de nouvelles données. \textit{Parade :} séparer les données en jeu d'entraînement et jeu de test/validation. & 🟠 \\ \hline
+
+Qu'est-ce qu'un grand modèle de langage (LLM) ? & Un modèle d'IA entraîné sur d'immenses volumes de texte, capable de générer et de comprendre du langage naturel (ex. un assistant conversationnel). & 🟠 \\ \hline
+
+Qu'est-ce que le RAG (\textit{Retrieval-Augmented Generation}) ? & Une technique qui combine un modèle de langage avec une recherche documentaire externe : le modèle va chercher des informations à jour dans une base de connaissances avant de répondre, plutôt que de se fier uniquement à ce qu'il a appris pendant son entraînement. & 🟡 \\ \hline
+
+Pourquoi la qualité des données est-elle un enjeu majeur avant d'entraîner un modèle ? & Des données incomplètes, biaisées ou erronées produisent un modèle biaisé ou peu fiable (\og garbage in, garbage out \fg{}) --- particulièrement sensible pour des données de consommation eau/électricité utilisées en aide à la décision. & 🟠 \\ \hline
+
+\end{longtable}
+}
+
+\section{Génie Logiciel et Méthodologies}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{|>{\raggedright\arraybackslash\hspace{0pt}}p{4.2cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{9.8cm}|c|}
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endhead
+
+Quelle est la différence entre les méthodes Agile et le cycle en cascade (\textit{waterfall}) ? & Le cycle en cascade planifie tout le projet à l'avance, phase après phase. Les méthodes \textbf{Agile} (dont Scrum) livrent le logiciel par courtes itérations, avec des ajustements réguliers selon les retours. & 🔴 \\ \hline
+
+Qu'est-ce qu'un \textit{sprint} en méthode Scrum ? & Une itération courte (souvent 2 semaines) à l'issue de laquelle une version fonctionnelle et testée du logiciel est livrée. & 🟠 \\ \hline
+
+Que signifie l'acronyme SOLID en génie logiciel ? & Cinq principes de conception orientée objet favorisant un code maintenable : responsabilité unique, ouvert/fermé, substitution de Liskov, ségrégation des interfaces, inversion des dépendances. & 🟡 \\ \hline
+
+Pourquoi écrire des tests unitaires ? & Vérifier automatiquement qu'une petite unité de code (une fonction) se comporte comme prévu, pour détecter une régression dès qu'elle est introduite plutôt qu'en production. & 🟠 \\ \hline
+
+Qu'est-ce qu'un patron de conception (\textit{design pattern}) ? & Une solution générique et éprouvée à un problème de conception récurrent (ex. le patron \textit{Singleton} garantit qu'une classe n'a qu'une seule instance), qui favorise un vocabulaire commun entre développeurs. & 🟡 \\ \hline
+
+\end{longtable}
+}
+
+\section{Cybersécurité Avancée}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{|>{\raggedright\arraybackslash\hspace{0pt}}p{4.2cm}|>{\raggedright\arraybackslash\hspace{0pt}}p{9.8cm}|c|}
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{gray!20} \textbf{Question} & \textbf{Réponse et Explication} & \textbf{Prio} \\ \hline
+\endhead
+
+Que signifie le principe \textit{Zero Trust} ? & \og Ne jamais faire confiance par défaut, toujours vérifier \fg{} : chaque accès (même depuis l'intérieur du réseau) est authentifié et autorisé individuellement, plutôt que de faire confiance à tout ce qui est déjà \og dans \fg{} le réseau. & 🟠 \\ \hline
+
+Que signifient SIEM et SOC ? & \textbf{SIEM} : outil qui centralise et corrèle les journaux (\textit{logs}) de sécurité de tout le système d'information. \textbf{SOC} (\textit{Security Operations Center}) : équipe qui surveille ces alertes en continu pour détecter et réagir aux incidents. & 🟠 \\ \hline
+
+Qu'est-ce qu'une infrastructure à clés publiques (PKI) et à quoi sert un certificat numérique ? & La PKI gère la création, la distribution et la révocation des certificats numériques, qui prouvent l'identité d'un site ou d'un serveur et permettent le chiffrement des échanges (cadenas HTTPS). & 🟡 \\ \hline
+
+Quelle est la différence entre l'authentification et l'autorisation ? & \textbf{Authentification} : vérifier qui est l'utilisateur (identité). \textbf{Autorisation} : déterminer ce que cet utilisateur a le droit de faire une fois identifié. & 🔴 \\ \hline
+
+Qu'est-ce qu'une sauvegarde \og 3-2-1 \fg{} ? & Trois copies des données, sur deux supports différents, dont une copie hors site --- une bonne pratique de continuité d'activité pour un système critique de facturation eau/électricité. & 🟡 \\ \hline
+
+\end{longtable}
+}
