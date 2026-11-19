@@ -12,7 +12,7 @@ Ce dépôt contient des guides complets de préparation (LaTeX → PDF) aux conc
 
 ## 🎯 Contenu du guide SRM Souss-Massa (branche `concours-srm-soussmassa-2026`)
 
-1. **Cadrage officiel** : épreuve écrite unique de 1 h 30 sous forme de QCM (spécialité Génie Informatique + culture générale/entreprise), informations de convocation vérifiées (n° d'examen GI_DC_R_119, Faculté des Sciences d'Agadir, Amphi 6).
+1. **Cadrage officiel** : épreuve écrite unique de 1 h 30 sous forme de QCM (spécialité Génie Informatique + culture générale/entreprise), informations de convocation vérifiées (Faculté des Sciences d'Agadir, Amphi 6).
 2. **L'entreprise** : cadre légal (loi 83-21, dahir 1-23-53), création de la SRM (15 octobre 2024, succession de la RAMSA), périmètre géographique, gouvernance, actionnariat, budget, stress hydrique et grands projets de dessalement.
 3. **Banque de QCM Génie Informatique** : algorithmique, POO, bases de données/SQL, réseaux, cybersécurité, plus les notions propres au secteur eau/électricité (SIG, télérelève, SCADA).
 4. **Fiches de culture générale et entreprise** : droit des SRM, secteur eau-électricité au Maroc, chiffres et dates clés, actualité récente, pièges fréquents.
