@@ -2,6 +2,16 @@
 
 Ce dépôt contient le dossier complet de préparation intensive pour l'épreuve écrite du **Concours de Recrutement des Ingénieurs d'État de premier grade** organisé par le **Ministère de l'Économie et des Finances (Royaume du Maroc)**.
 
+## Les branches du dépôt (mise à jour du 25/11/2026)
+
+| Branche | Contenu |
+|---|---|
+| `main` | Guide de l'écrit du concours MEF (ce document) |
+| `concours-mef-2026` | Guide MEF 2026, version de l'écrit du 20/09/2026 (tag `v1.0-mef-2026`) |
+| `concours-mae-2026` | Guide MAECAME 2026 (Affaires étrangères), mis à jour le 19/11/2026 pour l'oral |
+| `concours-srm-soussmassa-2026` | Guide SRM Souss-Massa 2026, mis à jour le 19/11/2026, avec un chapitre sur la SRM Marrakech-Safi |
+| `oraux-ingenieur-etat-2026` | Préparation des oraux d'ingénieur d'État de novembre 2026 (MEF, MAEC, SRM Marrakech-Safi) : fiches, questions-réponses modèles, simulations, sans données personnelles |
+
 ---
 
 ## 🎯 Objectifs du Dossier
