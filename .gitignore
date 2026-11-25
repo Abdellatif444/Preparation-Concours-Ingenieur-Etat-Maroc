@@ -36,3 +36,6 @@ images_a_regenerer/
 # Réglages et état locaux de Flow Hub (propres à chaque poste)
 tools/flow_image_hub/flow_config.json
 tools/flow_image_hub/validation_state.json
+
+# Pièces à imprimer pour l oral (convocation avec CNIE) : jamais dans Git
+Oral_12-11-2026_a_imprimer/
